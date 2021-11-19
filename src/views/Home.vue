@@ -73,7 +73,18 @@
               min-height="70vh"
               rounded="lg"
             >
-            <Dishes></Dishes>
+            <div class="dishes">
+              <div class="dish" v-for="dish in dishes" :key="dish">
+                <Dish
+                  :title="dish.title"
+                  :image="dish.cover_image"
+                  :description="dish.description"
+                  :price="dish.price"
+                  :ingredients="dish.ingredients"
+                  :special="dish.isTodaysSpecial"
+                ></Dish>
+              </div>
+            </div>
             </v-sheet>
           </v-col>
         </v-row>
@@ -84,20 +95,49 @@
 
 <script>
 // Components
-import Dishes from '../components/Dish/Dish.vue';
+import Dish from '../components/Dish/Dish.vue';
+
+// Services
+import DishesService from '../services/mockDishesService';
 
 export default {
   name: 'Home',
   components: {
-    Dishes
+    Dish, DishesService
   },
-  data: () => ({
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
-    ],
-  })
+  data () {
+    return {
+      dishes: [],
+      links: [
+        'Dashboard',
+        'Messages',
+        'Profile',
+        'Updates',
+      ],
+    }
+  },
+  methods: {
+    async getDishes() {
+      try {
+        const data = await DishesService.getAll();
+        this.dishes = data;
+      } catch (error) {
+        console.log(error);
+      }
+    },    
+  },
+  mounted: function() {
+    this.getDishes();
+  }
 }
 </script>
+<style scoped>
+  .dishes {
+    padding: 30px 10px;
+  }
+  .dishes .dish {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+</style>
