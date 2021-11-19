@@ -23,7 +23,7 @@ export default {
     isMenuOpen: false 
   }),
   methods: {
-    toggleMenu: function(){
+    toggleMenu(){
       if (this.isMenuOpen == true){
         this.isMenuOpen = false;
       }else if(this.isMenuOpen == false){
