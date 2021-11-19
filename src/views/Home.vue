@@ -83,6 +83,7 @@
 </template>
 
 <script>
+
   export default {
     data: () => ({
       links: [
@@ -91,6 +92,6 @@
         'Profile',
         'Updates',
       ],
-    }),
+    })
   }
 </script>
