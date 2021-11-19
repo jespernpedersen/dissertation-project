@@ -1,14 +1,17 @@
 <template>
-<div class="topnav">
-  <a href="#home" class="active">Logo</a>
-  <div v-if="isMenuOpen" id="links">
+<div>
+  
+  <div class="topnav">
+    <a href="#home" class="active">Logo</a>
+    <button class="icon" v-on:click="toggleMenu">
+    <v-icon>mdi-menu</v-icon>
+  </button>
+  </div>
+   <div v-if="isMenuOpen" id="links">
     <a href="">Info</a>
     <a href="">Contact</a>
     <a href="">About</a>
   </div>
-  <button class="icon" v-on:click="toggleMenu">
-    <v-icon>mdi-menu</v-icon>
-  </button>
 </div>
 </template>
 
@@ -39,6 +42,15 @@ export default {
   justify-content: space-between;
 }
 
+#links{
+  background-color: #9FD5BB;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    color: #304238;
+
+}
+
 .topnav a {
   color: white;
   padding: 14px 16px;
@@ -65,5 +77,9 @@ export default {
 .active {
   background-color: #9FD5BB;
   color: white;
+}
+#links a {
+    color: #304238;
+    text-decoration: none;
 }
 </style>
