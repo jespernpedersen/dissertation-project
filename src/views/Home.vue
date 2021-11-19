@@ -73,7 +73,7 @@
               min-height="70vh"
               rounded="lg"
             >
-              <!--  -->
+            <Dishes></Dishes>
             </v-sheet>
           </v-col>
         </v-row>
@@ -83,15 +83,21 @@
 </template>
 
 <script>
+// Components
+import Dishes from '../components/Dish/Dish.vue';
 
-  export default {
-    data: () => ({
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
-    })
-  }
+export default {
+  name: 'Home',
+  components: {
+    Dishes
+  },
+  data: () => ({
+    links: [
+      'Dashboard',
+      'Messages',
+      'Profile',
+      'Updates',
+    ],
+  })
+}
 </script>
