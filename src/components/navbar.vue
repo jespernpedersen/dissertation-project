@@ -6,7 +6,7 @@
     <a href="">Contact</a>
     <a href="">About</a>
   </div>
-  <button class="icon" click="toggleMenu">
+  <button class="icon" v-on:click="toggleMenu">
     <v-icon>mdi-menu</v-icon>
   </button>
 </div>
@@ -20,7 +20,7 @@ export default {
     isMenuOpen: false 
   }),
   methods: {
-    toggleMenu: function(){
+    toggleMenu(){
       if (this.isMenuOpen == true){
         this.isMenuOpen = false;
       }else if(this.isMenuOpen == false){
