@@ -2,7 +2,7 @@
     <div>
        <div class="topnav">
           <a href="#home" class="active">Logo</a>
-          <button class="icon" v-on:click="toggleMenu">
+          <button v-if="false" class="icon" v-on:click="toggleMenu">
             <v-icon>mdi-menu</v-icon>
           </button>
       </div>
