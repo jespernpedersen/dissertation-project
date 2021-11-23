@@ -73,6 +73,20 @@
               min-height="70vh"
               rounded="lg"
             >
+            <h2>Today's Specials</h2>
+            <div class="todays-special">
+              <div class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
+                <Dish
+                    :title="dishSpecial.title"
+                    :image="dishSpecial.cover_image"
+                    :description="dishSpecial.description"
+                    :price="dishSpecial.price"
+                    :ingredients="dishSpecial.ingredients"
+                    :layout="'vertical'"
+                  ></Dish>
+              </div> 
+            </div>
+            <h2>Menu</h2>           
             <div class="dishes">
               <div class="dish" v-for="dish in dishes" :key="dish">
                 <Dish
@@ -81,7 +95,7 @@
                   :description="dish.description"
                   :price="dish.price"
                   :ingredients="dish.ingredients"
-                  :special="dish.isTodaysSpecial"
+                  :layout="'horizontal'"
                 ></Dish>
               </div>
             </div>
@@ -108,6 +122,7 @@ export default {
   data () {
     return {
       dishes: [],
+      dishesSpecial: [],
       links: [
         'Dashboard',
         'Messages',
@@ -124,20 +139,42 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },  
+    async getSpecialDishes() {
+      try {
+        const data = await DishesService.getTodaysSpecial();
+        this.dishesSpecial = data;
+      } catch (error) {
+        console.log(error);
+      }
     },    
   },
   mounted: function() {
     this.getDishes();
+    this.getSpecialDishes();
   }
 }
 </script>
 <style scoped>
   .dishes {
-    padding: 30px 10px;
+    padding: 0px 10px;
   }
   .dishes .dish {
     display: inline-block;
     width: 100%;
     text-align: center;
+  }
+  h2 {
+    padding: 20px 0 10px;
+  }
+  h2,
+  .todays-special {
+    text-align: center;
+  }
+  .special-dish {
+    display: inline-block;
+  }
+  .special-dish + .special-dish {
+    margin-left: 15px;
   }
 </style>

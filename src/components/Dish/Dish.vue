@@ -1,15 +1,15 @@
 <template>
-    <div class="dish-inner" v-bind:style="{ backgroundImage: 'url(' + image + ')' }">
+    <div class="dish-inner" v-bind:style="{ backgroundImage: 'url(' + image + ')' }" :class="layout">
         <div class="dish-label">
             <div class="dish-label-title">
                 <strong>{{ title }}</strong>
-                {{ description }} 
+                <span  v-if="layout == 'horizontal'">{{ description }}</span>
             </div>
-            <div class="dish-label-price">
+            <div class="dish-label-price" v-if="layout == 'horizontal'">
                 {{ price }},- 
             </div>
         </div>
-        <div class="dish-add-item"  @click="addDishItem(dish)">
+        <div class="dish-add-item"  @click="addDishItem(dish)" v-if="layout == 'horizontal'">
             +
         </div> 
     </div>
@@ -17,12 +17,7 @@
 <script>
 export default {
     name: 'Dish',
-    props: ['title', 'image', 'description', 'price', 'ingredients', 'special'],
-    data () {
-        return {
-            dishes: []
-        }
-    },
+    props: ['title', 'image', 'description', 'price', 'ingredients', 'layout'],
     methods: {
         addDishItem(id) {
             // Do functionality here for adding items to cart or something else
@@ -36,25 +31,32 @@ export default {
         width: 300px;
         height: 200px;
         background-position: center center;
-        background-size: top auto;
         color: #33363a;
         border-radius: 12px;
         position: relative;
         display: inline-block;
     }
+    .dish-inner.vertical .dish-label {
+        display: inline-block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
     .dish-label {
         background-color: #f6f5f1;
         border-radius: 12px;
         position: absolute;
+        left: 0;
         bottom: 0;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 10px 20px;
         text-align: left;
+        width: 100%;
     }
     .dish-label-title {
         font-size: 14px;
+        text-align: left;
     }
     .dish-label-title strong {
         font-size: 18px;
