@@ -74,17 +74,24 @@
               rounded="lg"
             >
             <h2>Today's Specials</h2>
-            <div class="todays-special">
-              <div class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
-                <Dish
-                    :title="dishSpecial.title"
-                    :image="dishSpecial.cover_image"
-                    :description="dishSpecial.description"
-                    :price="dishSpecial.price"
-                    :ingredients="dishSpecial.ingredients"
-                    :layout="'vertical'"
-                  ></Dish>
-              </div> 
+            <div class="todays-special-wrapper">
+              <div class="todays-special">
+                <v-slide-group
+                  multiple
+                  show-arrows
+                >
+                  <v-slide-item class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
+                    <Dish
+                        :title="dishSpecial.title"
+                        :image="dishSpecial.cover_image"
+                        :description="dishSpecial.description"
+                        :price="dishSpecial.price"
+                        :ingredients="dishSpecial.ingredients"
+                        :layout="'vertical'"
+                      ></Dish>
+                  </v-slide-item> 
+                </v-slide-group>
+              </div>
             </div>
             <h2>Menu</h2>           
             <div class="dishes">
@@ -170,6 +177,14 @@ export default {
   h2,
   .todays-special {
     text-align: center;
+  }
+  .todays-special-wrapper {
+    text-align: center;
+  }
+  .todays-special {
+    max-width: 650px;
+    display: inline-block;
+    margin: 0 auto;
   }
   .special-dish {
     display: inline-block;
