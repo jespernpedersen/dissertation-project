@@ -34,6 +34,7 @@
       </v-container>
     </v-app-bar>
 
+    <Header id="0" title="Teste" slug="teste" :banner="require('@/assets/images/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg')"></Header
     <v-main class="grey lighten-3">
       <v-container>
         <v-row>
@@ -83,8 +84,10 @@
 </template>
 
 <script>
+import Header from '../components/Header';
 
   export default {
+    components: { Header },
     data: () => ({
       links: [
         'Dashboard',
