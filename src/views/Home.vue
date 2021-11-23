@@ -1,18 +1,18 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <Navbar></Navbar>
+     <Footer></Footer>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import Navbar from '@/components/navbar.vue'
+import Footer from '@/components/footer.vue'
 
 export default {
   name: 'Home',
   components: {
-    Navbar
+    Footer
   }
 }
 </script>
