@@ -170,6 +170,7 @@ export default {
     display: inline-block;
     width: 100%;
     text-align: center;
+    overflow: hidden;
   }
   h2 {
     padding: 20px 0 10px;
@@ -178,16 +179,15 @@ export default {
   .todays-special {
     text-align: center;
   }
+  .todays-special {
+    width: 50vw;
+    padding-bottom: 100px;
+  }
   .todays-special-wrapper {
     text-align: center;
   }
-  .todays-special {
-    max-width: 650px;
-    display: inline-block;
-    margin: 0 auto;
-  }
   .special-dish {
-    display: inline-block;
+    width: 300px;
   }
   .special-dish + .special-dish {
     margin-left: 15px;
