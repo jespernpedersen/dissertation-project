@@ -17,7 +17,7 @@
     background-color:#304238;
     position:relative;
     display:flex;
-    min-height: 110px;
+    min-height: 150px;
     position: relative;
     justify-content: center;
     align-items: center;
