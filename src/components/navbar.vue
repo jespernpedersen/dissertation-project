@@ -19,7 +19,7 @@
     name: 'Navbar',
     data: () => 
     ({
-    isMenuOpen: false
+      isMenuOpen: false
     }),
     methods: {
       toggleMenu(){
