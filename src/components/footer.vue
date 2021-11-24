@@ -22,29 +22,15 @@
     justify-content: center;
     align-items: center;
   }
-  #links{
-    background-color:#304238;
-      display:flex;
-      align-content:center;
-      justify-content:space-around;
-      color:#304238;
-  }
+
   .footer a {
-    color:white;
+    color:#9FD5BB;
     padding:14px 16px;
     text-decoration:none;
     font-size:17px;
     display:block;
   }
-  .footer .icon {
-      display:block;
-      right:0;
-      top:0;
-      background-color:transparent;
-      border:none;
-      color:black;
-      min-width:50px
-  }
+
   .footer a:hover {
     background-color:#ddd;
     color:black;
@@ -53,8 +39,5 @@
     background-color:#304238;
     color:white;
   }
-  #links a {
-      color:#9FD5BB;
-      text-decoration:none;
-  }
+ 
 </style>
