@@ -1,7 +1,7 @@
 <template>
   <footer>
     <a href="#home" class="active">Logo</a>
-   </footer>
+  </footer>
 </template>
 
 <script>
