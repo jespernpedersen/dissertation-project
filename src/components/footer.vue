@@ -1,7 +1,7 @@
 <template>
-       <footer>
-          <a href="#home" class="active">Logo</a>
-       </footer>
+  <footer>
+    <a href="#home" class="active">Logo</a>
+   </footer>
 </template>
 
 <script>
@@ -20,7 +20,6 @@
     justify-content: center;
     align-items: center;
   }
-
   footer a {
     color:#9FD5BB;
     padding:14px 16px;
@@ -28,7 +27,6 @@
     font-size:17px;
     display:block;
   }
-
   footer a:hover {
     background-color:#ddd;
     color:black;
@@ -37,5 +35,4 @@
     background-color:#304238;
     color:white;
   }
- 
-</style>
+ </style>
