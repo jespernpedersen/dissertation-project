@@ -113,7 +113,6 @@
     </v-main>
   </v-app>
 </template>
-
 <script>
 // Components
 import Dish from '../components/Dish/Dish.vue';
