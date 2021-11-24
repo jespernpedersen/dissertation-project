@@ -1,19 +1,17 @@
 <template>
-    <div>
-       <div class="footer">
+       <footer>
           <a href="#home" class="active">Logo</a>
-         </div>
-    </div>
+       </footer>
 </template>
 
 <script>
   export default { 
-
+    name: "Footer"
   }
 </script>
 
 <style>
-  .footer {
+  footer {
     background-color:#304238;
     position:relative;
     display:flex;
@@ -23,7 +21,7 @@
     align-items: center;
   }
 
-  .footer a {
+  footer a {
     color:#9FD5BB;
     padding:14px 16px;
     text-decoration:none;
@@ -31,7 +29,7 @@
     display:block;
   }
 
-  .footer a:hover {
+  footer a:hover {
     background-color:#ddd;
     color:black;
   }
