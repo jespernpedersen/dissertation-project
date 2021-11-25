@@ -1,0 +1,59 @@
+<template>
+    <div>
+        <h2>Menu</h2>
+
+        <div class="content">
+            <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
+                <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
+                    <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
+                    <v-expansion-panel-content>
+                        <div v-for="dish in course.dishes" :key="dish.id">{{dish.title}}</div>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+            <h3 v-else-if="isLoading">Loading...</h3>
+            <div v-else>
+                <h3>We couldn't fetch the menu.</h3>
+                <button>Try again</button>
+            </div>
+            
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+    name: "Menu",
+    props: ["dishes", "courses"],
+    computed: {
+        dishesByCourse(){
+            if(this.courses.length < 1 || this.dishes.length < 1){
+                return {};
+            }
+
+            let filteredDishes = {};
+            this.courses.forEach( course => {
+                let newCourse = {...course, dishes: []};
+                filteredDishes = {...filteredDishes, [course.id]: newCourse}
+            });
+
+            this.dishes.forEach(dish => {
+                filteredDishes[dish.course].dishes.push(dish);
+            });
+
+            return filteredDishes;
+        },
+        isLoading() {
+            return this.$store.isLoading;
+        }
+    }
+}
+</script>
+
+<style>
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+</style>
