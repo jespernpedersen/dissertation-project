@@ -59,8 +59,7 @@ export default {
     }
     .dish-inner.vertical .dish-label {
         display: inline-block;
-        padding-top: 15px;
-        padding-bottom: 15px;
+        padding: 15px 0;
     }
     img {
         height: auto;
@@ -69,9 +68,7 @@ export default {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        border-radius: 12px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        border-radius: 12px 0 0 12px;
     }
     .image-wrapper {
         overflow: hidden;
@@ -81,9 +78,7 @@ export default {
     }
     .dish-label {
         background-color: #f6f5f1;
-        border-radius: 12px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 0 12px 12px 0;
         display: flex;
         align-items: center;
         justify-content: space-between;

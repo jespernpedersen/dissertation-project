@@ -21,18 +21,11 @@ describe('Dish.vue', () => {
         });
         expect(wrapper.findComponent('p').text().length).toBeLessThanOrEqual(53)
     });
-    /*
-    test('if hiding the space of the image', () => {
-        const image = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg'); 
-        let wrapper = mount(Dish, {
-            propsData: { image }
-        });
-    });
     test('if we have a title that is too long', () => {
-
-    });  
-    test('if it loads the cover image', () => {
-
+        const title = "Steve's Grubhub"
+        let wrapper = mount(Dish, {
+            propsData: { title }
+        });
+        expect(wrapper.findComponent('h3').text().length).toBeLessThanOrEqual(53)
     });
-    */
 })
