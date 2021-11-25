@@ -1,12 +1,12 @@
 import data from '../assets/data/dishes.json';
 
-export default class DishesService {
+export default class DishService {
 
-    static async getAll () {
-        return data;
+    static async getAll (restaurantId) {
+        return Promise.resolve(data);
     }
 
-    static async getTodaysSpecial(){
+    static async getTodaysSpecial(restaurantId){
         let todaysSpecial = data.filter(dish => dish.isTodaysSpecial === true);
         return todaysSpecial;
     }
