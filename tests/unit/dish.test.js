@@ -22,7 +22,7 @@ describe('Dish.vue', () => {
         expect(wrapper.findComponent('p').text().length).toBeLessThanOrEqual(53)
     });
     test('if we have a title that is too long', () => {
-        const title = "Steve's Grubhub"
+        const title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse porttitor feugiat aliquam. In euismod quis tellus id fringilla. Maecenas est magna, tempus eleifend pellentesque quis, porta in dolor. Cras facilisis pellentesque diam, sed cursus nulla pellentesque et. Proin sit amet feugiat augue. Ut ornare, odio ac volutpat tincidunt, lorem lorem porttitor quam, eu aliquet velit turpis imperdiet erat. Vivamus eu lacus gravida, tempor odio nec, tincidunt dui. Vestibulum et scelerisque neque, nec sodales justo. Ut laoreet ultrices nulla, sed fermentum mi eleifend quis."
         let wrapper = mount(Dish, {
             propsData: { title }
         });
