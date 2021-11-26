@@ -1,7 +1,7 @@
 import { forEach } from 'core-js/core/array';
 import data from '../assets/data/dishes.json';
 
-export default class DishesService {
+export default class CategoryService {
     static async getAllCategories () {
         let categories = data.filter(dish => dish.categories);
         return categories;
