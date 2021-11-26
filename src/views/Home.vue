@@ -6,31 +6,9 @@
       flat
     >
       <v-container class="py-0 fill-height">
-        <v-avatar
-          class="mr-10"
-          color="grey darken-1"
-          size="32"
-        ></v-avatar>
-
-        <v-btn
-          v-for="link in links"
-          :key="link"
-          text
-        >
-          {{ link }}
-        </v-btn>
-
-        <v-spacer></v-spacer>
-
-        <v-responsive max-width="260">
-          <v-text-field
-            dense
-            flat
-            hide-details
-            rounded
-            solo-inverted
-          ></v-text-field>
-        </v-responsive>
+        <div class="home">
+          <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+        </div>
       </v-container>
     </v-app-bar>
 
@@ -119,7 +97,11 @@ import Dish from '../components/Dish/Dish.vue';
 
 // Services
 import DishesService from '../services/mockDishesService';
+// @ is an alias to /src
+import Header from '@/components/Header.vue'
 
+import bannerImg from '@/assets/images/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg'
+import logoImg from '@/assets/images/142608969-32d24de8-4598-4e45-a711-bed26b9929b0.jpg'
 export default {
   name: 'Home',
   components: {
@@ -135,6 +117,13 @@ export default {
         'Profile',
         'Updates',
       ],
+      restaurant: {
+        id: 0,
+        title: "The italian",
+        slug: "the_italian",
+        logo: logoImg,
+        banner: bannerImg,
+      }
     }
   },
   methods: {
