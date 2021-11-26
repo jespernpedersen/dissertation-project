@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test": "vue-cli-service test:unit",
-    "test:unit": "vue-cli-service test:unit tests/unit",
+    "test:unit": "vue-cli-service test:unit tests/unit --watch",
     "test:int": "vue-cli-service test:unit tests/integration"
   },
   "dependencies": {
