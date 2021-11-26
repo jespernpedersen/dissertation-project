@@ -3,7 +3,7 @@
         <div class="banner" :style="bannerImage">
         </div>
         <img v-if="logo" :src="logo" class="logo" @error="getLogoIcon"/>
-        <figure v-if="!logo"><v-icon size="50px" >mdi-silverware-fork-knife</v-icon></figure>
+        <figure v-if="!isLogoValid"><v-icon size="50px" >mdi-silverware-fork-knife</v-icon></figure>
         <div class="title-area">
             <h2>{{ title }}</h2>
             <button><v-icon>mdi-information-outline</v-icon></button>
@@ -17,8 +17,7 @@ export default {
     props: [ "id", "title", "slug", "logo", "banner" ],
     data: () => ({
         bannerPlaceholder: require("@/assets/images/banner-placeholder.jpg"),
-        isLogoValid: true,
-        bannerStyle: {}
+        isLogoValid: true
     }),
     methods: {
         getLogoIcon: function () {
