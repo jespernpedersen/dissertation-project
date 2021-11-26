@@ -1,72 +1,37 @@
 <template>
-  <v-app id="inspire">
-    <v-app-bar
-      app
-      color="white"
-      flat
-    >
-    <div class="home">
-      <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+  <div>
+    <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+    <div class="todays-special-wrapper">
+      <div class="todays-special">
+        <v-slide-group
+          multiple
+          show-arrows
+        >
+        <v-slide-item class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
+          <Dish
+            :title="dishSpecial.title"
+            :image="dishSpecial.cover_image"
+            :description="dishSpecial.description"
+            :price="dishSpecial.price"
+            :ingredients="dishSpecial.ingredients"
+            :layout="'vertical'"
+          ></Dish>
+        </v-slide-item> 
+      </v-slide-group>
+    </div>    
+    <div class="dishes">
+      <div class="dish" v-for="dish in dishes" :key="dish">
+        <Dish
+          :title="dish.title"
+          :image="dish.cover_image"
+          :description="dish.description"
+          :price="dish.price"
+          :ingredients="dish.ingredients"
+          :special="dish.isTodaysSpecial"
+        ></Dish>
+      </div>
     </div>
-    </v-app-bar>
-
-    <v-main class="grey lighten-3">
-      <v-container>
-        <v-row>
-          <v-col cols="2">
-            <v-sheet rounded="lg">
-              <v-list color="transparent">
-                <v-list-item
-                  v-for="n in 5"
-                  :key="n"
-                  link
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      List Item {{ n }}
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider class="my-2"></v-divider>
-
-                <v-list-item
-                  link
-                  color="grey lighten-4"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>
-                      Refresh
-                    </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-sheet>
-          </v-col>
-
-          <v-col>
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-            >
-            <div class="dishes">
-              <div class="dish" v-for="dish in dishes" :key="dish">
-                <Dish
-                  :title="dish.title"
-                  :image="dish.cover_image"
-                  :description="dish.description"
-                  :price="dish.price"
-                  :ingredients="dish.ingredients"
-                  :special="dish.isTodaysSpecial"
-                ></Dish>
-              </div>
-            </div>
-            </v-sheet>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+  </div>
 </template>
 <script>
 // Components
@@ -94,6 +59,7 @@ export default {
         logo: logoImg,
         banner: bannerImg,
       },
+      dishesSpecial: [],
       dishes: [],
       links: [
         'Dashboard',
@@ -111,10 +77,19 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },    
+    },
+    async getSpecialDishes() {
+      try {
+        const data = await DishesService.getTodaysSpecial();
+        this.dishesSpecial = data;
+      } catch (error) {
+        console.log(error);
+      }  
+    }  
   },
   mounted: function() {
     this.getDishes();
+    this.getSpecialDishes();
     Header
   },
 }
@@ -127,5 +102,14 @@ export default {
     display: inline-block;
     width: 100%;
     text-align: center;
+  }
+  .todays-special {
+    text-align: center;
+  }
+  .special-dish {
+    display: inline-block;
+  }
+  .special-dish + .special-dish {
+    margin-left: 15px;
   }
 </style>
