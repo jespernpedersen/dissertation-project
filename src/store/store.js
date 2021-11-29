@@ -2,14 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Services
-import DishService from '@/services/mockDishService';
-import CourseService from '@/services/mockCourseService';
+import DishService from '@/services/dishService';
+import CourseService from '@/services/courseService';
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store
-
-export default new Vuex.Store({
+export const storeConfig = {
   state: {
     dishes: [],
     courses: [],
@@ -56,4 +52,4 @@ export default new Vuex.Store({
   },
   modules: {
   }
-})
+};

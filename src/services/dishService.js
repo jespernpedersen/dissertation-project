@@ -1,4 +1,4 @@
-import data from '../assets/data/dishes.json';
+import data from '@/assets/data/dishes.json';
 
 export default class DishService {
 

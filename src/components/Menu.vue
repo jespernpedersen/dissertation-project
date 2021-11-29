@@ -25,9 +25,10 @@
 
 export default {
     name: "Menu",
-    props: ["dishes", "courses"],
+    props: ["dishes", "courses", "isLoading"],
     computed: {
         dishesByCourse(){
+
             if(this.courses.length < 1 || this.dishes.length < 1){
                 return {};
             }
@@ -43,9 +44,6 @@ export default {
             });
 
             return filteredDishes;
-        },
-        isLoading() {
-            return this.$store.isLoading;
         }
     }
 }
