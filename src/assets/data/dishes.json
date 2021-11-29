@@ -15,7 +15,7 @@
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
         "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
-        "categories": [5],
+        "categories": [3],
         "isTodaysSpecial": false
     },
 
@@ -34,7 +34,7 @@
         "ingredients": "Fries, codfish, egg, onion, olive oil, black olives, salt and pepper" ,
         "price": 69,
         "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-        "categories": [6],
+        "categories": [2],
         "isTodaysSpecial": true
     },
     {
@@ -43,7 +43,7 @@
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
         "cover_image": "https://www.wallpaperbetter.com/wallpaper/894/492/7/mcdonalds-burger-hd-1080P-wallpaper-middle-size.jpg",
-        "categories": [7],
+        "categories": [3],
         "isTodaysSpecial": true
     }
 

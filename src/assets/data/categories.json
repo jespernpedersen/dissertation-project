@@ -1,0 +1,27 @@
+[
+    {
+        "id": 0,
+        "name": "Starters",
+        "slug": "starters"
+    },
+    {
+        "id": 1,
+        "name": "Soups",
+        "slug": "soups"
+    },
+    {
+        "id": 2,
+        "name": "Drinks",
+        "slug": "drinks"
+    },
+    {
+        "id": 3,
+        "name": "Fish",
+        "slug": "fish"
+    },
+    {
+        "id": 4,
+        "name": "Meat",
+        "slug": "meat"
+    }
+]

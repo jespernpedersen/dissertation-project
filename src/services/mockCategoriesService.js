@@ -1,27 +1,27 @@
 import dishes from '../assets/data/dishes.json';
-import dishTypes from '../assets/data/dishTypes.json';
+import categories from '../assets/data/categories.json';
 export default class CategoryService {
     static async getAllCategories () {
-        let categories = [];
+        let list_categories = [];
         dishes.forEach(dish => {
-            dish.categories.forEach(category => {
+            dish.categories.forEach(d_category => {
                 // Do a lookup for the used categories
-                let lookupCategory = dishTypes.filter(dishType => dishType.id === category);
+                let lookupCategory = categories.filter(category => category.id === d_category);
                 
                 // Do not push duplicates to the category list
-                if(categories.indexOf(lookupCategory[0]) === -1) { 
-                    categories.push(lookupCategory[0]) 
+                if(list_categories.indexOf(lookupCategory[0]) === -1) { 
+                    list_categories.push(lookupCategory[0]) 
                 }
                 else {
                     return;
                 }
             })
         })
-        return categories;
+        return list_categories;
     }
 
     static async getCategory(id){
-        let lookupCategory = dishTypes.filter(dishType => dishType.id === id);
+        let lookupCategory = categories.filter(category => category.id === id);
         return lookupCategory;
     }
 }
