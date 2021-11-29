@@ -14,14 +14,6 @@ export default class RestaurantsService {
         return data.find(type => type.slug === slug);
     }
 
-    static async getBySlug(logo){
-        return data.find(type => type.logo === logo);
-    }
-
-    static async getBySlug(banner){
-        return data.find(type => type.banner === banner);
-    }
-
     static async getAll () {
         return data;
     }

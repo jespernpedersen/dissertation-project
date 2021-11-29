@@ -1,0 +1,42 @@
+[
+    {
+        "id": 0,
+        "title": "Amici Di Vincenzo",
+        "slug": "amici_di_vincenzo",
+        "logo": "https://st.depositphotos.com/1026166/3160/v/600/depositphotos_31605339-stock-illustration-restaurant-food-quality-badge.jpg",
+        "banner": "https://media.istockphoto.com/photos/top-view-table-full-of-food-picture-id1220017909?k=20&m=1220017909&s=170667a&w=0&h=4I_l8ZyiZ8sebPsRo6UpFmdrV-MZgEvxb3smE-TbgLE=",
+        "categories": [0,1,2,3,4]
+    },
+    {
+        "id": 1,
+        "title": "Mike's grubhub",
+        "slug": "mike's_grubhub",
+        "logo": "https://i.pinimg.com/564x/65/cd/8b/65cd8b92ccba3c32c606706566542e0e.jpg",
+        "banner": "https://i.imgur.com/2ZZfFQb.jpeg",
+        "categories": [0,1,2]
+    },
+    {
+        "id": 2,
+        "title": "Pizzazz",
+        "slug": "pizzazz",
+        "logo": "https://image.similarpng.com/thumbnail/2020/06/Restaurant-logo-with-chef-drawing-template-on-transparent-background-PNG.png",
+        "banner": "https://image.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg",
+        "categories": [0,1,2]
+    },
+    {
+        "id": 3,
+        "title": "SoupSurfer",
+        "slug": "soupsurfer",
+        "logo": "https://seeklogo.com/images/S/soup-food-logo-813705E21B-seeklogo.com.jpg",
+        "banner": "https://media.istockphoto.com/photos/hot-vegetable-soup-in-a-dish-made-of-natural-materials-traditional-picture-id1226586928?b=1&k=20&m=1226586928&s=170667a&w=0&h=OaaJR-PWvbGaTfJlp8Rrykt0IJ_7JYiVAOyquPfcZWs=",
+        "categories": [0,1]
+    },
+    {
+        "id": 4,
+        "title": "We can bake it!",
+        "slug": "wecanbakeit!",
+        "logo": "https://recognizeyourworld.com/wp-content/uploads/2016/01/Bakery-Logo.jpg",
+        "banner": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/df/98/6168c1c449489ffa778a198d6a9a/bakery-hero1500x600-2x-v2._TTW_._CR0,0,3000,1200_._SR2000,800_._QL100_.jpg",
+        "categories": [0,1,2]
+    }
+]
