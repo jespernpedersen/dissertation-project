@@ -1,5 +1,6 @@
 import dishes from '../assets/data/dishes.json';
 import categories from '../assets/data/categories.json';
+
 export default class CategoryService {
     static async getAllCategories () {
         let list_categories = [];
@@ -11,9 +12,6 @@ export default class CategoryService {
                 // Do not push duplicates to the category list
                 if(list_categories.indexOf(lookupCategory[0]) === -1) { 
                     list_categories.push(lookupCategory[0]) 
-                }
-                else {
-                    return;
                 }
             })
         })
