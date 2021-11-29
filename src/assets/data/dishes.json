@@ -5,7 +5,7 @@
         "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
         "price": 69,
         "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-        "categories": ["starter"],
+        "categories": [0, 1],
         "isTodaysSpecial": false
     },
 
@@ -15,7 +15,7 @@
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
         "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
-        "categories": ["main course"],
+        "categories": [0],
         "isTodaysSpecial": false
     },
 
@@ -25,7 +25,7 @@
         "ingredients": "Profiteroles, Caramel, Chocolate",
         "price": 169,
         "cover_image": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
-        "categories": ["dessert"],
+        "categories": [1],
         "isTodaysSpecial": true
     },
     {
@@ -34,7 +34,7 @@
         "ingredients": "Fries, codfish, egg, onion, olive oil, black olives, salt and pepper" ,
         "price": 69,
         "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-        "categories": ["fish"],
+        "categories": [2],
         "isTodaysSpecial": true
     },
     {
@@ -43,7 +43,7 @@
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
         "cover_image": "https://www.wallpaperbetter.com/wallpaper/894/492/7/mcdonalds-burger-hd-1080P-wallpaper-middle-size.jpg",
-        "categories": ["meat"],
+        "categories": [0],
         "isTodaysSpecial": true
     }
 

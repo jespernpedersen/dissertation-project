@@ -31,6 +31,10 @@
         ></Dish>
       </div>
     </div>
+      <div class="categories" v-for="category in categories" :key="category">
+        {{ category }}
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -39,6 +43,8 @@ import Dish from '../components/Dish/Dish.vue';
 
 // Services
 import DishesService from '../services/mockDishesService';
+import CategoriesService from '../services/mockCategoriesService';
+
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
 
@@ -48,7 +54,7 @@ import logoImg from '@/assets/images/142608969-32d24de8-4598-4e45-a711-bed26b992
 export default {
   name: 'Home',
   components: {
-    Dish, DishesService
+    Dish, DishesService, CategoriesService
   },
   data () {
     return {
@@ -61,12 +67,7 @@ export default {
       },
       dishesSpecial: [],
       dishes: [],
-      links: [
-        'Dashboard',
-        'Messages',
-        'Profile',
-        'Updates',
-      ],
+      categories: []
     }
   },
   methods: {
@@ -85,11 +86,20 @@ export default {
       } catch (error) {
         console.log(error);
       }  
-    }  
+    },
+    async getCategories() {
+      try {
+        const data = await CategoriesService.getAllCategories();
+        this.categories = data;
+      } catch (error) {
+        console.log(error);
+      }  
+    }   
   },
   mounted: function() {
     this.getDishes();
     this.getSpecialDishes();
+    this.getCategories();
     Header
   },
 }
