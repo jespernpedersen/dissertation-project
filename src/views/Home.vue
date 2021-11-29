@@ -32,7 +32,7 @@
       </div>
     </div>
       <div class="categories" v-for="category in categories" :key="category">
-        {{ category[0] }}
+        {{ category }}
       </div>
     </div>
   </div>

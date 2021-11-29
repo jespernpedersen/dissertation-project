@@ -23,5 +23,20 @@
         "id": 4,
         "name": "Desserts",
         "slug": "desserts"
+    },
+    {
+        "id": 5,
+        "name": "Main Course",
+        "slug": "main-course"
+    },
+    {
+        "id": 6,
+        "name": "Fish",
+        "slug": "fish"
+    },
+    {
+        "id": 7,
+        "name": "Meat",
+        "slug": "meat"
     }
 ]
