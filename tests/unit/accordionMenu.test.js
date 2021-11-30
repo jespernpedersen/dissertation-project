@@ -1,5 +1,5 @@
 // Testing tools
-import { createLocalVue, mount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 // Components
 import Menu from '@/components/AccordionMenu';
@@ -14,7 +14,7 @@ describe("Menu", () => {
 
     it("shows loading", () => {
 
-        app = mount(Menu, {
+        app = shallowMount(Menu, {
             propsData:{
                 dishes: [],
                 courses: [],
@@ -34,7 +34,7 @@ describe("Menu", () => {
 
     it("hides loading", () => {
 
-        let app = mount(Menu, {
+        let app = shallowMount(Menu, {
             propsData: {
                 dishes: [{
                     "title": "Spaghetti Bolognese",

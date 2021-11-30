@@ -7,15 +7,13 @@
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
                     <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <div v-for="dish in course.dishes" :key="dish.id">
-                            <Dish 
-                            :title="dish.title"
-                            :image="dish.cover_image"
-                            :description="dish.description"
-                            :price="dish.price"
-                            :ingredients="dish.ingredients"
-                            ></Dish>
-                        </div>
+                        <Dish v-for="dish in course.dishes" :key="dish.id"
+                        :title="dish.title"
+                        :image="dish.cover_image"
+                        :description="dish.description"
+                        :price="dish.price"
+                        :ingredients="dish.ingredients"
+                        ></Dish>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
