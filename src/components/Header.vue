@@ -21,7 +21,6 @@ export default {
     }),
     methods: {
         getLogoIcon: function () {
-            debugger;
             this.isLogoValid = false;
         }
     },

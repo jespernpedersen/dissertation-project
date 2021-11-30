@@ -39,7 +39,6 @@ export const storeConfig = {
   actions: {
     getRestaurant: ({commit}, id) => {
       RestaurantService.get(id).then(data => {
-        data.logo = "";
         commit("setInRestaurant", {prop: "data", data: data});
       }).finally(data => {
         commit("loaded", "restaurant");

@@ -32,7 +32,6 @@ export default {
             location.reload();
         },
         back() {
-            debugger;
             window.history.back();
         }
     },
