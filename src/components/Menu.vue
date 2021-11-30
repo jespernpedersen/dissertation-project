@@ -12,9 +12,10 @@
                 </v-expansion-panel>
             </v-expansion-panels>
             <h3 v-else-if="isLoading">Loading...</h3>
-            <div v-else>
-                <h3>We couldn't fetch the menu.</h3>
-                <button>Try again</button>
+            <div v-else class="error-msg">
+                <h3>Something went wrong</h3>
+                <p>There was a problem fetching the menu.</p>
+                <div><v-btn color="primary" @click="refresh" id="reload">Try again <v-icon>mdi-refresh</v-icon></v-btn> or <v-btn id="back" @click="back" color="primary"><v-icon>mdi-arrow-left</v-icon> Go back</v-btn></div>
             </div>
             
         </div>
@@ -26,6 +27,15 @@
 export default {
     name: "Menu",
     props: ["dishes", "courses", "isLoading"],
+    methods: {
+        refresh() {
+            location.reload();
+        },
+        back() {
+            debugger;
+            window.history.back();
+        }
+    },
     computed: {
         dishesByCourse(){
 
@@ -53,5 +63,13 @@ export default {
 h2 {
     text-align: center;
     margin-bottom: 25px;
+}
+
+.error-msg {
+    text-align: center;
+}
+
+.error-msg h3{
+    color: darkred;
 }
 </style>
