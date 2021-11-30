@@ -1,6 +1,10 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+    <SearchBar
+      :hasFilteredItems="false"
+    >
+    </SearchBar>
     <div class="todays-special-wrapper">
       <div class="todays-special">
         <v-slide-group
@@ -40,7 +44,7 @@
 <script>
 // Components
 import Dish from '../components/Dish/Dish.vue';
-
+import SearchBar from '../components/SearchBar/SearchBar.vue'
 // Services
 import DishesService from '../services/mockDishesService';
 import CategoriesService from '../services/mockCategoriesService';
@@ -54,7 +58,7 @@ import logoImg from '@/assets/images/142608969-32d24de8-4598-4e45-a711-bed26b992
 export default {
   name: 'Home',
   components: {
-    Dish, DishesService, CategoriesService
+    Dish, DishesService, CategoriesService, SearchBar
   },
   data () {
     return {
@@ -100,7 +104,7 @@ export default {
     this.getDishes();
     this.getSpecialDishes();
     this.getCategories();
-    Header
+    Header;
   },
 }
 </script>
