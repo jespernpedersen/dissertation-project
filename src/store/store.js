@@ -2,79 +2,78 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // Services
-import DishService from '@/services/mockDishService';
-import CourseService from '@/services/mockCourseService';
+import CourseService from '@/services/courseService';
+import DishService from '@/services/dishService';
+import RestaurantService from '@/services/restaurantService';
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store
-
-export default new Vuex.Store({
+export const storeConfig = {
   state: {
     restaurant: {
-      data: {id: 0},
+      data: {},
       dishes: [],
       courses: [],
       todaysSpecial: [],
+      categories: [],
       loading: {
+        categories: true,
+        courses: true,
         dishes: true,
-        todaysSpecial: true,
-        courses: true
+        restaurant: true,
+        todaysSpecial: true
       }
     },
   },
   getters: {
-    isLoadingRestaurant: state => {
-      return state.restaurant.isLoadingCourses || state.restaurant.isLoadingDishes;
+    isLoadingMenu: state => {
+      return state.restaurant.loading.courses || state.restaurant.loadnig.dishes;
     }
   },
   mutations: {
-    setDishes: (state, payload) => {
-      state.restaurant.dishes = payload;
-    },
-    setTodaysSpecial: (state, payload) => {
-      state.restaurant.todaysSpecial = payload;
-    },
-    setCourses: (state, payload) => {
-      state.restaurant.courses = payload;
+    setInRestaurant: (state, payload) => {
+      state.restaurant[payload.prop] = payload.data;
     },
     loaded: (state, payload) => {
       state.restaurant.loading[payload] = false;
     }
   },
   actions: {
-    getRestaurant: context => {
-
-    },
-    getDishes: context => {
-      DishService.getAll(context.state.restaurant.id).then( data => {
-        context.commit('setDishes', data);
-      }).finally( data => {
-        context.commit("loaded", "dishes")
+    getRestaurant: ({commit}, id) => {
+      RestaurantService.get(id).then(data => {
+        data.logo = "";
+        commit("setInRestaurant", {prop: "data", data: data});
+      }).finally(data => {
+        commit("loaded", "restaurant");
       });
     },
-    getTodaysSpecial: context => {
-      DishService.getTodaysSpecial(context.state.restaurant.id).then( data => {
-        context.commit("setTodaysSpecial", data);
+    getDishes: ({commit}, restaurantId) => {
+      DishService.getAll(restaurantId).then( data => {
+        commit('setInRestaurant', {prop: "dishes", data: data});
       }).finally( data => {
-        context.commit("loaded", "todaysSpecial");
+        commit("loaded", "dishes")
       });
     },
-    getCourses: context => {
-      CourseService.getAll(context.state.restaurant.id).then( data => {
-        context.commit("setCourses", data);
+    getTodaysSpecial: ({commit}, restaurantId) => {
+      DishService.getTodaysSpecial(restaurantId).then( data => {
+        commit("setInRestaurant", {prop: "todaysSpecial", data: data});
       }).finally( data => {
-        context.commit("loaded", "courses");
+        commit("loaded", "todaysSpecial");
       });
     },
-    getCategories: context => {
-      CourseService.getAll(context.state.restaurant.id).then( data => {
-        context.commit("setCourses", data);
+    getCourses: ({commit}, restaurantId) => {
+      CourseService.getAll(restaurantId).then( data => {
+        commit("setInRestaurant", {prop: "courses", data: data});
       }).finally( data => {
-        context.commit("loaded", "categories");
+        commit("loaded", "courses");
+      });
+    },
+    getCategories: ({commit}, restaurantId) => {
+      CourseService.getAll(restaurantId).then( data => {
+        commit("setInRestaurant", {prop: "categories", data: data});
+      }).finally( data => {
+        commit("loaded", "categories");
       });
     }
   },
   modules: {
   }
-})
+};

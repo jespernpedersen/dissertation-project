@@ -1,13 +1,21 @@
 <template>
     <div>
-        <h2>Menu</h2>
+        <h2>{{ title }}</h2>
 
         <div class="content">
             <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
                     <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
                     <v-expansion-panel-content>
-                        <div v-for="dish in course.dishes" :key="dish.id">{{dish.title}}</div>
+                        <div v-for="dish in course.dishes" :key="dish.id">
+                            <Dish 
+                            :title="dish.title"
+                            :image="dish.cover_image"
+                            :description="dish.description"
+                            :price="dish.price"
+                            :ingredients="dish.ingredients"
+                            ></Dish>
+                        </div>
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
@@ -22,12 +30,15 @@
 </template>
 
 <script>
+import Dish from "@/components/Dish/Dish";
 
 export default {
-    name: "Menu",
-    props: ["dishes", "courses"],
+    name: "AccordionMenu",
+    props: ["title", "dishes", "courses", "isLoading"],
+    components: { Dish },
     computed: {
         dishesByCourse(){
+
             if(this.courses.length < 1 || this.dishes.length < 1){
                 return {};
             }
@@ -43,9 +54,6 @@ export default {
             });
 
             return filteredDishes;
-        },
-        isLoading() {
-            return this.$store.isLoading;
         }
     }
 }

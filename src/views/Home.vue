@@ -1,49 +1,22 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
-    <div class="todays-special-wrapper">
-      <div class="todays-special">
-        <v-slide-group
-          multiple
-          show-arrows
-        >
-          <v-slide-item class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
-            <Dish
-              :title="dishSpecial.title"
-              :image="dishSpecial.cover_image"
-              :description="dishSpecial.description"
-              :price="dishSpecial.price"
-              :ingredients="dishSpecial.ingredients"
-              :layout="'vertical'"
-            ></Dish>
-          </v-slide-item> 
-        </v-slide-group>
-      </div>    
-    </div>
-    <Menu :dishes="dishes" :courses="courses"></Menu>
+    <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
   </div>
 </template>
 <script>
 // Components
-import Dish from '../components/Dish/Dish.vue';
+import AccordionMenu from '@/components/AccordionMenu.vue'
 import Header from '@/components/Header.vue'
-import Menu from '@/components/Menu.vue'
-
-// Services
-import DishesService from '../services/mockDishesService';
-import CategoriesService from '../services/mockCategoriesService';
+import HorizontalMenu from '../components/HorizontalMenu';
 
 // Additional
-import {GET_DISHES, GET_COURSES} from '@/store/actions';
-
-// Resources
-import bannerImg from '@/assets/images/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg'
-import logoImg from '@/assets/images/142608969-32d24de8-4598-4e45-a711-bed26b9929b0.jpg'
-
+import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 
 export default {
   name: 'Home',
-  components: { Dish, DishService, CategoriesService, Menu},
+  components: { AccordionMenu, Header, HorizontalMenu },
   data () {
     return {
       dishesSpecial: [],
@@ -68,27 +41,43 @@ export default {
       }  
     }   
   },
-  mounted: function() {
-    this.getSpecialDishes();
-    this.getCategories();
-    Header
-  },
-  computed: {
-    dishes() {
-      if(this.$store.state.dishes.length === 0){
-        this.$store.dispatch(GET_DISHES);
-      }
+  mounted: function () {
 
-      return this.$store.state.dishes;
-    },
-    courses() {
-      if(this.$store.state.courses.length === 0){
-        this.$store.dispatch(GET_COURSES);
-      }
-
-      return this.$store.state.courses;
+    if(Object.keys(this.$store.state.restaurant.data).length === 0){
+      this.$store.dispatch(GET_RESTAURANT, 1);
     }
-  }
+    if(this.$store.state.restaurant.dishes.length === 0){
+      this.$store.dispatch(GET_DISHES, 1);
+    }
+
+    if(this.$store.state.restaurant.courses.length === 0){
+      this.$store.dispatch(GET_COURSES, 1);
+    }
+
+    if(this.$store.state.restaurant.todaysSpecial.length === 0){
+      this.$store.dispatch(GET_TODAYS_SPECIAL, 1);
+    }
+  }, 
+  computed: {
+    courses() {
+      return this.$store.state.restaurant.courses;
+    },
+    dishes() {
+      return this.$store.state.restaurant.dishes;
+    },
+    restaurant() {
+      return this.$store.state.restaurant.data;
+    },
+    todaysSpecial() {
+      return this.$store.state.restaurant.todaysSpecial
+    },
+    isLoadingMenu() {
+      return this.$store.state.isLoadingMenu;
+    },
+    isLoadingSpecials() {
+      return this.$store.state.restaurant.loading.todaysSpecial;
+    }
+  } 
 }
 </script>
 <style scoped>

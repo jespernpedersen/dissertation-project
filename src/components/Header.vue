@@ -3,7 +3,7 @@
         <div class="banner" :style="bannerImage">
         </div>
         <img v-if="logo" :src="logo" class="logo" @error="getLogoIcon"/>
-        <figure v-if="!isLogoValid"><v-icon size="50px" >mdi-silverware-fork-knife</v-icon></figure>
+        <figure v-if="!isLogoValid || !logo"><v-icon size="50px" >mdi-silverware-fork-knife</v-icon></figure>
         <div class="title-area">
             <h2>{{ title }}</h2>
             <button><v-icon>mdi-information-outline</v-icon></button>
@@ -21,6 +21,7 @@ export default {
     }),
     methods: {
         getLogoIcon: function () {
+            debugger;
             this.isLogoValid = false;
         }
     },
@@ -39,6 +40,7 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 25px;
 }
 
 #restaurant-header .banner{
