@@ -1,6 +1,6 @@
 import data from '../assets/data/restaurants.json';
 
-export default class RestaurantsService {
+export default class RestaurantService {
 
     static async get(id){
         return data.find(type => type.id === id);
