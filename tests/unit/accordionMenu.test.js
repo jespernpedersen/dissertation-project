@@ -74,8 +74,69 @@ describe("Menu", () => {
 
         let h3 = app.find("h3");
         expect(h3.exists()).toBeTruthy();
-        expect(h3.text()).toBe("We couldn't fetch the menu.");
+        expect(app.find("#reload").exists()).toBeTruthy();
+        expect(app.find("#back").exists()).toBeTruthy();
 
     });
+
+    it("reloads on try again button click", async () => {
+
+        const original = window.location;
+
+        Object.defineProperty(window, 'location', {
+            configurable: true,
+            value: {reload: jest.fn()}
+        })
+
+        let app = mount(Menu, {
+            propsData: {
+                dishes: [],
+                courses: [],
+                isLoading: false
+            },
+            localVue,
+            vuetify
+        });
+
+        let button = app.find("#reload");
+        expect(button.exists()).toBeTruthy();
+        await button.trigger("click");
+        expect(window.location.reload).toHaveBeenCalled();
+
+        Object.defineProperty(window, 'location', {
+            configurable: true,
+            value: {reload: original}
+        })
+
+    });
+
+    it("goes back on go back button click", async () => {
+        const original = window.history;
+
+        Object.defineProperty(window, 'history', {
+            configurable: true,
+            value: {back: jest.fn()}
+        })
+
+        let app = mount(Menu, {
+            propsData: {
+                dishes: [],
+                courses: [],
+                isLoading: false
+            },
+            localVue,
+            vuetify
+        });
+
+        let button = app.find("#back");
+        expect(button.exists()).toBeTruthy();
+        await button.trigger("click");
+        expect(window.history.back).toHaveBeenCalled();
+
+        Object.defineProperty(window, 'history', {
+            configurable: true,
+            value: {back: original}
+        })
+    })
 
 })
