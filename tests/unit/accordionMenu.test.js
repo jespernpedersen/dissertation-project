@@ -1,5 +1,5 @@
 // Testing tools
-import { createLocalVue, shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount, mount } from '@vue/test-utils';
 
 // Components
 import Menu from '@/components/AccordionMenu';
@@ -62,7 +62,7 @@ describe("Menu", () => {
 
     it("shows error", () => {
 
-        let app = mount(Menu, {
+        let app = shallowMount(Menu, {
             propsData: {
                 dishes: [],
                 courses: [],
@@ -101,7 +101,7 @@ describe("Menu", () => {
         let button = app.find("#reload");
         expect(button.exists()).toBeTruthy();
         await button.trigger("click");
-        expect(window.location.reload).toHaveBeenCalled();
+        expect(window.location.reload).toHaveBeenCalledTimes(1);
 
         Object.defineProperty(window, 'location', {
             configurable: true,
@@ -131,7 +131,7 @@ describe("Menu", () => {
         let button = app.find("#back");
         expect(button.exists()).toBeTruthy();
         await button.trigger("click");
-        expect(window.history.back).toHaveBeenCalled();
+        expect(window.history.back).toHaveBeenCalledTimes(1);
 
         Object.defineProperty(window, 'history', {
             configurable: true,
