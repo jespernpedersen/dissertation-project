@@ -6,6 +6,7 @@
         "price": 69,
         "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
         "categories": [0, 1],
+        "course": 0,
         "isTodaysSpecial": false
     },
 
@@ -16,6 +17,7 @@
         "price": 50,
         "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
         "categories": [0],
+        "course": 1,
         "isTodaysSpecial": false
     },
 
@@ -26,7 +28,8 @@
         "price": 169,
         "cover_image": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
         "categories": [1],
-        "isTodaysSpecial": true
+        "isTodaysSpecial": true,
+        "course": 4
     },
     {
         "title": "Brás style codfish",
@@ -35,6 +38,7 @@
         "price": 69,
         "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
         "categories": [2],
+        "course": 2,
         "isTodaysSpecial": true
     },
     {
@@ -42,8 +46,9 @@
         "description": "A ham, bacon and sausage sandwich, served under a veil of cheese. The sandwich is stranded on a tomato sauce ocean.",
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
-        "cover_image": "https://www.wallpaperbetter.com/wallpaper/894/492/7/mcdonalds-burger-hd-1080P-wallpaper-middle-size.jpg",
         "categories": [0],
+        "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+        "course": 2,
         "isTodaysSpecial": true
     }
 
