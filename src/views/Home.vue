@@ -14,12 +14,11 @@
     >
     </SearchBar>
     <h2>Menu</h2>
-    <div class="filtered-items" v-if="filteredDishes.length > 0">
-      Filtered
-      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" multiple></AccordionMenu>
+    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
+      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
     </div>
-    <div class="all-items" v-if="filteredDishes.length == 0">
-      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    <div class="all-items" v-show="filteredDishes.length == 0">
+      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
   </div>
 </template>
