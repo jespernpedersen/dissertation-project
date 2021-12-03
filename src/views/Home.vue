@@ -49,7 +49,7 @@ import Dish from '../components/Dish/Dish.vue';
 import SearchBar from '../components/SearchBar/SearchBar.vue'
 
 // Services
-import DishService from '../services/_mock_/dishService';
+import DishService from '../services/dishService';
 import CategoriesService from '../services/mockCategoriesService';
 
 // @ is an alias to /src
