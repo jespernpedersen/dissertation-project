@@ -35,7 +35,7 @@ describe('Header Component', () => {
 
     expect(header.find("h2").text()).toBe("Fine Dine");
     expect(header.find(".logo").attributes('src')).toBe('img/142608969-32d24de8-4598-4e45-a711-bed26b9929b0.jpg');
-    expect(header.findComponent("figure").exists()).toBe(false);
+    expect(header.find("figure").exists()).toBe(false);
     expect(header.find(".banner").attributes("style")).toBe("background-image: url(img/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg);");
 
   });
@@ -58,7 +58,7 @@ describe('Header Component', () => {
       so, it returns a "mock image" which is in fact an empty string.
       If require inside component is replaced with a string, it displays the that;
     */
-    expect(header.findComponent(".banner").attributes("style")).toBe("background-image: url();");
+    expect(header.find(".banner").attributes("style")).toBe("background-image: url();");
 
   });
 
@@ -74,7 +74,7 @@ describe('Header Component', () => {
       }
     });
 
-    expect(header.findComponent("figure").exists()).toBe(true);
+    expect(header.find("figure").exists()).toBe(true);
 
   });
 

@@ -5,10 +5,10 @@
         </div>
         <div class="dish-label">
             <div class="dish-label-title">
-                <h3>{{ title }}</h3>
+                <h3>{{ title | descriptionLimit }}</h3>
                 <p>{{ description | descriptionLimit }}</p>
             </div>
-            <div class="dish-label-price">
+            <div v-if="layout != 'horizontal'" class="dish-label-price">
                 <span>{{ pricetext }}</span>
             </div>
         </div>
@@ -54,13 +54,11 @@ export default {
         position: relative;
         display: inline-block;
         border-radius: 12px;
-        width: 100%;
-        height: 15vw;
+        width: 80vw;
+        margin: 0 15px;
+        margin-bottom: 20px;
     }
-    .dish-inner.vertical .dish-label {
-        display: inline-block;
-        padding: 15px 0;
-    }
+
     img {
         height: auto;
         width: 100%;
@@ -68,17 +66,19 @@ export default {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        border-radius: 12px 0 0 12px;
     }
+
     .image-wrapper {
         overflow: hidden;
-        height: calc(100% / 1.78);
+        height: calc(80vw / 1.778);
         width: 100%;
         position: relative;
+        border-radius: 12px 12px 0 0;
     }
+
     .dish-label {
         background-color: #f6f5f1;
-        border-radius: 0 12px 12px 0;
+        border-radius: 0 0 12px 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -87,20 +87,29 @@ export default {
         width: 100%;
         min-height: 100px;
     }
+
+    .dish-inner.horizontal .dish-label {
+        display: inline-block;
+        padding: 15px;
+    }
+
     .dish-label-title {
         font-size: 14px;
         text-align: left;
     }
-    .dish-label-title strong {
-        font-size: 18px;
-        width: 100%;
-        display: inline-block;
+
+    .dish-label-title p{
+        margin-bottom: 0;
+        white-space: normal;
+        padding-right: 5px;
     }
+
     .dish-label-price {
         font-size: 38px;
         font-weight: bold;
         color: #47544b;
     }
+
     .dish-add-item {
         top: 0;
         right: 0;

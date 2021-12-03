@@ -1,13 +1,13 @@
-import data from '../assets/data/disheTypes.json';
+import data from '../assets/data/restaurants.json';
 
-export default class DishesService {
+export default class RestaurantService {
 
     static async get(id){
         return data.find(type => type.id === id);
     }
 
-    static async getByName(name){
-        return data.find(type => type.name === name);
+    static async getByName(title){
+        return data.find(type => type.title === title);
     }
 
     static async getBySlug(slug){
