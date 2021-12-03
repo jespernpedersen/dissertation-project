@@ -1,46 +1,25 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
-    <SearchBar
-      :hasFilteredItems="false"
-    >
-    </SearchBar>
     <div class="todays-special-wrapper">
-      <div class="todays-special">
-        <v-slide-group
-          multiple
-          show-arrows
-        >
-        <v-slide-item class="special-dish" v-for="dishSpecial in dishesSpecial" :key="dishSpecial">
-          <Dish
-            :title="dishSpecial.title"
-            :image="dishSpecial.cover_image"
-            :description="dishSpecial.description"
-            :price="dishSpecial.price"
-            :ingredients="dishSpecial.ingredients"
-            :layout="'vertical'"
-          ></Dish>
-        </v-slide-item> 
-      </v-slide-group>
-    </div>    
-    <div class="dishes">
-      <div class="dish" v-for="dish in dishes" :key="dish">
-        <Dish
-          :title="dish.title"
-          :image="dish.cover_image"
-          :description="dish.description"
-          :price="dish.price"
-          :ingredients="dish.ingredients"
-          :special="dish.isTodaysSpecial"
-        ></Dish>
-      </div>
-    </div>
       <div class="categories" v-for="category in categories" :key="category">
         {{ category }}
       </div>
     </div>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    <SearchBar
+      :dishes="dishes"
+      @filter-dish="filterByText"
+      @clear-filter="clearFilter"
+    >
+    </SearchBar>
+    <h2>Menu</h2>
+    <div class="filtered-items" v-if="filteredDishes.length > 0">
+      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    </div>
+    <div class="all-items" v-if="filteredDishes.length == 0">
+      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    </div>
   </div>
 </template>
 <script>
@@ -62,14 +41,12 @@ import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/sto
 
 export default {
   name: 'Home',
-  components: {
-    Dish, DishService, CategoriesService, SearchBar
-  },
-  components: { AccordionMenu, Header, HorizontalMenu },
+  components: { AccordionMenu, Header, HorizontalMenu, Dish, DishService, CategoriesService, SearchBar },
   data () {
     return {
       dishesSpecial: [],
-      categories: []
+      categories: [],
+      filteredDishes: []
     }
   },
   methods: {
@@ -88,7 +65,13 @@ export default {
       } catch (error) {
         console.log(error);
       }  
-    }   
+    },
+    filterByText(filteredDishes) {
+      this.filteredDishes = filteredDishes;
+    },
+    clearFilter() {
+      this.filteredDishes = [];
+    }
   },
   mounted: function () {
     if(Object.keys(this.$store.state.restaurant.data).length === 0){
@@ -97,11 +80,9 @@ export default {
     if(this.$store.state.restaurant.dishes.length === 0){
       this.$store.dispatch(GET_DISHES, 1);
     }
-
     if(this.$store.state.restaurant.courses.length === 0){
       this.$store.dispatch(GET_COURSES, 1);
     }
-
     if(this.$store.state.restaurant.todaysSpecial.length === 0){
       this.$store.dispatch(GET_TODAYS_SPECIAL, 1);
     }

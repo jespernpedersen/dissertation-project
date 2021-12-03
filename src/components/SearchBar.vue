@@ -1,6 +1,5 @@
 <template>
     <div class="search-bar">
-        Search Bar
         <v-text-field
             label="Search for dishes here..."
             v-model="searchtext"
@@ -8,33 +7,44 @@
             @keyup="filterSearch()"
         >
         </v-text-field>
-        {{ dishesResult }}
+        <button v-if="searchtext != ''" @click="clearFilter">
+            <figure>
+                <v-icon size="24px" >mdi-close</v-icon>
+            </figure>
+        </button>
     </div>
 </template>
 <script>
 export default {
     name: 'SearchBar',
-    props: ['hasFiltedItems'],
+    props: ['hasFiltedItems', 'dishes'],
     data () {
         return {
             searchtext: '',
             isLoading: false,
-            dishes: [],
             dishesResult: []
         }
     },
     methods: {
         filterSearch() {
             this.dishesResult = [];
-            return this.dishes.filter(dish => {
-                if(dish.title.match(this.searchtext)) this.dishesResult.push(dish); 
+            this.dishes.filter(dish => {
+                if(dish.title.match(this.searchtext)) {
+                    this.dishesResult.push(dish);
+                    this.$emit('filter-dish', this.dishesResult)
+                }
             })
+        },
+        clearFilter() {
+            this.searchtext = '';
+            this.$emit('clear-filter')
         }
-    },
-    created () {
-        this.dishes = this.$parent.dishes;
     }
 }
 </script>
 <style scoped>
+    .search-bar {
+        padding: 0 20px;
+        display: flex;
+    }
 </style>

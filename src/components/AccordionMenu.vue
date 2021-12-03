@@ -1,7 +1,5 @@
 <template>
     <div>
-        <h2>{{ title }}</h2>
-
         <div class="content">
             <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
