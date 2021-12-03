@@ -45,8 +45,8 @@
 </template>
 <script>
 // Components
-import Dish from '../components/Dish/Dish.vue';
-import SearchBar from '../components/SearchBar/SearchBar.vue'
+import Dish from '../components/Dish.vue';
+import SearchBar from '../components/SearchBar.vue'
 
 // Services
 import DishService from '../services/dishService';

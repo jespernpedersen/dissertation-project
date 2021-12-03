@@ -1,4 +1,4 @@
-import Dish from '@/components/Dish/Dish.vue'
+import Dish from '@/components/Dish.vue'
 import { mount } from '@vue/test-utils'
 
 describe('Dish.vue', () => {

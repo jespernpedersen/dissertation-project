@@ -1,5 +1,6 @@
 <template>
     <div class="search-bar">
+        Search Bar
         <v-text-field
             label="Search for dishes here..."
             v-model="searchtext"
