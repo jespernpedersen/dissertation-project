@@ -29,7 +29,9 @@ export default {
         filterSearch() {
             this.dishesResult = [];
             this.dishes.filter(dish => {
-                if(dish.title.match(this.searchtext)) {
+                let searching = this.searchtext.toLowerCase();
+                let title = dish.title.toLowerCase();
+                if(title.match(searching)) {
                     this.dishesResult.push(dish);
                     this.$emit('filter-dish', this.dishesResult)
                 }

@@ -15,7 +15,8 @@
     </SearchBar>
     <h2>Menu</h2>
     <div class="filtered-items" v-if="filteredDishes.length > 0">
-      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+      Filtered
+      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" multiple></AccordionMenu>
     </div>
     <div class="all-items" v-if="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
