@@ -1,7 +1,6 @@
 <template>
     <div>
         <h2>{{ title }}</h2>
-
         <div class="content">
             <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
@@ -18,23 +17,19 @@
                 </v-expansion-panel>
             </v-expansion-panels>
             <h3 v-else-if="isLoading">Loading...</h3>
-            <div v-else class="error-msg">
-                <h3>Something went wrong</h3>
-                <p>There was a problem fetching the menu.</p>
-                <div><v-btn color="primary" @click="refresh" id="reload">Try again <v-icon>mdi-refresh</v-icon></v-btn> or <v-btn id="back" @click="back" color="primary"><v-icon>mdi-arrow-left</v-icon> Go back</v-btn></div>
-            </div>
-            
+            <Error v-else></Error>
         </div>
     </div>
 </template>
 
 <script>
 import Dish from "@/components/Dish/Dish";
+import Error from "@/components/ErrorComponent";
 
 export default {
     name: "AccordionMenu",
     props: ["title", "dishes", "courses", "isLoading"],
-    components: { Dish },
+    components: { Dish, Error },
     methods: {
         refresh() {
             location.reload();
