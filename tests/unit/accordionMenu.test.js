@@ -9,6 +9,18 @@ import { vuetifyConfig } from '@/plugins/vuetifyConfig';
 describe("Menu", () => {
 
     let app;
+
+    const courses = [{
+        "id": 0,
+        "name": "Starters",
+        "slug": "starters"
+    },
+    {
+        "id": 1,
+        "name": "Soup",
+        "slug": "soup"
+    }];
+
     const localVue = createLocalVue();
     let vuetify = new Vuetify(vuetifyConfig);
 
@@ -44,12 +56,8 @@ describe("Menu", () => {
                     "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
                     "course": 0,
                     "isTodaysSpecial": false
-                },],
-                courses: [{
-                    "id": 0,
-                    "name": "Starters",
-                    "slug": "starters"
                 }],
+                courses: courses,
                 isLoading: false
             },
             localVue,
@@ -137,6 +145,40 @@ describe("Menu", () => {
             configurable: true,
             value: {back: original}
         })
+    });
+
+    it("doesn't render empty sections", () => {
+
+        const dishes = [{
+            "title": "Spaghetti Bolognese",
+            "description": "Spaghetti Bolognese",
+            "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
+            "price": 69,
+            "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+            "course": 0,
+            "isTodaysSpecial": false
+        },
+        {
+            "title": "Spaghetti Bolognese",
+            "description": "Spaghetti Bolognese",
+            "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
+            "price": 69,
+            "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+            "course": 0,
+            "isTodaysSpecial": false
+        }];
+
+        let app = mount(Menu, {
+            propsData: {
+                dishes: dishes,
+                courses: courses,
+                isLoading: false
+            },
+            localVue,
+            vuetify
+        });
+
+        expect(app.findAll(".v-expansion-panel").length).toBe(1);
     })
 
 })
