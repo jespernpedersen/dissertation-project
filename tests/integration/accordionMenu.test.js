@@ -52,11 +52,17 @@ describe("Accordionn Menu", () => {
         },
     ]
     const localVue = createLocalVue();
-    let vuetify;
+    let vuetify, wrapper;
 
     beforeEach(() => {
         vuetify = new Vuetify(vuetifyConfig);
     });
+
+    afterEach(() => {
+        if(wrapper){
+            wrapper.destroy();
+        }
+    })
 
     it("displays all courses", () => {
 
@@ -108,5 +114,67 @@ describe("Accordionn Menu", () => {
         expect(soupsSection.find(".dish-inner:first-of-type h3").text()).toBe(dishes[1].title);
 
     })
+
+    it("shows loading", () => {
+
+        let wrapper = mount(AccordionMenu, {
+            propsData:{
+                dishes: [],
+                courses: [],
+                isLoading: true
+            },
+            vuetify,
+            localVue
+        });
+
+        let h3 = wrapper.find('h3');
+        expect(h3.exists()).toBeTruthy();
+        expect(h3.text()).toBe("Loading...");
+    });
+
+    it("hides loading when dishes are ready", () => {
+
+        let wrapper = mount(AccordionMenu, {
+            propsData: {
+                dishes: [{
+                    "title": "Spaghetti Bolognese",
+                    "description": "Spaghetti Bolognese",
+                    "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
+                    "price": 69,
+                    "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+                    "course": 0,
+                    "isTodaysSpecial": false
+                },],
+                courses: [{
+                    "id": 0,
+                    "name": "Starters",
+                    "slug": "starters"
+                }],
+                isLoading: false
+            },
+            localVue,
+            vuetify
+        });
+
+        expect(wrapper.find('h3').exists()).toBeFalsy();
+
+    });
+
+    it("shows error", () => {
+
+        let wrapper = mount(AccordionMenu, {
+            propsData: {
+                dishes: [],
+                courses: [],
+                isLoading: false
+            },
+            localVue,
+            vuetify
+        });
+
+        let h3 = wrapper.find(".error-msg h3");
+        expect(h3.exists()).toBeTruthy();
+        expect(h3.text()).toContain("Something went wrong");
+    });
 
 })
