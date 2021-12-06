@@ -2,11 +2,10 @@
     <div class="todays-special-wrapper">
       <div class="todays-special">
         <h2>{{ title }}</h2>
-        <v-slide-group
+        <v-slide-group v-if="!isLoading && dishes.length > 0"
           multiple
           height="200"
           class="wrapper"
-          v-if="!isLoading && dishes.length > 0"
         >
           <v-slide-item class="special-dish" v-for="dish in dishes" :key="dish.id">
             <Dish
