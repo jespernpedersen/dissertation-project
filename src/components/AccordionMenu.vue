@@ -62,7 +62,6 @@ export default {
             this.dishes.forEach(dish => {
                 filteredDishes[dish.course].dishes.push(dish);
             });
-
             
             if(this.activeByDefault) {
                 this.openAllItems(this.courses);

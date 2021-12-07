@@ -14,10 +14,11 @@
         </button>
     </div>
 </template>
+
 <script>
 export default {
     name: 'SearchBar',
-    props: ['hasFiltedItems', 'dishes'],
+    props: ['dishes'],
     data () {
         return {
             searchtext: '',
