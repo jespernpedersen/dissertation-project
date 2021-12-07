@@ -13,6 +13,7 @@ import HorizontalMenu from '../components/HorizontalMenu';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
@@ -59,6 +60,9 @@ export default {
     }
   }, 
   computed: {
+    ...mapGetters([
+      'isLoadingMenu'
+    ]),
     courses() {
       return this.$store.state.restaurant.courses;
     },
@@ -70,9 +74,6 @@ export default {
     },
     todaysSpecial() {
       return this.$store.state.restaurant.todaysSpecial
-    },
-    isLoadingMenu() {
-      return this.$store.state.isLoadingMenu;
     },
     isLoadingSpecials() {
       return this.$store.state.restaurant.loading.todaysSpecial;

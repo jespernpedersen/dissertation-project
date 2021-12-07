@@ -2,7 +2,7 @@
     <div>
         <h2>{{ title }}</h2>
         <div class="content">
-            <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
+            <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0 && !isLoading">
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
                     <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -16,7 +16,7 @@
                     </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
-            <h3 v-else-if="isLoading">Loading...</h3>
+            <AccordionPlaceholder v-else-if="isLoading"></AccordionPlaceholder>
             <Error v-else></Error>
         </div>
     </div>
@@ -25,11 +25,12 @@
 <script>
 import Dish from "@/components/Dish/Dish";
 import Error from "@/components/ErrorComponent";
+import AccordionPlaceholder from './placeholders/AccordionPlaceholder.vue';
 
 export default {
     name: "AccordionMenu",
     props: ["title", "dishes", "courses", "isLoading"],
-    components: { Dish, Error },
+    components: { Dish, Error, AccordionPlaceholder },
     methods: {
         refresh() {
             location.reload();
@@ -61,17 +62,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h2 {
     text-align: center;
     margin-bottom: 25px;
-}
-
-.error-msg {
-    text-align: center;
-}
-
-.error-msg h3{
-    color: darkred;
+    margin-top: 40px;
 }
 </style>
