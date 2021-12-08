@@ -9,7 +9,7 @@
         </v-text-field>
         <button v-if="searchtext != ''" @click="clearFilter">
             <figure>
-                <v-icon size="24px" >mdi-close</v-icon>
+                <v-icon size="24px">mdi-close</v-icon>
             </figure>
         </button>
     </div>
