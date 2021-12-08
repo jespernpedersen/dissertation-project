@@ -1,9 +1,7 @@
 <template>
     <div>
-        <h2>{{ title }}</h2>
-
         <div class="content">
-            <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0">
+            <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0" v-model="panel" multiple>
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
                     <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
                     <v-expansion-panel-content>
@@ -29,11 +27,14 @@
 </template>
 
 <script>
-import Dish from "@/components/Dish/Dish";
+import Dish from "@/components/Dish";
 
 export default {
     name: "AccordionMenu",
-    props: ["title", "dishes", "courses", "isLoading"],
+    data: () => ({
+      panel: []
+    }),
+    props: ["title", "dishes", "courses", "isLoading", "activeByDefault"],
     components: { Dish },
     methods: {
         refresh() {
@@ -41,11 +42,13 @@ export default {
         },
         back() {
             window.history.back();
+        },
+        openAllItems(items) {
+            this.panel = [...Array(items.length)].map((k, i) => i);
         }
     },
     computed: {
         dishesByCourse(){
-
             if(this.courses.length < 1 || this.dishes.length < 1){
                 return {};
             }
@@ -59,6 +62,10 @@ export default {
             this.dishes.forEach(dish => {
                 filteredDishes[dish.course].dishes.push(dish);
             });
+            
+            if(this.activeByDefault) {
+                this.openAllItems(this.courses);
+            }
 
             return filteredDishes;
         }

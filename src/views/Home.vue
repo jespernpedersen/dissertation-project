@@ -1,12 +1,37 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+    <div class="todays-special-wrapper">
+      <div class="categories" v-for="category in categories" :key="category">
+        {{ category }}
+      </div>
+    </div>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    <SearchBar
+      :dishes="dishes"
+      @filter-dish="filterByText"
+      @clear-filter="clearFilter"
+    >
+    </SearchBar>
+    <h2>Menu</h2>
+    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
+      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
+    </div>
+    <div class="all-items" v-show="filteredDishes.length == 0">
+      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
+    </div>
   </div>
 </template>
 <script>
 // Components
+import Dish from '../components/Dish.vue';
+import SearchBar from '../components/SearchBar.vue'
+
+// Services
+import DishService from '../services/dishService';
+import CategoriesService from '../services/mockCategoriesService';
+
+// @ is an alias to /src
 import AccordionMenu from '@/components/AccordionMenu.vue'
 import Header from '@/components/Header.vue'
 import HorizontalMenu from '../components/HorizontalMenu';
@@ -16,11 +41,12 @@ import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/sto
 
 export default {
   name: 'Home',
-  components: { AccordionMenu, Header, HorizontalMenu },
+  components: { AccordionMenu, Header, HorizontalMenu, Dish, DishService, CategoriesService, SearchBar },
   data () {
     return {
       dishesSpecial: [],
-      categories: []
+      categories: [],
+      filteredDishes: []
     }
   },
   methods: {
@@ -39,21 +65,24 @@ export default {
       } catch (error) {
         console.log(error);
       }  
-    }   
+    },
+    filterByText(filteredDishes) {
+      this.filteredDishes = filteredDishes;
+    },
+    clearFilter() {
+      this.filteredDishes = [];
+    }
   },
   mounted: function () {
-
     if(Object.keys(this.$store.state.restaurant.data).length === 0){
       this.$store.dispatch(GET_RESTAURANT, 1);
     }
     if(this.$store.state.restaurant.dishes.length === 0){
       this.$store.dispatch(GET_DISHES, 1);
     }
-
     if(this.$store.state.restaurant.courses.length === 0){
       this.$store.dispatch(GET_COURSES, 1);
     }
-
     if(this.$store.state.restaurant.todaysSpecial.length === 0){
       this.$store.dispatch(GET_TODAYS_SPECIAL, 1);
     }

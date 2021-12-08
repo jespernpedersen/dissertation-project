@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Dish from "@/components/Dish/Dish";
+import Dish from "@/components/Dish";
 
 export default {
     name: "HorizontalMenu",
