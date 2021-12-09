@@ -14,34 +14,46 @@ export const storeConfig = {
       courses: [],
       todaysSpecial: [],
       categories: [],
-      loading: {
-        categories: true,
-        courses: true,
-        dishes: true,
-        restaurant: true,
-        todaysSpecial: true
-      }
     },
+    restaurants: [],
+    isLoading: {
+      categories: true,
+      courses: true,
+      dishes: true,
+      restaurant: true,
+      restaurants: true,
+      todaysSpecial: true
+    }
   },
   getters: {
     isLoadingMenu: state => {
-      return state.restaurant.loading.courses || state.restaurant.loadnig.dishes;
+      return state.isLoading.courses || state.isLoading.dishes;
     }
   },
   mutations: {
     setInRestaurant: (state, payload) => {
       state.restaurant[payload.prop] = payload.data;
     },
+    setRestaurants: (state, payload) => {
+      state.restaurants = payload;
+    },
     loaded: (state, payload) => {
-      state.restaurant.loading[payload] = false;
+      state.isLoading[payload] = false;
     }
   },
   actions: {
-    getRestaurant: ({commit}, id) => {
-      RestaurantService.get(id).then(data => {
+    getRestaurant: ({commit}, slug) => {
+      RestaurantService.getBySlug(slug).then(data => {
         commit("setInRestaurant", {prop: "data", data: data});
       }).finally(data => {
-        commit("loaded", "restaurant");
+        commit("loaded", "restaurants");
+      });
+    },
+    getRestaurants: ({commit}) => {
+      RestaurantService.getAll().then(data => {
+        commit("setRestaurants", data);
+      }).finally(data => {
+        commit("loaded", "restaurants");
       });
     },
     getDishes: ({commit}, restaurantId) => {

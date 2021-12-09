@@ -1,83 +1,29 @@
 <template>
   <div>
-    <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
-    <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    <div v-for="restaurant in restaurants" v-bind:key="restaurant.id">
+     <h1><router-link :to="'/restaurant/'+restaurant.slug">{{restaurant.title}}</router-link></h1>
+    </div>
   </div>
 </template>
 <script>
 // Components
-import AccordionMenu from '@/components/AccordionMenu.vue'
-import Header from '@/components/Header.vue'
-import HorizontalMenu from '../components/HorizontalMenu';
+import Dish from '../components/Dish/Dish.vue';
 
 // Additional
-import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
+import {GET_RESTAURANTS} from '@/store/actions';
+import {mapState} from 'vuex';
 
 export default {
+  components: { Dish },
   name: 'Home',
-  components: { AccordionMenu, Header, HorizontalMenu },
-  data () {
-    return {
-      dishesSpecial: [],
-      categories: []
+  mounted() {
+    if(this.$store.state.restaurants.length === 0){
+      this.$store.dispatch(GET_RESTAURANTS, 1);
     }
   },
-  methods: {
-    async getSpecialDishes() {
-      try {
-        const data = await DishesService.getTodaysSpecial();
-        this.dishesSpecial = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    },
-    async getCategories() {
-      try {
-        const data = await CategoriesService.getAllCategories();
-        this.categories = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    }   
-  },
-  mounted: function () {
-
-    if(Object.keys(this.$store.state.restaurant.data).length === 0){
-      this.$store.dispatch(GET_RESTAURANT, 1);
-    }
-    if(this.$store.state.restaurant.dishes.length === 0){
-      this.$store.dispatch(GET_DISHES, 1);
-    }
-
-    if(this.$store.state.restaurant.courses.length === 0){
-      this.$store.dispatch(GET_COURSES, 1);
-    }
-
-    if(this.$store.state.restaurant.todaysSpecial.length === 0){
-      this.$store.dispatch(GET_TODAYS_SPECIAL, 1);
-    }
-  }, 
-  computed: {
-    courses() {
-      return this.$store.state.restaurant.courses;
-    },
-    dishes() {
-      return this.$store.state.restaurant.dishes;
-    },
-    restaurant() {
-      return this.$store.state.restaurant.data;
-    },
-    todaysSpecial() {
-      return this.$store.state.restaurant.todaysSpecial
-    },
-    isLoadingMenu() {
-      return this.$store.state.isLoadingMenu;
-    },
-    isLoadingSpecials() {
-      return this.$store.state.restaurant.loading.todaysSpecial;
-    }
-  } 
+  computed: mapState([
+    "restaurants"
+  ])
 }
 </script>
 <style scoped>
