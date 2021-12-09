@@ -3,16 +3,16 @@
         <div class="content">
             <v-expansion-panels accordion v-if="Object.keys(dishesByCourse).length > 0" v-model="panel" multiple>
                 <v-expansion-panel v-for="(course, i) in dishesByCourse" :key="i">
-                    <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
-                    <v-expansion-panel-content>
-                        <Dish v-for="dish in course.dishes" :key="dish.id"
-                        :title="dish.title"
-                        :image="dish.cover_image"
-                        :description="dish.description"
-                        :price="dish.price"
-                        :ingredients="dish.ingredients"
-                        ></Dish>
-                    </v-expansion-panel-content>
+                        <v-expansion-panel-header>{{course.name}}</v-expansion-panel-header>
+                        <v-expansion-panel-content>
+                            <Dish v-for="dish in course.dishes" :key="dish.id"
+                            :title="dish.title"
+                            :image="dish.cover_image"
+                            :description="dish.description"
+                            :price="dish.price"
+                            :ingredients="dish.ingredients"
+                            ></Dish>
+                        </v-expansion-panel-content>
                 </v-expansion-panel>
             </v-expansion-panels>
             <h3 v-else-if="isLoading">Loading...</h3>
@@ -67,6 +67,11 @@ export default {
                 this.openAllItems(this.courses);
             }
 
+            Object.keys(filteredDishes).forEach(course => {
+                if(filteredDishes[course].dishes.length === 0){
+                    delete filteredDishes[course];
+                }
+            });
             return filteredDishes;
         }
     }
