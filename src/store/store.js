@@ -39,15 +39,27 @@ export const storeConfig = {
     },
     loaded: (state, payload) => {
       state.isLoading[payload] = false;
+    },
+    resetRestaurant: (state) => {
+      state.restaurant = {
+        data: {},
+        dishes: [],
+        courses: [],
+        todaysSpecial: [],
+        categories: []
+      };
     }
   },
   actions: {
     getRestaurant: ({commit}, slug) => {
-      RestaurantService.getBySlug(slug).then(data => {
-        commit("setInRestaurant", {prop: "data", data: data});
-      }).finally(data => {
-        commit("loaded", "restaurants");
-      });
+        RestaurantService.getBySlug(slug).then(data => {
+          commit("setInRestaurant", {prop: "data", data: data});
+        }).finally(data => {
+          commit("loaded", "restaurants");
+        });
+    },
+    resetRestaurant: ({commit}) => {
+      commit("resetRestaurant");
     },
     getRestaurants: ({commit}) => {
       RestaurantService.getAll().then(data => {
