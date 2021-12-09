@@ -12,7 +12,7 @@ import Header from '@/components/Header.vue'
 import HorizontalMenu from '../components/HorizontalMenu';
 
 // Additional
-import {GET_DISHES, GET_COURSES, GET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
+import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
 
 export default {
@@ -45,21 +45,25 @@ export default {
   },
   mounted: function () {
 
-    if(Object.keys(this.restaurant).length === 0){
-      this.$store.dispatch(GET_RESTAURANT, this.slug);
-    }
-    if(this.dishes === 0){
-      this.$store.dispatch(GET_DISHES, 1);
-    }
+    if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
+      this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
+          if(this.dishes.length === 0){
+            this.$store.dispatch(GET_DISHES, this.restaurant.id);
+          }
 
-    if(this.courses.length === 0){
-      this.$store.dispatch(GET_COURSES, 1);
-    }
+          if(this.courses.length === 0){
+            this.$store.dispatch(GET_COURSES, this.restaurant.id);
+          }
 
-    if(this.todaysSpecial.length === 0){
-      this.$store.dispatch(GET_TODAYS_SPECIAL, 1);
+          if(this.todaysSpecial.length === 0){
+            this.$store.dispatch(GET_TODAYS_SPECIAL, this.restaurant.id);
+          }
+      })
     }
   }, 
+  beforeDestroy: function() {
+    this.$store.dispatch(RESET_RESTAURANT);//reset restaurant info
+  },
   computed: mapState({
     courses: state => state.restaurant.courses,
     dishes: state => state.restaurant.dishes,
