@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Dish from "@/components/Dish/Dish";
+import Dish from "@/components/Dish";
 import Error from "@/components/ErrorComponent";
 
 export default {
