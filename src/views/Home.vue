@@ -6,15 +6,11 @@
   </div>
 </template>
 <script>
-// Components
-import Dish from '../components/Dish/Dish.vue';
-
 // Additional
 import {GET_RESTAURANTS} from '@/store/actions';
 import {mapState} from 'vuex';
 
 export default {
-  components: { Dish },
   name: 'Home',
   mounted() {
     if(this.$store.state.restaurants.length === 0){
