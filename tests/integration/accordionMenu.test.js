@@ -127,9 +127,8 @@ describe("Accordionn Menu", () => {
             localVue
         });
 
-        let h3 = wrapper.find('h3');
+        let h3 = wrapper.find('ul');
         expect(h3.exists()).toBeTruthy();
-        expect(h3.text()).toBe("Loading...");
     });
 
     it("hides loading when dishes are ready", () => {

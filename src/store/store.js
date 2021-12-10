@@ -25,7 +25,10 @@ export const storeConfig = {
   },
   getters: {
     isLoadingMenu: state => {
-      return state.restaurant.loading.courses || state.restaurant.loadnig.dishes;
+      if(state.restaurant.loading.courses && state.restaurant.loading.dishes) {
+        return true;
+      }
+      return false;
     }
   },
   mutations: {
@@ -33,7 +36,7 @@ export const storeConfig = {
       state.restaurant[payload.prop] = payload.data;
     },
     loaded: (state, payload) => {
-      state.restaurant.loading[payload] = false;
+        state.restaurant.loading[payload] = false;
     }
   },
   actions: {
