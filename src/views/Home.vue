@@ -75,5 +75,10 @@ export default {
     text-transform: none;
     box-shadow: none;
     font-size: 14px;
+  .filtering {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 </style>
