@@ -7,12 +7,16 @@
       </div>
     </div>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <SearchBar
-      :dishes="dishes"
-      @filter-dish="filterByText"
-      @clear-filter="clearFilter"
-    >
-    </SearchBar>
+    <div class="filtering">
+      <Filters>
+      </Filters>
+      <SearchBar
+        :dishes="dishes"
+        @filter-dish="filterByText"
+        @clear-filter="clearFilter"
+      >
+      </SearchBar>
+    </div>
     <h2>Menu</h2>
     <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
       <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
@@ -25,7 +29,8 @@
 <script>
 // Components
 import Dish from '../components/Dish.vue';
-import SearchBar from '../components/SearchBar.vue'
+import SearchBar from '../components/SearchBar.vue';
+import Filters from '../components/Filters.vue';
 
 // Services
 import DishService from '../services/dishService';
@@ -42,7 +47,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Home',
-  components: { AccordionMenu, Header, HorizontalMenu, Dish, DishService, CategoriesService, SearchBar },
+  components: { AccordionMenu, Header, HorizontalMenu, Dish, DishService, CategoriesService, SearchBar, Filters },
   data () {
     return {
       dishesSpecial: [],
@@ -127,5 +132,11 @@ export default {
   }
   .special-dish + .special-dish {
     margin-left: 15px;
+  }
+  .filtering {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 </style>

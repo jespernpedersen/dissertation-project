@@ -47,7 +47,7 @@ export default {
 </script>
 <style scoped>
     .search-bar {
-        padding: 0 20px;
-        display: flex;
+        width: 100%;
+        margin-left: 10px;
     }
 </style>
