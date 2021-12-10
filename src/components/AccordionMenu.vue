@@ -30,6 +30,9 @@ export default {
     name: "AccordionMenu",
     props: ["title", "dishes", "courses", "isLoading", "activeByDefault"],
     components: { Dish, Error, AccordionPlaceholder },
+    data: () => ({
+        panel: []
+    }),
     methods: {
         refresh() {
             location.reload();
