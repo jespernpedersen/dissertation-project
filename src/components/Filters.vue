@@ -83,12 +83,12 @@
               <v-list-item-subtitle>You can sort by a certain price range of what fits within the budget you intend to go with.</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-subheader>General</v-subheader>
           <div class="price-slider">
             <v-range-slider
               v-model="range"
               :max="max"
               :min="min"
+              step="5"
               class="align-center"
             >
             </v-range-slider>
