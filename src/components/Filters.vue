@@ -37,7 +37,7 @@
             <v-btn
               dark
               text
-              @click="dialog = false"
+              @click="filterDishes()"
             >
               Filter
             </v-btn>
@@ -47,51 +47,46 @@
           three-line
           subheader
         >
-          <v-subheader>User Controls</v-subheader>
+        
           <v-list-item>
             <v-list-item-content>
-              <v-list-item-title>Content filtering</v-list-item-title>
-              <v-list-item-subtitle>Set the content filtering level to restrict apps that can be downloaded</v-list-item-subtitle>
+              <v-list-item-title>Price Range</v-list-item-title>
+              <v-list-item-subtitle>You can sort by a certain price range of what fits within the budget you intend to go with.</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>Password</v-list-item-title>
-              <v-list-item-subtitle>Require password for purchase or use password to restrict purchase</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-        <v-divider></v-divider>
-        <v-list
-          three-line
-          subheader
-        >
           <v-subheader>General</v-subheader>
+          <div class="price-slider">
+            <v-range-slider
+              v-model="range"
+              :max="max"
+              :min="min"
+              class="align-center"
+            >
+            </v-range-slider>
+            <div class="min-max">
+              <v-text-field
+                label="Minimum Price"
+                filled
+                :value="range[0]"
+                @change="$set(range, 0, $event)"
+              >
+              </v-text-field>
+              <v-text-field
+                label="Maximum Price"
+                filled
+                :value="range[1]"
+                @change="$set(range, 1, $event)"
+              >
+              </v-text-field>
+            </div>
+          </div>
           <v-list-item>
             <v-list-item-action>
-              <v-checkbox v-model="notifications"></v-checkbox>
+              <v-checkbox v-model="opennow"></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title>Notifications</v-list-item-title>
-              <v-list-item-subtitle>Notify me about updates to apps or games that I downloaded</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-action>
-              <v-checkbox v-model="sound"></v-checkbox>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Sound</v-list-item-title>
-              <v-list-item-subtitle>Auto-update apps at any time. Data charges may apply</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-action>
-              <v-checkbox v-model="widgets"></v-checkbox>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Auto-add widgets</v-list-item-title>
-              <v-list-item-subtitle>Automatically add home screen widgets</v-list-item-subtitle>
+              <v-list-item-title>Open Now</v-list-item-title>
+              <v-list-item-subtitle>You can sort by a certain price range of what fits within the budget you intend to go with</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -104,21 +99,36 @@ export default {
     name: 'Filters',
     data () {
         return {
-            dialog: false,
-            notifications: false,
-            sound: true,
-            widgets: false,
-            isLoading: false,
-            dishesResult: []
+          dialog: false,
+          isLoading: false,
+          min: -50,
+          max: 90,
+          range: [-20, 70],
+          dishesResult: []
         }
     },
     methods: {
         clearFilter() {
-            this.searchtext = '';
-            this.$emit('clear-filter')
+          this.searchtext = '';
+          this.$emit('clear-filter')
+        },
+        filterDishes() {
+          console.log(this.min);
+
+          //end -- this.dialog = false
         }
     }
 }
 </script>
 <style scoped>
+  .min-max {
+    display: flex;
+    padding: 0 20px;
+  }
+  .min-max .v-text-field {
+    width: 40%;
+  }
+  .min-max .v-text-field:last-child {
+    margin-left: 20px;
+  }
 </style>
