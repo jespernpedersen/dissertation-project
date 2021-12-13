@@ -1,7 +1,7 @@
 <template>
     <div class="search-bar">
         <v-text-field
-            label="Search for dishes here..."
+            label="Do you have an idea what you're looking for?"
             v-model="searchtext"
             :loading="isLoading"
             @keyup="filterSearch()"
