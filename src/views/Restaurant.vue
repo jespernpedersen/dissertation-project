@@ -54,6 +54,7 @@ export default {
   props: ["slug"],
   data () {
     return {
+      dishesSpecial: [],
       categories: [],
       filteredDishes: []
     }
