@@ -2,6 +2,16 @@
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+    <div class="filtering">
+      <Filters>
+      </Filters>
+      <SearchBar
+        :dishes="dishes"
+        @filter-dish="filterByText"
+        @clear-filter="clearFilter"
+      >
+      </SearchBar>
+    </div>
     <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
   </div>
 </template>
@@ -10,12 +20,13 @@
 import AccordionMenu from '@/components/AccordionMenu.vue'
 import Header from '@/components/Header.vue'
 import HorizontalMenu from '../components/HorizontalMenu';
-import SearchBar from '../components/SearchBar';
-import Filters from '../components/Filters';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
+import SearchBar from '../components/SearchBar.vue';
+import Filters from '../components/Filters';
+
 
 export default {
   name: 'Restaurant',
@@ -92,5 +103,11 @@ export default {
   }
   .special-dish + .special-dish {
     margin-left: 15px;
+  }
+  .filtering {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 </style>

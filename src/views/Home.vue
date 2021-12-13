@@ -1,7 +1,9 @@
 <template>
   <div>
     <div v-for="restaurant in restaurants" v-bind:key="restaurant.id">
-     <h1><router-link :to="'/restaurant/'+restaurant.slug">{{restaurant.title}}</router-link></h1>
+     <h1>
+       <router-link :to="'/restaurant/'+restaurant.slug">{{restaurant.title}}</router-link>
+      </h1>
     </div>
   </div>
 </template>
@@ -23,27 +25,4 @@ export default {
 }
 </script>
 <style scoped>
-  .dishes {
-    padding: 30px 10px;
-  }
-  .dishes .dish {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  .todays-special {
-    text-align: center;
-  }
-  .special-dish {
-    display: inline-block;
-  }
-  .special-dish + .special-dish {
-    margin-left: 15px;
-  }
-  .filtering {
-    padding: 0 20px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
 </style>
