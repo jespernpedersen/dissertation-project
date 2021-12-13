@@ -97,6 +97,7 @@
 <script>
 export default {
     name: 'Filters',
+    props: ['dishes'],
     data () {
         return {
           dialog: false,
@@ -105,17 +106,19 @@ export default {
           range: [15, 200],
           dishesResult: [],
           sortBy: [],
-          sortItems: ["Alphabetically", "Price"]
+          sortItems: ["Alphabetically", "Price ascending", "Price descending"]
         }
     },
     methods: {
         filterDishes() {
-          // All filter arguments
-          let filterArray = {
-            openNow: this.opennow,
-            priceRange: this.range
-          }
-          console.log(filterArray);
+          this.dishesResult = [];
+          // Price Range Filtering
+          this.dishes.forEach(dish => {
+            if(dish.price > this.range[0] && dish.price < this.range[1]) {
+              this.dishesResult.push(dish);
+            }
+          })
+          this.$emit('filter-dish', this.dishesResult)
           this.dialog = false
         }
     }
