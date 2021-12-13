@@ -48,23 +48,6 @@ export default {
 }
 </script>
 <style scoped>
-  .restaurant-list {
-    padding: 10px 10px;
-  }
-  .restaurant-list .restaurant {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-  }
-  .todays-special {
-    text-align: center;
-  }
-  .special-dish {
-    display: inline-block;
-  }
-  .special-dish + .special-dish {
-    margin-left: 15px;
-  }
   .cta-row {
     text-align: center;
     width: 100%;
@@ -75,6 +58,7 @@ export default {
     text-transform: none;
     box-shadow: none;
     font-size: 14px;
+  }
   .filtering {
     padding: 0 20px;
     display: flex;
