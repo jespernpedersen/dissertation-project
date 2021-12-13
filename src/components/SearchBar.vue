@@ -49,5 +49,6 @@ export default {
     .search-bar {
         width: 100%;
         margin-left: 10px;
+        display: flex;
     }
 </style>

@@ -54,12 +54,12 @@
               <v-list-item-subtitle>You can sort by a certain price range of what fits within the budget you intend to go with.</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
-          <v-subheader>General</v-subheader>
           <div class="price-slider">
             <v-range-slider
               v-model="range"
               :max="max"
               :min="min"
+              step="5"
               class="align-center"
             >
             </v-range-slider>
@@ -86,7 +86,7 @@
             </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title>Open Now</v-list-item-title>
-              <v-list-item-subtitle>You can sort by a certain price range of what fits within the budget you intend to go with</v-list-item-subtitle>
+              <v-list-item-subtitle>Only list currently open restaurants</v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -100,10 +100,10 @@ export default {
     data () {
         return {
           dialog: false,
-          isLoading: false,
-          min: -50,
-          max: 90,
-          range: [-20, 70],
+          min: 0,
+          max: 200,
+          range: [15, 200],
+          opennow: true,
           dishesResult: []
         }
     },
@@ -113,14 +113,21 @@ export default {
           this.$emit('clear-filter')
         },
         filterDishes() {
-          console.log(this.min);
-
-          //end -- this.dialog = false
+          // All filter arguments
+          let filterArray = {
+            openNow: this.opennow,
+            priceRange: this.range
+          }
+          console.log(filterArray);
+          this.dialog = false
         }
     }
 }
 </script>
 <style scoped>
+  .v-range-slider {
+    padding: 0 20px;
+  }
   .min-max {
     display: flex;
     padding: 0 20px;
