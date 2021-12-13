@@ -3,17 +3,25 @@
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
     <div class="filtering">
-      <Filters>
+      <Filters
+        :dishes="dishes"
+        @filter-dish="filterDishes"
+        @clear-filter="clearFilter"
+      >
       </Filters>
       <SearchBar
         :dishes="dishes"
-        @filter-dish="filterByText"
+        @filter-dish="filterDishes"
         @clear-filter="clearFilter"
       >
       </SearchBar>
     </div>
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
-    <LowerNavbar :courses="courses"></LowerNavbar>
+    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
+      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
+    </div>
+    <div class="all-items" v-show="filteredDishes.length == 0">
+      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
+    </div>
   </div>
 </template>
 <script>
@@ -34,7 +42,8 @@ export default {
   data () {
     return {
       dishesSpecial: [],
-      categories: []
+      categories: [],
+      filteredDishes: []
     }
   },
   methods: {
@@ -53,7 +62,14 @@ export default {
       } catch (error) {
         console.log(error);
       }  
-    }   
+    },
+    filterDishes(filteredDishes) {
+      console.log(filteredDishes);
+      this.filteredDishes = filteredDishes;
+    },
+    clearFilter() {
+      this.filteredDishes = [];
+    }
   },
   mounted: function () {
 

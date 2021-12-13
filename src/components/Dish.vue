@@ -12,9 +12,11 @@
                 <span>{{ pricetext }}</span>
             </div>
         </div>
+        <!-- Uncomment this when you can add to cart
         <div class="dish-add-item"  @click="addDishItem(dish)" v-if="layout == 'horizontal'">
             +
-        </div> 
+        </div>
+        --> 
     </div>
 </template>
 <script>
