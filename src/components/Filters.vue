@@ -81,13 +81,13 @@
             </div>
           </div>
           <v-list-item>
-            <v-list-item-action>
-              <v-checkbox v-model="opennow"></v-checkbox>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>Open Now</v-list-item-title>
-              <v-list-item-subtitle>Only list currently open restaurants</v-list-item-subtitle>
-            </v-list-item-content>
+            <v-select 
+              filled
+              v-model="sortBy"
+              :items="sortItems"
+              label="Sort By"
+            >
+            </v-select>
           </v-list-item>
         </v-list>
       </v-card>
@@ -103,15 +103,12 @@ export default {
           min: 0,
           max: 200,
           range: [15, 200],
-          opennow: true,
-          dishesResult: []
+          dishesResult: [],
+          sortBy: [],
+          sortItems: ["Alphabetically", "Price"]
         }
     },
     methods: {
-        clearFilter() {
-          this.searchtext = '';
-          this.$emit('clear-filter')
-        },
         filterDishes() {
           // All filter arguments
           let filterArray = {
