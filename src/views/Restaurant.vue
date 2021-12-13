@@ -2,6 +2,16 @@
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+    <div class="filtering">
+      <Filters>
+      </Filters>
+      <SearchBar
+        :dishes="dishes"
+        @filter-dish="filterByText"
+        @clear-filter="clearFilter"
+      >
+      </SearchBar>
+    </div>
     <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
     <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
@@ -93,5 +103,11 @@ export default {
   }
   .special-dish + .special-dish {
     margin-left: 15px;
+  }
+  .filtering {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
   }
 </style>
