@@ -22,6 +22,7 @@
     <div class="all-items" v-show="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
+    <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
 </template>
 <script>

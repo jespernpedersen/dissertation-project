@@ -6,7 +6,7 @@
       transition="dialog-bottom-transition"
     >
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
+        <v-btn v-show="!filtered"
           class="mx-2"
           color="primary"
           dark
@@ -16,8 +16,34 @@
           small
           outlined
         >
-          <v-icon dark>mdi-filter-menu</v-icon>
+          <v-icon dark>mdi-filter</v-icon>
         </v-btn>
+        <v-btn v-show="filtered"
+          class="mx-2"
+          fab
+          small
+          outlined
+          color="primary"
+          dark
+          @click="clearFilters"
+        >
+          <v-icon dark>mdi-filter-off</v-icon>
+        </v-btn>
+        <v-snackbar
+          color="primary"
+          v-model="snackbar"
+        >
+          {{ text }}
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+       </v-snackbar>        
       </template>
       <v-card>
         <v-toolbar
@@ -47,7 +73,6 @@
           three-line
           subheader
         >
-        
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>Price Range</v-list-item-title>
@@ -103,34 +128,76 @@ export default {
           dialog: false,
           min: 0,
           max: 200,
+          // Arbitrary numbers
           range: [15, 200],
           dishesResult: [],
-          sortBy: [],
-          sortItems: ["Alphabetically", "Price ascending", "Price descending"]
+          sortBy: "Default",
+          filtered: false,
+          snackbar: false,
+          multiLine: false,
+          text: "Filters have been cleared",
+          sortItems: ["Default", "Alphabetically", "Price ascending", "Price descending"]
         }
     },
     methods: {
         filterDishes() {
+          let i = 0;
           this.dishesResult = [];
           // Price Range Filtering
-          this.dishes.forEach(dish => {
-            if(dish.price > this.range[0] && dish.price < this.range[1]) {
-              this.dishesResult.push(dish);
-            }
+          let price_sorting = new Promise((resolve, reject) => {
+            this.dishes.forEach(dish => {
+              i++;
+              // If price is between min and max
+              if(dish.price > this.range[0] && dish.price < this.range[1]) {
+                this.dishesResult.push(dish);
+                if(i === (this.dishes.length - 1)) resolve(this.dishesResult)
+              }
+            })
           })
-          this.$emit('filter-dish', this.dishesResult)
-          this.dialog = false
+          price_sorting.then((dishesResult) => {
+            if(this.sortBy == "Alphabetically") {
+              dishesResult.sort((a, b) => {
+                if(a.title < b.title) { return -1; }
+                if(a.title > b.title) { return 1; }
+                return 0;
+              });
+            }
+            else if(this.sortBy == "Price ascending") {
+              dishesResult.sort((a, b) => {
+                if(a.price > b.price) { return -1; }
+                if(a.price < b.price) { return 1; }
+                return 0;               
+              });
+            }
+            else if(this.sortBy == "Price descending") {
+              dishesResult.sort((a, b) => {
+                if(a.price < b.price) { return -1; }
+                if(a.price > b.price) { return 1; }
+                return 0;               
+              });
+            }
+            this.$emit('filter-dish', dishesResult);
+            this.dialog = false;
+            this.filtered = true;
+          });
+        },
+        clearFilters() {
+          this.snackbar = true;
+          this.$emit('clear-filter');
+          // Reset settings
+          this.sortBy = "Default";
+          this.range = [15, 200];
+          this.filtered = false;
         }
     }
 }
 </script>
 <style scoped>
-  .v-range-slider {
-    padding: 0 20px;
+  .price-slider {
+    padding: 0 15px;
   }
   .min-max {
     display: flex;
-    padding: 0 20px;
   }
   .min-max .v-text-field {
     width: 40%;
