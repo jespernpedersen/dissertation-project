@@ -17,7 +17,14 @@
       </SearchBar>
     </div>
     <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
-      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
+      <h2>Filtered Dishes</h2>
+      <Dish v-for="dish in filteredDishes" :key="dish.id"
+        :title="dish.title"
+        :image="dish.cover_image"
+        :description="dish.description"
+        :price="dish.price"
+        :ingredients="dish.ingredients"
+      ></Dish>
     </div>
     <div class="all-items" v-show="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
@@ -26,8 +33,9 @@
 </template>
 <script>
 // Components
-import AccordionMenu from '@/components/AccordionMenu.vue'
-import Header from '@/components/Header.vue'
+import Dish from '@/components/Dish.vue'
+import AccordionMenu from '@/components/AccordionMenu.vue';
+import Header from '@/components/Header.vue';
 import HorizontalMenu from '../components/HorizontalMenu';
 
 // Additional
@@ -39,7 +47,7 @@ import Filters from '../components/Filters';
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu, SearchBar, Filters },
+  components: { AccordionMenu, Header, HorizontalMenu, SearchBar, Filters, Dish },
   props: ["slug"],
   data () {
     return {
@@ -66,7 +74,6 @@ export default {
       }  
     },
     filterDishes(filteredDishes) {
-      console.log(filteredDishes);
       this.filteredDishes = filteredDishes;
     },
     clearFilter() {
@@ -126,5 +133,13 @@ export default {
     display: flex;
     align-items: center;
     width: 100%;
+  }
+  .filtered-items {
+    text-align: center;
+  }
+  .filtered-items h2 {
+    text-align: left;
+    padding: 0 40px;
+    margin-bottom: 20px;
   }
 </style>

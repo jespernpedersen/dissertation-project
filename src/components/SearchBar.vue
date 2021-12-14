@@ -40,7 +40,7 @@ export default {
         },
         clearFilter() {
             this.searchtext = '';
-            this.$emit('clear-filter')
+            this.$emit('clear-filter');
         }
     }
 }
