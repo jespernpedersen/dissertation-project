@@ -29,10 +29,6 @@
     <div class="all-items" v-if="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
-<<<<<<< HEAD
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
-=======
->>>>>>> 2cea908 (Filters component finished)
     <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
 </template>
