@@ -150,8 +150,8 @@ export default {
               // If price is between min and max
               if(dish.price > this.range[0] && dish.price < this.range[1]) {
                 this.dishesResult.push(dish);
-                if(i === (this.dishes.length - 1)) resolve(this.dishesResult)
               }
+              if(i === (this.dishes.length - 1)) resolve(this.dishesResult)
             })
           })
           price_sorting.then((dishesResult) => {
