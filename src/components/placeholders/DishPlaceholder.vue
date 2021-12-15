@@ -1,5 +1,5 @@
 <template>
-    <article>
+    <article class="dish-placeholder">
         <figure class="wave"></figure>
         <span class="title wave"></span>
         <span class="description wave"></span>

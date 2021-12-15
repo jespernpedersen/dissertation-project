@@ -1,69 +1,74 @@
-import { createLocalVue, mount } from '@vue/test-utils';
 import HorizontalMenu from '@/components/HorizontalMenu';
+
+// Data
+import dishes from '@/assets/data/dishes.json';
 
 import Vuetify from 'vuetify';
 import { vuetifyConfig } from '@/plugins/vuetifyConfig';
+import { createLocalVue, mount } from '@vue/test-utils';
+import { cloneDeep } from 'lodash';
 
-describe("HorizontalMenu.vue", () => {
-
-    const dishes = [{
-        "title": "Amici Di Vincenzo",
-        "description": "Spaghetti Bolognese",
-        "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
-        "price": 69,
-        "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-        "categories": [0, 1],
-        "course": 0,
-        "isTodaysSpecial": false
-    },
-
-    {
-        "title": "Steve's Grubhub",
-        "description": "GooBurber",
-        "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
-        "price": 50,
-        "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
-        "categories": [0],
-        "course": 1,
-        "isTodaysSpecial": false
-    },
-
-    {
-        "title": "Bake n' cake",
-        "description": "croquembouche",
-        "ingredients": "Profiteroles, Caramel, Chocolate",
-        "price": 169,
-        "cover_image": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
-        "categories": [1],
-        "isTodaysSpecial": true,
-        "course": 4
-    }];
+describe("Horizontal Menu", () => {
 
     const localVue = createLocalVue();
-    let vuetify;
+    let vuetify, wrapper;
 
     beforeEach(() => {
         vuetify = new Vuetify(vuetifyConfig);
     });
 
+    afterEach(() => {
+        if(wrapper){
+            wrapper.destroy();
+        }
+        vuetify = undefined;
+    })
 
-    it("loads dishes properly", () => {
+    it("displays dishes properly", async () => {
 
-        let wrapper = mount(HorizontalMenu, {
+        wrapper = mountMenu(dishes);
+
+        expect(wrapper.findAll(".dish-inner").length).toBe(dishes.length);
+        expect(wrapper.find(".dish-inner:first-of-type h3").text()).toBe(dishes[0].title);
+    })
+
+    it("shows loading", () => {
+
+        let wrapper = mountMenu([],true);
+
+        let placeholders = wrapper.findAll('.dish-placeholder');
+        expect(placeholders.length).toBe(2);
+    });
+
+    it("hides loading when dishes are ready", async () => {
+
+        let wrapper = mountMenu([],true);
+
+        expect(wrapper.findAll('.dish-placeholder').length).toBe(2);
+
+        await wrapper.setProps({dishes: cloneDeep(dishes), isLoading: false});
+
+        expect(wrapper.findAll('.dish-placeholder').length).toBe(0);
+    });
+    
+    it("shows error", () => {
+
+        let wrapper = mountMenu();
+
+        let h3 = wrapper.find(".error-msg h3");
+        expect(h3.exists()).toBeTruthy();
+        expect(h3.text()).toContain("Something went wrong");
+    });
+
+    function mountMenu(dishArray = [], loading = false){
+        return  mount(HorizontalMenu, {
             propsData: {
-                title: "Today's Dishes",
-                dishes: dishes,
-                isLoading: false
+                title: "Menu",
+                dishes: cloneDeep(dishArray),
+                isLoading: loading
             },
             localVue,
             vuetify
         });
-
-        let dish = wrapper.find(".dish-inner");
-        expect(wrapper.findAll(".dish-inner").length).toBe(3);
-        expect(dish.exists()).toBeTruthy();
-        expect(dish.find("h3").text()).toBe(dishes[0].title);
-
-    });
-
-})
+    }
+});
