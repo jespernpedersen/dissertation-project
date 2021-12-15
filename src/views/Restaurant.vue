@@ -16,10 +16,20 @@
       >
       </SearchBar>
     </div>
-    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
-      <AccordionMenu :dishes="filteredDishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="true"></AccordionMenu>
+    <div class="filtered-items" ref="filteredItems" v-show="hasFilteredDishes == true">
+      <h2>Filtered Dishes</h2>
+      <Dish v-for="dish in filteredDishes" :key="dish.id"
+        :title="dish.title"
+        :image="dish.cover_image"
+        :description="dish.description"
+        :price="dish.price"
+        :ingredients="dish.ingredients"
+      ></Dish>
     </div>
-    <div class="all-items" v-show="filteredDishes.length == 0">
+    <div class="filter-error" v-show="hasFilteredDishes == true && filteredDishes.length == 0">
+      <p>Your filter resulted in no results. Click the filter button again to remove your filters</p>
+    </div>
+    <div class="all-items" v-show="hasFilteredDishes == false">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
     <LowerNavbar :courses="courses"></LowerNavbar>
@@ -44,7 +54,8 @@ export default {
     return {
       dishesSpecial: [],
       categories: [],
-      filteredDishes: []
+      filteredDishes: [],
+      hasFilteredDishes: false
     }
   },
   methods: {
@@ -67,9 +78,11 @@ export default {
     filterDishes(filteredDishes) {
       console.log(filteredDishes);
       this.filteredDishes = filteredDishes;
+      this.hasFilteredDishes = true;
     },
     clearFilter() {
       this.filteredDishes = [];
+      this.hasFilteredDishes = false;
     }
   },
   mounted: function () {
@@ -127,4 +140,22 @@ export default {
     align-items: center;
     width: 100%;
   }
+<<<<<<< HEAD
+=======
+  .filtered-items {
+    text-align: center;
+  }
+  .filtered-items h2 {
+    text-align: left;
+    padding: 0 40px;
+    margin-bottom: 20px;
+  }
+  .filter-error {
+    text-align: center;
+    padding: 0 20px 20px 20px;
+  }
+  .v-btn .v-icon {
+    margin-left: 5px;
+  }
+>>>>>>> a9539b5 (Insert an error if filters results in no results)
 </style>
