@@ -1,7 +1,15 @@
 <template>
-  <div>
-    <div v-for="restaurant in restaurants" v-bind:key="restaurant.id">
-     <h1><router-link :to="'/restaurant/'+restaurant.slug">{{restaurant.title}}</router-link></h1>
+  <div class="restaurant-view">
+    <div class="restaurant-list" v-for="restaurant in restaurants" v-bind:key="restaurant.id">
+      <Restaurant
+        :id="restaurant.id"
+        :title="restaurant.title"
+        :slug="restaurant.slug"
+        :logo="restaurant.logo"
+        :banner="restaurant.banner"
+        :categories="restaurant.categories"
+      >
+      </Restaurant>
     </div>
   </div>
 </template>
@@ -10,8 +18,12 @@
 import {GET_RESTAURANTS} from '@/store/actions';
 import {mapState} from 'vuex';
 
+// Components
+import Restaurant from '@/components/Restaurant';
+
 export default {
   name: 'Home',
+  components: { Restaurant },
   mounted() {
     if(this.$store.state.restaurants.length === 0){
       this.$store.dispatch(GET_RESTAURANTS, 1);
@@ -23,10 +35,10 @@ export default {
 }
 </script>
 <style scoped>
-  .dishes {
-    padding: 30px 10px;
+  .restaurant-list {
+    padding: 10px 10px;
   }
-  .dishes .dish {
+  .restaurant-list .restaurant {
     display: inline-block;
     width: 100%;
     text-align: center;
