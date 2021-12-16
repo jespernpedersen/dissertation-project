@@ -144,7 +144,7 @@ export default {
           let i = 0;
           this.dishesResult = [];
           // Price Range Filtering
-          let price_sorting = new Promise((resolve, reject) => {
+          let price_sorting = new Promise((resolve) => {
             this.dishes.forEach(dish => {
               i++;
               // If price is between min and max

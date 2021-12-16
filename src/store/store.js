@@ -1,6 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
 // Services
 import CourseService from '@/services/courseService';
 import DishService from '@/services/dishService';
