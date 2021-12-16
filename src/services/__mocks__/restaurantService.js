@@ -1,4 +1,4 @@
-import data from '../assets/data/restaurants.json';
+import data from '@/assets/data/restaurants.json';
 
 export default class RestaurantService {
 

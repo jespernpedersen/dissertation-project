@@ -86,7 +86,6 @@ export default {
     }
   },
   mounted: function () {
-
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
