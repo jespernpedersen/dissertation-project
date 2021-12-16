@@ -16,7 +16,7 @@
       >
       </SearchBar>
     </div>
-    <div class="filtered-items" ref="filteredItems" v-show="hasFilteredDishes == true">
+    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
       <h2>Filtered Dishes</h2>
       <Dish v-for="dish in filteredDishes" :key="dish.id"
         :title="dish.title"
@@ -26,10 +26,7 @@
         :ingredients="dish.ingredients"
       ></Dish>
     </div>
-    <div class="filter-error" v-show="hasFilteredDishes == true && filteredDishes.length == 0">
-      <p>Your filter resulted in no results. Click the filter button again to remove your filters</p>
-    </div>
-    <div class="all-items" v-show="hasFilteredDishes == false">
+    <div class="all-items" v-show="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
     <LowerNavbar :courses="courses"></LowerNavbar>
@@ -58,8 +55,7 @@ export default {
     return {
       dishesSpecial: [],
       categories: [],
-      filteredDishes: [],
-      hasFilteredDishes: false
+      filteredDishes: []
     }
   },
   methods: {
@@ -68,11 +64,9 @@ export default {
     },
     filterDishes(filteredDishes) {
       this.filteredDishes = filteredDishes;
-      this.hasFilteredDishes = true;
     },
     clearFilter() {
       this.filteredDishes = [];
-      this.hasFilteredDishes = false;
     }
   },
   mounted: function () {
