@@ -16,7 +16,7 @@
       >
       </SearchBar>
     </div>
-    <div class="filtered-items" ref="filteredItems" v-show="hasFilteredDishes == true">
+    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
       <h2>Filtered Dishes</h2>
       <Dish v-for="dish in filteredDishes" :key="dish.id"
         :title="dish.title"
@@ -26,10 +26,7 @@
         :ingredients="dish.ingredients"
       ></Dish>
     </div>
-    <div class="filter-error" v-show="hasFilteredDishes == true && filteredDishes.length == 0">
-      <p>Your filter resulted in no results. Click the filter button again to remove your filters</p>
-    </div>
-    <div class="all-items" v-show="hasFilteredDishes == false">
+    <div class="all-items" v-show="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
   </div>
@@ -56,8 +53,7 @@ export default {
     return {
       dishesSpecial: [],
       categories: [],
-      filteredDishes: [],
-      hasFilteredDishes: false
+      filteredDishes: []
     }
   },
   methods: {
@@ -79,15 +75,14 @@ export default {
     },
     filterDishes(filteredDishes) {
       this.filteredDishes = filteredDishes;
-      this.hasFilteredDishes = true;
     },
     clearFilter() {
       this.filteredDishes = [];
-      this.hasFilteredDishes = false;
     }
   },
   mounted: function () {
-    let temp = this.$store.state;
+    let restaurant = this.$store.state.restaurant;
+    let restaurants = this.$store.state;
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
@@ -148,12 +143,5 @@ export default {
     text-align: left;
     padding: 0 40px;
     margin-bottom: 20px;
-  }
-  .filter-error {
-    text-align: center;
-    padding: 0 20px 20px 20px;
-  }
-  .v-btn .v-icon {
-    margin-left: 5px;
   }
 </style>
