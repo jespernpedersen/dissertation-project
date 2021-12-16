@@ -1,56 +1,16 @@
 import AccordionMenu from '@/components/AccordionMenu';
-import { createLocalVue, mount } from '@vue/test-utils';
+
+// Data
+import dishes from '@/assets/data/dishes.json';
+import courses from '@/assets/data/courses.json';
 
 import Vuetify from 'vuetify';
 import { vuetifyConfig } from '@/plugins/vuetifyConfig';
+import { createLocalVue, mount } from '@vue/test-utils';
+import { cloneDeep } from 'lodash';
 
 describe("Accordionn Menu", () => {
 
-    const dishes = [
-        {
-            "title": "Amici Di Vincenzo",
-            "description": "Spaghetti Bolognese",
-            "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
-            "price": 69,
-            "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-            "categories": [0, 1],
-            "course": 0,
-            "isTodaysSpecial": false
-        },
-        {
-            "title": "Steve's Grubhub",
-            "description": "GooBurber",
-            "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
-            "price": 50,
-            "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
-            "categories": [0],
-            "course": 1,
-            "isTodaysSpecial": false
-        },
-        {
-            "title": "Bake n' cake",
-            "description": "croquembouche",
-            "ingredients": "Profiteroles, Caramel, Chocolate",
-            "price": 169,
-            "cover_image": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
-            "categories": [1],
-            "isTodaysSpecial": true,
-            "course": 1
-        },
-    ];
-
-    const courses = [
-        {
-            "id": 0,
-            "name": "Starters",
-            "slug": "starters"
-        },
-        {
-            "id": 1,
-            "name": "Soups",
-            "slug": "soups"
-        },
-    ]
     const localVue = createLocalVue();
     let vuetify, wrapper;
 
@@ -62,39 +22,39 @@ describe("Accordionn Menu", () => {
         if(wrapper){
             wrapper.destroy();
         }
+        vuetify = undefined;
     })
 
     it("displays all courses", () => {
 
-        let wrapper = mount(AccordionMenu, {
-            propsData: {
-                title: "Menu",
-                dishes: [...dishes],
-                courses: [...courses],
-                isLoading: false
-            },
-            localVue,
-            vuetify
-        });
+        wrapper = mountAccordion(dishes, courses);
 
-        expect(wrapper.findAll(".v-expansion-panel").length).toBe(2);
+        let existingDishCourses = [];
+
+        dishes.map(dish => {
+            if(!existingDishCourses.includes(dish.course)){
+                existingDishCourses.push(dish.course);
+            }
+        });
+        existingDishCourses = existingDishCourses.sort((a,b) => a - b);
+
+        let courseId = existingDishCourses[existingDishCourses.length-1];
+        let lastCourse = courses.find(course => course.id == courseId);
+
+        expect(wrapper.findAll(".v-expansion-panel").length).toBe(existingDishCourses.length);
         expect(wrapper.find(".v-expansion-panel:first-of-type button").text()).toBe(courses[0].name);
-        expect(wrapper.find(".v-expansion-panel:last-of-type button").text()).toBe(courses[1].name);
+        expect(wrapper.find(".v-expansion-panel:last-of-type button").text()).toBe(lastCourse.name);
 
     })
 
     it("displays dishes properly", async () => {
 
-        let wrapper = mount(AccordionMenu, {
-            propsData: {
-                title: "Menu",
-                dishes: [...dishes],
-                courses: [...courses],
-                isLoading: false
-            },
-            localVue,
-            vuetify
-        });
+        let newDishList = [dishes[0], dishes[1]];
+
+        newDishList[0].course = 0;
+        newDishList[1].course = 1;
+
+        wrapper = mountAccordion(newDishList, courses);
 
         let startersSection = wrapper.find(".v-expansion-panel:first-of-type");
         let soupsSection = wrapper.find(".v-expansion-panel:last-of-type");
@@ -110,70 +70,49 @@ describe("Accordionn Menu", () => {
         */
         await soupsSection.find("button").trigger("click");
         await soupsSection.find("button").trigger("click");
-        expect(soupsSection.findAll(".dish-inner").length).toBe(2);
+        expect(soupsSection.findAll(".dish-inner").length).toBe(1);
         expect(soupsSection.find(".dish-inner:first-of-type h3").text()).toBe(dishes[1].title);
 
     })
 
     it("shows loading", () => {
 
-        let wrapper = mount(AccordionMenu, {
-            propsData:{
-                dishes: [],
-                courses: [],
-                isLoading: true
-            },
-            vuetify,
-            localVue
-        });
+        let wrapper = mountAccordion([],[],true);
 
-        let h3 = wrapper.find('ul');
-        expect(h3.exists()).toBeTruthy();
+        let ul = wrapper.find('ul.loading');
+        expect(ul.exists()).toBeTruthy();
     });
 
-    it("hides loading when dishes are ready", () => {
+    it("hides loading when dishes are ready", async () => {
 
-        let wrapper = mount(AccordionMenu, {
-            propsData: {
-                dishes: [{
-                    "title": "Spaghetti Bolognese",
-                    "description": "Spaghetti Bolognese",
-                    "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
-                    "price": 69,
-                    "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
-                    "course": 0,
-                    "isTodaysSpecial": false
-                },],
-                courses: [{
-                    "id": 0,
-                    "name": "Starters",
-                    "slug": "starters"
-                }],
-                isLoading: false
-            },
-            localVue,
-            vuetify
-        });
+        let wrapper = mountAccordion([],[],true);
 
-        expect(wrapper.find('h3').exists()).toBeFalsy();
+        expect(wrapper.find('ul.loading').exists()).toBeTruthy();
 
+        await wrapper.setProps({dishes: cloneDeep(dishes), courses: cloneDeep(courses), isLoading: false});
+
+        expect(wrapper.find('ul.loading').exists()).toBeFalsy();
     });
-
+    
     it("shows error", () => {
 
-        let wrapper = mount(AccordionMenu, {
-            propsData: {
-                dishes: [],
-                courses: [],
-                isLoading: false
-            },
-            localVue,
-            vuetify
-        });
+        let wrapper = mountAccordion();
 
         let h3 = wrapper.find(".error-msg h3");
         expect(h3.exists()).toBeTruthy();
         expect(h3.text()).toContain("Something went wrong");
     });
 
-})
+    function mountAccordion(dishArray = [], courseArray = [], loading = false){
+        return  mount(AccordionMenu, {
+            propsData: {
+                title: "Menu",
+                dishes: cloneDeep(dishArray),
+                courses: cloneDeep(courseArray),
+                isLoading: loading
+            },
+            localVue,
+            vuetify
+        });
+    }
+});
