@@ -16,7 +16,7 @@
       >
       </SearchBar>
     </div>
-    <div class="filtered-items" ref="filteredItems" v-show="filteredDishes.length > 0">
+    <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
       <h2>Filtered Dishes</h2>
       <Dish v-for="dish in filteredDishes" :key="dish.id"
         :title="dish.title"
@@ -26,7 +26,7 @@
         :ingredients="dish.ingredients"
       ></Dish>
     </div>
-    <div class="all-items" v-show="filteredDishes.length == 0">
+    <div class="all-items" v-if="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
     <LowerNavbar :courses="courses"></LowerNavbar>

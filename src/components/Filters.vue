@@ -15,6 +15,7 @@
           fab
           small
           outlined
+          id="filter-button"
         >
           <v-icon dark>mdi-filter</v-icon>
         </v-btn>
@@ -64,6 +65,7 @@
               dark
               text
               @click="filterDishes()"
+              id="filter-dishes-btn"
             >
               Filter
             </v-btn>

@@ -37,28 +37,57 @@ describe("Filters works", () => {
         expect(filterButton.exists()).toBeTruthy();
         expect(filterButton.find("i.mdi-filter")).toBeTruthy();
 
-        filterButton.trigger("click");
+        await filterButton.trigger("click");
         let dialog = wrapper.find(".v-dialog");
-
         expect(dialog.exists()).toBeTruthy();
     });
 
 
-    it("price slider changes value on input", async () => {
-
-        // Open dialog box first
-        let filterButton = wrapper.find("button.mx-2");
-        filterButton.trigger("click");
+    it("min price slider changes value on input", async () => {
 
         wrapper = mountMenu(dishes);
 
-        // Retrieve the elements
-        let priceSliderMin = wrapper.find(".v-slider #input-min-84");
-        let priceSliderMax = wrapper.find(".v-slider #input-max-84");
+        // Open dialog box first
+        let filterButton = wrapper.find("button.mx-2");
+        await filterButton.trigger("click");
 
-        // Test if min and max inputs exists
-        expect(priceSliderMin.exists());
-        expect(priceSliderMax.exists());
+        // Retrieve the elements
+        let priceSliderMin = wrapper.find(".v-slider input:first-of-type");
+
+        // Test if min input exists
+        expect(priceSliderMin.exists()).toBeTruthy();
+
+        await priceSliderMin.setValue(0);
+
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+
+        await filterDishesBtn.trigger("click");
+
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
+
+        // expect(filteredDishes.exists()).toBeTruthy();
+
+        filteredDishes = filteredDishes.length;
+        let temp = filteredDishes.length;
+        for(let item of filteredDishes) {
+
+            if(item.nodeName != "H2") {
+                let element = item;
+            }
+        }
+        filteredDishes.element.children.forEach((el, index) => {
+            if(index != 0) {
+                let priceElement = el.find(".dish-label-price span");
+                let price = priceElement.innerHTML.replaceAll('-', "");
+                if(price.charAt(price.length - 1) === ",") {
+                    price = price.replace(',', "");
+                }
+                else {
+                    price = price.replace(',', '.');
+                }
+                expect(number(price)).toBeGreaterThanOrEqual(60);
+            }
+        })
     });
 
     /*
