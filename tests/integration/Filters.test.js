@@ -41,9 +41,34 @@ describe("Filters works", () => {
         wrapper.find(".v-dialog");
 
         expect(wrapper.exists()).toBeTruthy();
-
-        // Get props from filters, and set dummy parameters
     });
+
+
+    it("price slider changes value on input", async () => {
+
+    });
+
+    /*
+
+    it("sort by changes the order of dishes on input", async () => {
+        
+    });
+
+    
+    it("the filter button sends data to parent component and closes dialog", async () => {
+        
+    });
+
+    
+    it("error message is shown if filter results in no results", async () => {
+        
+    });
+
+    it("the clear filters button removes filtered results from view", async () => {
+        
+    });
+    */
+
 
 
     function mountMenu(){
