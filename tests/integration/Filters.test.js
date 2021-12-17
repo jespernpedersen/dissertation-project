@@ -38,14 +38,27 @@ describe("Filters works", () => {
         expect(filterButton.find("i.mdi-filter")).toBeTruthy();
 
         filterButton.trigger("click");
-        wrapper.find(".v-dialog");
+        let dialog = wrapper.find(".v-dialog");
 
-        expect(wrapper.exists()).toBeTruthy();
+        expect(dialog.exists()).toBeTruthy();
     });
 
 
     it("price slider changes value on input", async () => {
 
+        // Open dialog box first
+        let filterButton = wrapper.find("button.mx-2");
+        filterButton.trigger("click");
+
+        wrapper = mountMenu(dishes);
+
+        // Retrieve the elements
+        let priceSliderMin = wrapper.find(".v-slider #input-min-84");
+        let priceSliderMax = wrapper.find(".v-slider #input-max-84");
+
+        // Test if min and max inputs exists
+        expect(priceSliderMin.exists());
+        expect(priceSliderMax.exists());
     });
 
     /*
