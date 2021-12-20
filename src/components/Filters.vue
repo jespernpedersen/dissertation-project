@@ -123,75 +123,77 @@
 
 <script>
 export default {
-    name: 'Filters',
-    props: ['dishes'],
-    data () {
-        return {
-          dialog: false,
-          min: 0,
-          max: 200,
-          // Arbitrary numbers
-          range: [15, 200],
-          dishesResult: [],
-          sortBy: "Default",
-          filtered: false,
-          snackbar: false,
-          multiLine: false,
-          text: "Filters have been cleared",
-          sortItems: ["Default", "Alphabetically", "Price ascending", "Price descending"]
-        }
-    },
-    methods: {
-        filterDishes() {
-          let i = 0;
-          this.dishesResult = [];
-          // Price Range Filtering
-          let price_sorting = new Promise((resolve) => {
-            this.dishes.forEach(dish => {
-              i++;
-              // If price is between min and max
-              if(dish.price > this.range[0] && dish.price < this.range[1]) {
-                this.dishesResult.push(dish);
-              }
-              if(i === (this.dishes.length - 1)) resolve(this.dishesResult)
-            })
-          })
-          price_sorting.then((dishesResult) => {
-            if(this.sortBy == "Alphabetically") {
-              dishesResult.sort((a, b) => {
-                if(a.title < b.title) { return -1; }
-                if(a.title > b.title) { return 1; }
-                return 0;
-              });
-            }
-            else if(this.sortBy == "Price ascending") {
-              dishesResult.sort((a, b) => {
-                if(a.price > b.price) { return -1; }
-                if(a.price < b.price) { return 1; }
-                return 0;               
-              });
-            }
-            else if(this.sortBy == "Price descending") {
-              dishesResult.sort((a, b) => {
-                if(a.price < b.price) { return -1; }
-                if(a.price > b.price) { return 1; }
-                return 0;               
-              });
-            }
-            this.$emit('filter-dish', dishesResult);
-            this.dialog = false;
-            this.filtered = true;
-          });
-        },
-        clearFilters() {
-          this.snackbar = true;
-          this.$emit('clear-filter');
-          // Reset settings
-          this.sortBy = "Default";
-          this.range = [15, 200];
-          this.filtered = false;
-        }
+  name: 'Filters',
+  props: ['dishes'],
+  data () {
+    return {
+      dialog: false,
+      min: 0,
+      max: 200,
+      // Arbitrary numbers
+      range: [15, 200],
+      dishesResult: [],
+      sortBy: "Default",
+      filtered: false,
+      snackbar: false,
+      multiLine: false,
+      text: "Filters have been cleared",
+      sortItems: ["Default", "Alphabetically", "Price ascending", "Price descending"]
     }
+  },
+  methods: {
+    filterDishes() {
+      this.dishesResult = [];
+
+      // Price Range Filtering
+      this.dishes.forEach((dish, i) => {
+        // If price is between min and max
+        if(dish.price > this.range[0] && dish.price < this.range[1]) {
+          this.dishesResult.push(dish);
+        }
+      });
+      
+      this.dishesResult = this.sortDishes(this.dishesResult);
+
+      this.$emit('filter-dish', this.dishesResult);
+      this.dialog = false;
+      this.filtered = true;
+    },
+    sortDishes(dishesArray) {
+       switch(this.sortBy) {
+          case "Alphabetically": 
+            dishesArray.sort((a, b) => {
+              if(a.title < b.title) { return -1; }
+              if(a.title > b.title) { return 1; }
+              return 0;
+            });
+            break;
+          case "Price ascending": 
+            dishesArray.sort((a, b) => {
+              if(a.price > b.price) { return -1; }
+              if(a.price < b.price) { return 1; }
+              return 0;               
+            });
+            break;
+          case "Price descending":
+            dishesArray.sort((a, b) => {
+              if(a.price < b.price) { return -1; }
+              if(a.price > b.price) { return 1; }
+              return 0;               
+            });
+          default: break;
+        }
+      return dishesArray;
+    },
+    clearFilters() {
+      this.snackbar = true;
+      this.$emit('clear-filter');
+      // Reset settings
+      this.sortBy = "Default";
+      this.range = [15, 200];
+      this.filtered = false;
+    }
+  }
 }
 </script>
 <style scoped>

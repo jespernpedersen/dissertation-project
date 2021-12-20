@@ -13,9 +13,13 @@ import Vuex from 'vuex';
 import storeConfig from '@/store/store';
 
 jest.mock('@/services/restaurantService');
+jest.mock('@/services/dishService');
+jest.mock('@/services/courseService');
 const restaurantService = require('@/services/restaurantService');
+const dishService = require('@/services/dishService');
+const courseService = require('@/services/courseService');
 
-describe("Filters works", () => {
+describe("Filters.vue", () => {
 
     let vuetify, wrapper, store;
 
@@ -30,7 +34,7 @@ describe("Filters works", () => {
     })
     it("pop up appears on button click", async () => {
 
-        wrapper = mountMenu(dishes);
+        wrapper = await mountMenu(dishes);
 
         let filterButton = wrapper.find("button.mx-2");
 
@@ -45,84 +49,64 @@ describe("Filters works", () => {
 
     it("min price slider changes value on input", async () => {
 
-        wrapper = mountMenu(dishes);
+        wrapper = await mountMenu(dishes);
 
         // Open dialog box first
         let filterButton = wrapper.find("button.mx-2");
         await filterButton.trigger("click");
-
-        // Retrieve the elements
-        let priceSliderMin = wrapper.find(".v-slider input:first-of-type");
-
-        // Test if min input exists
-        expect(priceSliderMin.exists()).toBeTruthy();
-
-        await priceSliderMin.setValue(0);
+        
+        // range slider is not compatible with tests; it has to be bypassed
+        let filters = wrapper.findComponent(Filters);
+        filters.vm.$data.range = [60,200];
 
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
-
         await filterDishesBtn.trigger("click");
 
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
+        let container = wrapper.find(".filtered-items");
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
 
-        // expect(filteredDishes.exists()).toBeTruthy();
-
-        filteredDishes = filteredDishes.length;
-        let temp = filteredDishes.length;
-        for(let item of filteredDishes) {
-
-            if(item.nodeName != "H2") {
-                let element = item;
-            }
-        }
-        filteredDishes.element.children.forEach((el, index) => {
-            if(index != 0) {
-                let priceElement = el.find(".dish-label-price span");
-                let price = priceElement.innerHTML.replaceAll('-', "");
-                if(price.charAt(price.length - 1) === ",") {
-                    price = price.replace(',', "");
-                }
-                else {
-                    price = price.replace(',', '.');
-                }
-                expect(number(price)).toBeGreaterThanOrEqual(60);
-            }
-        })
+        expect(filteredDishes).toBe(3);
     });
 
     /*
 
-    it("sort by changes the order of dishes on input", async () => {
-        
-    });
-
-    
-    it("the filter button sends data to parent component and closes dialog", async () => {
-        
-    });
-
+    it closes dialog window on filter
+    it filters by maximum price
+    it sorts by price asc
+    it sorts by price desc
+    it sorts alphabetically
+    it sorts by default
+    it clears filters and shows all results
+    it changes filter icon when it has filters
     
     it("error message is shown if filter results in no results", async () => {
-        
-    });
-
-    it("the clear filters button removes filtered results from view", async () => {
         
     });
     */
 
 
 
-    function mountMenu(){
+    async function mountMenu(){
 
+        const restaurantId = 0;
         const el = document.createElement('div');
         el.setAttribute('data-app', true);
         document.body.appendChild(el);
 
         store = new Vuex.Store(cloneDeep(storeConfig));
+
+        store.state.restaurant.data = restaurants[restaurantId];
+        store.state.restaurant.dishes = await dishService.default.getAll(restaurantId);
+        store.state.restaurant.todaysSpecial = await dishService.default.getTodaysSpecial(restaurantId);
+        store.state.restaurant.courses = await courseService.default.getAll();
+
+        Object.keys(store.state.isLoading).forEach(key => {
+            store.state.isLoading[key] = false;
+        })
+
         vuetify = new Vuetify(vuetifyConfig);
 
-        return mount(Restaurant,{
+        return await mount(Restaurant,{
             mocks: {
                 $route: {
                     params: {

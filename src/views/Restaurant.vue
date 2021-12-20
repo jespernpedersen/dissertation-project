@@ -49,20 +49,11 @@ export default {
   props: ["slug"],
   data () {
     return {
-      dishesSpecial: [],
       categories: [],
       filteredDishes: []
     }
   },
   methods: {
-    async getSpecialDishes() {
-      try {
-        const data = await DishesService.getTodaysSpecial();
-        this.dishesSpecial = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    },
     async getCategories() {
       try {
         const data = await CategoriesService.getAllCategories();
