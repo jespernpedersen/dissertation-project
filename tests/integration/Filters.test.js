@@ -164,6 +164,31 @@ describe("Filters.vue", () => {
         expect(filteredDishes).toBe(0);
     });
 
+    it("it changes filter icon when it has filters", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        // Open dialog box first
+        let filterButton = wrapper.find("#filter-button");
+        await filterButton.trigger("click");
+        
+        // range slider is not compatible with tests; it has to be bypassed
+        let filters = wrapper.findComponent(Filters);
+
+        // Default values are 15, 200
+        filters.vm.$data.range = [15,70];
+
+        // Filter Dishes
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+
+        let clearFiltersBtn = wrapper.find("#clear-filters-btn");
+
+        expect(filterButton.isVisible()).toBe(false);
+        expect(clearFiltersBtn.isVisible()).toBe(true);
+    
+    });
+
     /*
 
     it sorts by price asc
@@ -171,11 +196,6 @@ describe("Filters.vue", () => {
     it sorts alphabetically
     it sorts by default
     
-    it changes filter icon when it has filters
-    
-    it("error message is shown if filter results in no results", async () => {
-        
-    });
     */
 
 
