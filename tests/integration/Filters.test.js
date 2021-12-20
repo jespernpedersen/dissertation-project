@@ -267,12 +267,33 @@ describe("Filters.vue", () => {
         // Expect Amici Di Vincenzo
         expect(firstFilteredItem).toBe("Amici Di Vincenzo");
     });
-    /*
-    it sorts alphabetically
-    it sorts by default
-    */
 
+    it("it sorts by default", async () => {
+        wrapper = await mountMenu(dishes);
 
+        // Open dialog box first
+        let filterButton = wrapper.find("#filter-button");
+        await filterButton.trigger("click");
+        
+        // range slider is not compatible with tests; it has to be bypassed
+        let filters = wrapper.findComponent(Filters);
+
+        // Default values are 15, 200
+        filters.vm.$data.range = [15,200];
+
+        // Set sorting
+        filters.vm.$data.sortBy = "Default";
+
+        // Filter Dishes
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
+        let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
+
+        // Expect Amici Di Vincenzo
+        expect(firstFilteredItem).toBe("Amici Di Vincenzo");
+    });
 
     async function mountMenu(){
 
