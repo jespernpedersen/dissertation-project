@@ -51,20 +51,11 @@ export default {
   props: ["slug"],
   data () {
     return {
-      dishesSpecial: [],
       categories: [],
       filteredDishes: []
     }
   },
   methods: {
-    async getSpecialDishes() {
-      try {
-        const data = await DishesService.getTodaysSpecial();
-        this.dishesSpecial = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    },
     async getCategories() {
       try {
         const data = await CategoriesService.getAllCategories();
@@ -81,8 +72,6 @@ export default {
     }
   },
   mounted: function () {
-    let restaurant = this.$store.state.restaurant;
-    let restaurants = this.$store.state;
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
