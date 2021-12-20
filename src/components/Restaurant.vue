@@ -3,15 +3,13 @@
         <router-link
             :to="'/restaurant/'+slug"
         >
-            <div class="banner-wrapper">
-                <div class="image-wrapper">
-                    <img :src='banner' alt="" />
-                </div>
+            <div class="image-wrapper">
+                <img :src='banner' alt="" />
+            </div>
+            <div class="restaurant-label">
                 <div class="logo-wrapper">
                     <img :src='logo' alt="" />
                 </div>
-            </div>
-            <div class="restaurant-label">
                 <div class="restaurant-label-title">
                     <h1>{{ title | descriptionLimit }}</h1>
                 </div>
@@ -64,13 +62,12 @@ export default {
     .restaurant-label {
         background-color: #f6f5f1;
         border-radius: 0 0 12px 12px;
-        display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 10px 20px 5px;
+        padding: 20px 20px 5px;
         text-align: left;
         width: 100%;
-        min-height: 100px;
+        min-height: 75px;
+        box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.5);
     }
 
     .restaurant-inner.horizontal .restaurant-label {
@@ -80,8 +77,10 @@ export default {
 
     .restaurant-label-title h1 {
         font-size: 20px;
-        text-align: left;
+        text-align: center;
         color: #000;
+        position: relative;
+        z-index: 3;
     }
 
     .restaurant-label-title p{
@@ -117,7 +116,7 @@ export default {
     }
     .logo-wrapper {
         position: absolute;
-        bottom: 100px;
+        bottom: 0;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 100%;
@@ -128,6 +127,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 1;
     }
     .logo-wrapper img {
         max-width: 100%;

@@ -11,6 +11,14 @@
       >
       </Restaurant>
     </div>
+    <div class="cta-row">
+      <v-btn
+        id="load-more-restaurants-btn"
+        @click="loadMoreRestaurants();"
+      >
+        See more
+      </v-btn>
+    </div>
   </div>
 </template>
 <script>
@@ -27,6 +35,11 @@ export default {
   mounted() {
     if(this.$store.state.restaurants.length === 0){
       this.$store.dispatch(GET_RESTAURANTS, 1);
+    }
+  },
+  methods: {
+    loadMoreRestaurants() {
+      console.log("Placeholder - Load More Restaurants");
     }
   },
   computed: mapState([
@@ -51,5 +64,16 @@ export default {
   }
   .special-dish + .special-dish {
     margin-left: 15px;
+  }
+  .cta-row {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+  }
+  #load-more-restaurants-btn {
+    display: inline-block;
+    text-transform: none;
+    box-shadow: none;
+    font-size: 14px;
   }
 </style>
