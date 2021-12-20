@@ -214,9 +214,34 @@ describe("Filters.vue", () => {
         // Expect Steve's Grubhub
         expect(firstFilteredItem).toBe("Steve's Grubhub");
     });
+    it("it sorts by price asc", async () => {
+        wrapper = await mountMenu(dishes);
+
+        // Open dialog box first
+        let filterButton = wrapper.find("#filter-button");
+        await filterButton.trigger("click");
+        
+        // range slider is not compatible with tests; it has to be bypassed
+        let filters = wrapper.findComponent(Filters);
+
+        // Default values are 15, 200
+        filters.vm.$data.range = [15,200];
+
+        // Set sorting
+        filters.vm.$data.sortBy = "Price ascending";
+
+        // Filter Dishes
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
+        let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
+
+        // Expect Bake n' cake
+        expect(firstFilteredItem).toBe("Bake n' cake");
+    });
     /*
     it sorts by price asc
-    it sorts by price desc
     it sorts alphabetically
     it sorts by default
     */
