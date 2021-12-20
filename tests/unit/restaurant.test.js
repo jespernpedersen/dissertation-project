@@ -1,4 +1,4 @@
-import restaurant from '@/components/Restaurant.vue'
+import Restaurant from '@/components/Restaurant.vue'
 import { mount } from '@vue/test-utils'
 
 describe('restaurant.vue', () => {
@@ -12,7 +12,7 @@ describe('restaurant.vue', () => {
 
     it('initializes properly', () => {
 
-        let wrapper = mount(restaurant, {
+        let wrapper = mount(Restaurant, {
             propsData: restaurant
         });
 
