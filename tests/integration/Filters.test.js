@@ -31,7 +31,8 @@ describe("Filters.vue", () => {
             wrapper.destroy();
         }
         vuetify = undefined;
-    })
+    });
+
     it("pop up appears on button click", async () => {
 
         wrapper = await mountMenu(dishes);
@@ -46,7 +47,6 @@ describe("Filters.vue", () => {
         expect(dialog.exists()).toBeTruthy();
     });
 
-
     it("min price slider changes value on input", async () => {
 
         wrapper = await mountMenu(dishes);
@@ -57,15 +57,38 @@ describe("Filters.vue", () => {
         
         // range slider is not compatible with tests; it has to be bypassed
         let filters = wrapper.findComponent(Filters);
+        
+        // Default values are 15, 200
         filters.vm.$data.range = [60,200];
 
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
         await filterDishesBtn.trigger("click");
-
-        let container = wrapper.find(".filtered-items");
+        
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
 
         expect(filteredDishes).toBe(3);
+    });
+
+    it("max price slider changes value on input", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        // Open dialog box first
+        let filterButton = wrapper.find("button.mx-2");
+        await filterButton.trigger("click");
+        
+        // range slider is not compatible with tests; it has to be bypassed
+        let filters = wrapper.findComponent(Filters);
+
+        // Default values are 15, 200
+        filters.vm.$data.range = [15,70];
+
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+        
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
+
+        expect(filteredDishes).toBe(4);
     });
 
     /*
