@@ -113,6 +113,27 @@ describe("Filters.vue", () => {
         expect(dialog.classes('v-dialog--active')).toBe(false);
     });
 
+    it("closes dialog window on close window", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        let filterButton = wrapper.find("button.mx-2");
+
+        expect(filterButton.exists()).toBeTruthy();
+        expect(filterButton.find("i.mdi-filter")).toBeTruthy();
+
+        // Open Dialog
+        await filterButton.trigger("click");
+
+        // Click Filter Dishes Btn
+        let closeFiltersBtn = wrapper.find("#dialog-close-btn");
+        await closeFiltersBtn.trigger("click");
+
+        let dialog = wrapper.find(".v-dialog");
+
+        expect(dialog.classes('v-dialog--active')).toBe(false);
+    });
+
     /*
 
     it 
