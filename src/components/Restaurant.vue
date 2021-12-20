@@ -3,8 +3,13 @@
         <router-link
             :to="'/restaurant/'+slug"
         >
-            <div class="image-wrapper">
-                <img :src='banner' alt="" />
+            <div class="banner-wrapper">
+                <div class="image-wrapper">
+                    <img :src='banner' alt="" />
+                </div>
+                <div class="logo-wrapper">
+                    <img :src='logo' alt="" />
+                </div>
             </div>
             <div class="restaurant-label">
                 <div class="restaurant-label-title">
@@ -39,7 +44,7 @@ export default {
         text-align: center;
     }
 
-    img {
+    .image-wrapper img {
         height: auto;
         width: 100%;
         position: absolute;
@@ -109,5 +114,22 @@ export default {
         color: #47544b;
         border-radius: 12px;
         cursor: pointer;
+    }
+    .logo-wrapper {
+        position: absolute;
+        bottom: 100px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 100%;
+        overflow: hidden;
+        height: 80px;
+        width: 80px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .logo-wrapper img {
+        max-width: 100%;
     }
 </style>
