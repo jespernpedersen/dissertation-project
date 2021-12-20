@@ -27,6 +27,7 @@
           color="primary"
           dark
           @click="clearFilters"
+          id="clear-filters-btn"
         >
           <v-icon dark>mdi-filter-off</v-icon>
         </v-btn>
