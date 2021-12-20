@@ -57,7 +57,7 @@ describe("Filters.vue", () => {
         
         // range slider is not compatible with tests; it has to be bypassed
         let filters = wrapper.findComponent(Filters);
-        
+
         // Default values are 15, 200
         filters.vm.$data.range = [60,200];
 
@@ -91,10 +91,31 @@ describe("Filters.vue", () => {
         expect(filteredDishes).toBe(4);
     });
 
+
+    it("closes dialog window on filter", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        let filterButton = wrapper.find("button.mx-2");
+
+        expect(filterButton.exists()).toBeTruthy();
+        expect(filterButton.find("i.mdi-filter")).toBeTruthy();
+
+        // Open Dialog
+        await filterButton.trigger("click");
+
+        // Click Filter Dishes Btn
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+
+        let dialog = wrapper.find(".v-dialog");
+
+        expect(dialog.classes('v-dialog--active')).toBe(false);
+    });
+
     /*
 
-    it closes dialog window on filter
-    it filters by maximum price
+    it 
     it sorts by price asc
     it sorts by price desc
     it sorts alphabetically
