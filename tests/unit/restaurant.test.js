@@ -29,6 +29,8 @@ describe('restaurant.vue', () => {
             propsData: localRestaurant
         });
 
+        let title = wrapper.find('h1');
+
         expect(wrapper.find('h1').text().length).toBeLessThanOrEqual(53)
     });
 })
