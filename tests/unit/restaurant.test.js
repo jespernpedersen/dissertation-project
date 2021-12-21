@@ -4,6 +4,7 @@ import { mount } from '@vue/test-utils'
 describe('restaurant.vue', () => {
 
     const image = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg');
+    const logo = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg');
     const restaurant =  { 
         title: "Steve's Grubhub",
         image: image,
@@ -16,7 +17,7 @@ describe('restaurant.vue', () => {
             propsData: restaurant
         });
 
-        expect(wrapper.find('h3').text()).toMatch(restaurant.title);
+        expect(wrapper.find('h1').text()).toMatch(restaurant.title);
     });
 
     test('if we have a title that is too long', () => {
@@ -28,6 +29,6 @@ describe('restaurant.vue', () => {
             propsData: localRestaurant
         });
 
-        expect(wrapper.find('h3').text().length).toBeLessThanOrEqual(53)
+        expect(wrapper.find('h1').text().length).toBeLessThanOrEqual(53)
     });
 })
