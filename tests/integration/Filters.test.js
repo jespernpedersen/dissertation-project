@@ -43,11 +43,6 @@ describe("Filters.vue", () => {
 
     it("filters on min price slider", async () => {
 
-<<<<<<< HEAD
-=======
-    it("min price slider changes value on input", async () => {
-
->>>>>>> f738005 (Got the minimum price filter working)
         wrapper = await mountMenu(dishes);
 
         // Open dialog box first
@@ -56,7 +51,6 @@ describe("Filters.vue", () => {
         
         // range slider is not compatible with tests; it has to be bypassed
         let filters = wrapper.findComponent(Filters);
-<<<<<<< HEAD
 
         // Default values are 15, 200
         filters.vm.$data.range = [60,200];
@@ -164,24 +158,12 @@ describe("Filters.vue", () => {
         let dialog = wrapper.find(".v-dialog");
 
         expect(dialog.classes('v-dialog--active')).toBe(false);
-=======
-        filters.vm.$data.range = [60,200];
-
-        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
-        await filterDishesBtn.trigger("click");
-
-        let container = wrapper.find(".filtered-items");
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
-
-        expect(filteredDishes).toBe(3);
->>>>>>> f738005 (Got the minimum price filter working)
     });
 
     it("it clears filters and shows all default items", async () => {
 
         wrapper = await mountMenu(dishes);
 
-<<<<<<< HEAD
         // Open dialog box first
         let filterButton = wrapper.find("button.mx-2");
         await filterButton.trigger("click");
@@ -227,16 +209,6 @@ describe("Filters.vue", () => {
 
         expect(filterButton.isVisible()).toBe(false);
         expect(clearFiltersBtn.isVisible()).toBe(true);
-=======
-    it closes dialog window on filter
-    it filters by maximum price
-    it sorts by price asc
-    it sorts by price desc
-    it sorts alphabetically
-    it sorts by default
-    it clears filters and shows all results
-    it changes filter icon when it has filters
->>>>>>> f738005 (Got the minimum price filter working)
     
     });
     it("it sorts by price desc", async () => {
@@ -266,7 +238,6 @@ describe("Filters.vue", () => {
 
         expect(firstFilteredItem).toBe(highestDish.title);
     });
-<<<<<<< HEAD
     it("it sorts by price asc", async () => {
         wrapper = await mountMenu(dishes);
 
@@ -301,9 +272,6 @@ describe("Filters.vue", () => {
         // Open dialog box first
         let filterButton = wrapper.find("#filter-button");
         await filterButton.trigger("click");
-=======
-    */
->>>>>>> f738005 (Got the minimum price filter working)
 
 
         await wrapper.find(".v-list-item .v-input__slot").trigger("click");

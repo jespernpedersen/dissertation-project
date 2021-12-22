@@ -1,4 +1,4 @@
-import AccordionMenu from '@/components/AccordionMenu';
+import AccordionMenu from '@/components/menus/AccordionMenu';
 
 // Data
 import dishes from '@/assets/data/dishes.json';

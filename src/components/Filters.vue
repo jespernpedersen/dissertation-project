@@ -172,25 +172,15 @@ export default {
             break;
           case "Price ascending": 
             dishesArray.sort((a, b) => {
-<<<<<<< HEAD
               if(a.price < b.price) { return -1; }
               if(a.price > b.price) { return 1; }
-=======
-              if(a.price > b.price) { return -1; }
-              if(a.price < b.price) { return 1; }
->>>>>>> f738005 (Got the minimum price filter working)
               return 0;               
             });
             break;
           case "Price descending":
             dishesArray.sort((a, b) => {
-<<<<<<< HEAD
               if(a.price > b.price) { return -1; }
               if(a.price < b.price) { return 1; }
-=======
-              if(a.price < b.price) { return -1; }
-              if(a.price > b.price) { return 1; }
->>>>>>> f738005 (Got the minimum price filter working)
               return 0;               
             });
           default: break;

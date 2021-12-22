@@ -8,5 +8,16 @@
         "id": 1,
         "name": "Meat",
         "slug": "meat"
+    },
+    {
+        "id": 2,
+        "name": "Burger",
+        "slug": "burger"
+    }
+    ,
+    {
+        "id": 3,
+        "name": "Italian",
+        "slug": "Italian"
     }
 ]
