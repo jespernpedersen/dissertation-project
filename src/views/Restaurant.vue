@@ -57,11 +57,7 @@ export default {
   },
   methods: {
     async getCategories() {
-      try {
-        this.categories = await CategoriesService.getAllCategories();
-      } catch (error) {
-        console.log(error);
-      }  
+      this.categories = await CategoriesService.getAllCategories(); 
     },
     filterDishes(filteredDishes) {
       this.filteredDishes = filteredDishes;
