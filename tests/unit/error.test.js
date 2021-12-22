@@ -1,7 +1,7 @@
 // Testing tools
 import { createLocalVue, mount } from '@vue/test-utils';
 
-import Error from '@/components/ErrorComponent';
+import Error from '@/components/Error';
 
 import Vuetify from 'vuetify';
 import { vuetifyConfig } from '@/plugins/vuetifyConfig';

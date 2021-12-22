@@ -1,4 +1,4 @@
-import HorizontalMenu from '@/components/HorizontalMenu';
+import HorizontalMenu from '@/components/menus/HorizontalMenu';
 
 // Data
 import dishes from '@/assets/data/dishes.json';
