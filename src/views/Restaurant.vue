@@ -34,14 +34,14 @@
 <script>
 // Components
 import Dish from '@/components/Dish.vue'
-import AccordionMenu from '@/components/AccordionMenu.vue';
+import AccordionMenu from '@/components/menus/AccordionMenu.vue';
 import Header from '@/components/Header.vue';
-import HorizontalMenu from '../components/HorizontalMenu';
+import HorizontalMenu from '../components/menus/HorizontalMenu';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
-import SearchBar from '../components/SearchBar.vue';
+import SearchBar from '../components/searchbars/SearchBar.vue';
 import Filters from '../components/Filters';
 
 

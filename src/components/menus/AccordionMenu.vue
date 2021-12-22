@@ -23,8 +23,8 @@
 
 <script>
 import Dish from "@/components/Dish";
-import Error from "@/components/ErrorComponent";
-import AccordionPlaceholder from './placeholders/AccordionPlaceholder.vue';
+import Error from "@/components/Error";
+import AccordionPlaceholder from '@/components/placeholders/AccordionPlaceholder.vue';
 
 export default {
     name: "AccordionMenu",

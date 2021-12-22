@@ -5,3 +5,6 @@ export const GET_RESTAURANT = "getRestaurant";
 export const RESET_RESTAURANT = "resetRestaurant";
 export const GET_RESTAURANTS = "getRestaurants";
 export const GET_TODAYS_SPECIAL = "getTodaysSpecial";
+export const SET_SEARCH = "setInSearch";
+export const SEARCH = "search";
+

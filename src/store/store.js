@@ -2,6 +2,7 @@
 import CourseService from '@/services/courseService';
 import DishService from '@/services/dishService';
 import RestaurantService from '@/services/restaurantService';
+import SearchService from '@/services/searchService';
 
 export const state = {
   restaurant: {
@@ -11,6 +12,16 @@ export const state = {
     todaysSpecial: [],
     categories: [],
   },
+  home: {
+    search: {
+      results: [],
+      params: {
+        offset: 0,
+        limit: 20
+      },
+      filters: [],
+    },
+  },
   restaurants: [],
   isLoading: {
     categories: true,
@@ -18,7 +29,8 @@ export const state = {
     dishes: true,
     restaurant: true,
     restaurants: true,
-    todaysSpecial: true
+    todaysSpecial: true,
+    search: true
   }
 };
 
@@ -46,6 +58,9 @@ export const mutations = {
       todaysSpecial: [],
       categories: []
     };
+  },
+  setInSearch: (state, payload) => {
+    state.home.search[payload.property] = payload.data;
   }
 };
 
@@ -94,6 +109,13 @@ export const actions = {
     }).finally( data => {
       commit("loaded", "categories");
     });
+  },
+  search: ({commit, state}, keywords) => {
+    SearchService.Search(keywords, state.home.search.params, state.home.search.filters).then(data => {
+      commit("setInSearch", {property: "results", data: data});
+    }).finally(data => {
+      commit("loaded", "search");
+    })
   }
 };
 
