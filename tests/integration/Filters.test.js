@@ -98,9 +98,6 @@ describe("Filters.vue", () => {
 
         let filterButton = wrapper.find("button.mx-2");
 
-        expect(filterButton.exists()).toBeTruthy();
-        expect(filterButton.find("i.mdi-filter")).toBeTruthy();
-
         // Open Dialog
         await filterButton.trigger("click");
 
@@ -157,11 +154,12 @@ describe("Filters.vue", () => {
         await clearFiltersBtn.trigger("click");
         
         
-        let allDishes = wrapper.findAll(".all-items").length;
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
+        let allDishes = wrapper.findAll(".all-items");
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
 
-        expect(allDishes).toBe(1);
-        expect(filteredDishes).toBe(0);
+        expect(allDishes.exists()).toBeTruthy();
+        expect(allDishes.length).toBe(1);
+        expect(filteredDishes.length).toBe(0);
     });
 
     it("it changes filter icon when it has filters", async () => {
