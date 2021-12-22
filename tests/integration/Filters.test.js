@@ -196,9 +196,6 @@ describe("Filters.vue", () => {
         // range slider is not compatible with tests; it has to be bypassed
         let filters = wrapper.findComponent(Filters);
 
-        // Default values are 15, 200
-        filters.vm.$data.range = [15,200];
-
         // Set sorting
         filters.vm.$data.sortBy = "Price descending";
 

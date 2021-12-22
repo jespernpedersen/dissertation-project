@@ -58,8 +58,7 @@ export default {
   methods: {
     async getCategories() {
       try {
-        const data = await CategoriesService.getAllCategories();
-        this.categories = data;
+        this.categories = await CategoriesService.getAllCategories();
       } catch (error) {
         console.log(error);
       }  
