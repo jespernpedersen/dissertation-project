@@ -41,9 +41,6 @@ import Dish from '../components/Dish.vue';
 import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
 import {mapState} from 'vuex';
 
-// Components
-import Restaurant from '@/components/Restaurant';
-
 export default {
   components: { ChipSearchbar, DishPlaceholder, Error, Dish },
   name: 'Home',
@@ -57,36 +54,43 @@ export default {
   },
   methods: {
     search(keywords) {
-      if(keywords.length === 0){
-        this.isSearching = false;
-        this.$store.commit(SET_SEARCH, {property: "results", data: []});
-      } else {
-        this.isSearching = true;
-        this.$store.dispatch(SEARCH, keywords);
-      }
+      this.$store.dispatch(SEARCH, keywords);
     }
   },
-  computed: mapState([
-    "restaurants"
-  ])
+  computed: mapState({
+    results: state => state.home.search.results,
+    filters: state => state.home.search.filters,
+    params: state => state.home.search.params,
+    offset: state => state.home.search.offset,
+    limit: state => state.home.search.limit,
+    isLoading: state => state.isLoading.search
+  })
 }
 </script>
 <style scoped>
-  .cta-row {
-    text-align: center;
-    width: 100%;
-    padding: 20px 0;
-  }
-  #load-more-restaurants-btn {
-    display: inline-block;
-    text-transform: none;
-    box-shadow: none;
-    font-size: 14px;
-  }
-  .filtering {
-    padding: 0 20px;
+  .banner{
+    background-image: url('~@/assets/images/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg');
+    background-size: cover;
+    height: 20vh;
     display: flex;
     align-items: center;
-    width: 100%;
+    justify-content: center;
+    margin-bottom: 25px;
   }
+
+  .results{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  div h4{
+    margin-bottom: 15px;
+    padding-left: 30px;
+    text-align: left;
+    width: 100%;
+    display: block;
+  }
+
 </style>
