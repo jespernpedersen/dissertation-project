@@ -2,26 +2,44 @@
     {
         "id": 0,
         "name": "Starters",
-        "slug": "starters"
+        "slug": "starters",
+        "icon": "mdi-food-croissant"
     },
     {
         "id": 1,
         "name": "Soups",
-        "slug": "soups"
+        "slug": "soups",
+        "icon": "mdi-bowl"
     },
     {
         "id": 2,
         "name": "Meals",
-        "slug": "meals"
+        "slug": "meals",
+        "icon": "mdi-silverware-fork-knife"
+        
     },
     {
         "id": 3,
         "name": "Drinks",
-        "slug": "drinks"
+        "slug": "drinks",
+        "icon": "mdi-beer"
     },
     {
         "id": 4,
         "name": "Desserts",
-        "slug": "desserts"
+        "slug": "desserts",
+        "icon": "mdi-cupcake"
+    },
+    {
+        "id": 4,
+        "name": "Desserts",
+        "slug": "desserts",
+        "icon": "mdi-cupcake"
+    },
+    {
+        "id": 4,
+        "name": "Desserts",
+        "slug": "desserts",
+        "icon": "mdi-cupcake"
     }
 ]

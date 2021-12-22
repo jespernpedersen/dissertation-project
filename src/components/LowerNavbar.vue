@@ -1,30 +1,22 @@
 <template>
   <nav class="lowernav">
-  <a href="#" class="lowernav__link">
-    <v-icon class="lowernav__icon">mdi-bowl</v-icon>
-    <span class="lowernav__text">Soups</span>
-  </a>
-  <a href="#" class="lowernav__link lowernav__link--active">
-     <v-icon class="lowernav__icon">mdi-food-croissant</v-icon>
-    <span class="lowernav__text">Starters</span>
-  </a>
-  <a href="#" class="lowernav__link">
-     <v-icon class="lowernav__icon">mdi-silverware-fork-knife</v-icon>
-    <span class="lowernav__text">Main courses</span>
-  </a>
-  <a href="#" class="lowernav__link">
-     <v-icon class="lowernav__icon">mdi-beer</v-icon>
-    <span class="lowernav__text">Drinks</span>
-  </a>
-  <a href="#" class="lowernav__link">
-     <v-icon class="lowernav__icon">mdi-cupcake</v-icon>
-    <span class="lowernav__text">Desserts</span>
-  </a>
+    <v-slide-group
+          multiple
+          height="55"
+          class="wrapper">
+          <v-slide-item v-for="course in courses" :key="course.id">
+            <button class="lowernav__link">
+              <v-icon color="#9FD5BB" class="lowernav__icon">{{course.icon}}</v-icon>
+              <span class="lowernav__text">{{course.name}}</span>
+            </button>
+          </v-slide-item>
+  </v-slide-group>
 </nav>
 </template>
 
 <script>
-  export default { 
+  export default {
+    props: ["courses"],
     name: "LowerNavbar"
   }
 </script>
@@ -43,6 +35,8 @@ body {
     background-color: #304238;
     display: flex;
     overflow-x: auto;
+    z-index: 4;
+    padding-top: 10;
 }
 
 .lowernav__link {
@@ -51,7 +45,7 @@ body {
     align-items: center;
     justify-content: center;
     flex-grow: 1;
-    min-width: 50px;
+    min-width: 80px;
     overflow: hidden;
     white-space: nowrap;
     font-family: sans-serif;
@@ -63,11 +57,7 @@ body {
 }
 
 .lowernav__link:hover {
-    background-color: #eeeeee;
-}
-
-.lowernav__link--active {
-    color: #009578;
+    background-color: #ffff;
 }
 
 .lowernav__icon {
@@ -77,4 +67,10 @@ body {
     font-size: 18px;
     color: #9FD5BB;
 }
+
+.v-slide-group{
+  width: 100%;
+}
+
+
 </style>
