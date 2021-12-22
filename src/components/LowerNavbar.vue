@@ -1,14 +1,17 @@
 <template>
   <nav class="lowernav">
     <v-slide-group
-          multiple
+          active-class="active"
+          v-model="activeTab"
+          center-active
+          mandatory
           height="55"
           class="wrapper">
-          <v-slide-item v-for="course in courses" :key="course.id">
-            <button class="lowernav__link">
+          <v-slide-item v-slot="{toggle}" v-for="course in courses" :key="course.id">
+            <v-btn @click="()=>changedTab(course.id,toggle)" active-class="active" class="lowernav__link">
               <v-icon color="#9FD5BB" class="lowernav__icon">{{course.icon}}</v-icon>
               <span class="lowernav__text">{{course.name}}</span>
-            </button>
+            </v-btn>
           </v-slide-item>
   </v-slide-group>
 </nav>
@@ -17,7 +20,21 @@
 <script>
   export default {
     props: ["courses"],
-    name: "LowerNavbar"
+    name: "LowerNavbar",
+    data:()=>({
+      activeTab: 0 
+    }),
+    methods:{
+      changedTab(courseId,callback){
+        if(this.activeTab === courseId){
+          return;
+        }
+        
+        this.activeTab = courseId;
+        this.$emit("change", this.courses[courseId]);
+        callback(); 
+      }
+    }
   }
 </script>
 
@@ -39,12 +56,7 @@ body {
     padding-top: 10;
 }
 
-.lowernav__link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
+.lowernav button.lowernav__link.v-btn {
     min-width: 80px;
     overflow: hidden;
     white-space: nowrap;
@@ -54,6 +66,17 @@ body {
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
     transition: background-color 0.1s ease-in-out;
+    background-color: transparent;
+    border: none;
+    height: unset;
+}
+
+button.lowernav__link span{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .lowernav__link:hover {
@@ -70,6 +93,10 @@ body {
 
 .v-slide-group{
   width: 100%;
+}
+
+.lowernav button.lowernav__link.v-btn.active{
+  background-color: white;
 }
 
 
