@@ -3,6 +3,7 @@
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
     <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
+    <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
 </template>
 <script>
@@ -14,10 +15,11 @@ import HorizontalMenu from '../components/HorizontalMenu';
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
+import LowerNavbar from '@/components/LowerNavbar.vue';
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu },
+  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar },
   props: ["slug"],
   data () {
     return {
