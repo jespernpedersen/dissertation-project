@@ -8,7 +8,7 @@ import { cloneDeep } from "lodash";
 const weights = {
         title: 3,
         description: 1,
-        category: 2.5,
+        category: 2,
         course: 2,
         ingredient: 2
 }
@@ -56,7 +56,7 @@ export default class SearchService {
 
         results.sort((a,b) => b.score >= a.score);
 
-        if(params.limit > results.length || params.limit === 0) params.limit = results.length;
+        if(params.limit > results.length) params.limit = results.length;
         if(params.offset >= params.limit && params.offset - params.limit <= 0) params.offset = 0;
         else if (params.offset >= params.limit) params.offset = params.limit;
 
@@ -78,16 +78,6 @@ export default class SearchService {
         } else if(restaurant.title.toLowerCase().includes(param)){
             score += weights.title/2;
         } 
-        
-        restaurant.categories.forEach(id => {
-            if(categories.length <= id){
-                return;
-            }else if(categories[id].name.toLowerCase() == param){
-                score += weights.category;
-            } else if(categories[id].name.toLowerCase().includes(param)){
-                score += weights.ingredient/2;
-            }
-        });
 
         return score;
     }
