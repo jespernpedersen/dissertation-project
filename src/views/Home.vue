@@ -54,7 +54,13 @@ export default {
   },
   methods: {
     search(keywords) {
-      this.$store.dispatch(SEARCH, keywords);
+      if(keywords.length === 0){
+        this.isSearching = false;
+        this.$store.commit(SET_SEARCH, {property: "results", data: []});
+      } else {
+        this.isSearching = true;
+        this.$store.dispatch(SEARCH, keywords);
+      }
     }
   },
   computed: mapState({
