@@ -4,8 +4,7 @@
       <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
     <div v-if="results.length > 0 && !isLoading" class="results">
-      <h4 class="text--secondary" v-if="results.length === 1" >1 result was found</h4>
-      <h4 class="text--secondary" v-else>{{results.length}} results were found</h4>
+      <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
       <article v-for="(result, index) in results" :key="index">
         <Dish v-if="result.price"
           :title="result.title"
@@ -27,7 +26,7 @@
     <div class="results" v-else-if="isLoading">
         <DishPlaceholder v-for="i in 10" :key="i"></DishPlaceholder>
     </div>
-    <div v-else>
+    <div v-else-if="isSearching" class="results">
       <h3 class="text--secondary text-center">No results were found</h3>
     </div>
   </div>
@@ -39,7 +38,7 @@ import DishPlaceholder from '../components/placeholders/DishPlaceholder.vue';
 import Dish from '../components/Dish.vue';
 
 // Additional
-import {GET_RESTAURANTS, SEARCH} from '@/store/actions';
+import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
 import {mapState} from 'vuex';
 
 // Components
@@ -48,15 +47,23 @@ import Restaurant from '@/components/Restaurant';
 export default {
   components: { ChipSearchbar, DishPlaceholder, Error, Dish },
   name: 'Home',
-  components: { Restaurant },
+  data: () => ({
+    isSearching : false
+  }),
   mounted() {
     if(this.$store.state.restaurants.length === 0){
       this.$store.dispatch(GET_RESTAURANTS, 1);
     }
   },
   methods: {
-    loadMoreRestaurants() {
-      console.log("Placeholder - Load More Restaurants");
+    search(keywords) {
+      if(keywords.length === 0){
+        this.isSearching = false;
+        this.$store.commit(SET_SEARCH, {property: "results", data: []});
+      } else {
+        this.isSearching = true;
+        this.$store.dispatch(SEARCH, keywords);
+      }
     }
   },
   computed: mapState([

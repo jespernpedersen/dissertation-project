@@ -29,11 +29,6 @@
 export default {
     name: 'ChipSearchbar',
     props: ["categories"],
-    data () {
-        return {
-            isLoading: false,
-        }
-    },
     methods: {
         search(data) {
             this.$emit('search', data);
