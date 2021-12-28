@@ -12,7 +12,7 @@ export const state = {
     dishes: [],
     courses: [],
     todaysSpecial: [],
-    categories: [],
+    categories: []
   },
   home: {
     search: {
@@ -21,8 +21,8 @@ export const state = {
         offset: 0,
         limit: 20
       },
-      filters: [],
-    },
+      filters: []
+    }
   },
   restaurants: [],
   isLoading: {
