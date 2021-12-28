@@ -172,15 +172,15 @@ export default {
             break;
           case "Price ascending": 
             dishesArray.sort((a, b) => {
-              if(a.price > b.price) { return -1; }
-              if(a.price < b.price) { return 1; }
+              if(a.price < b.price) { return -1; }
+              if(a.price > b.price) { return 1; }
               return 0;               
             });
             break;
           case "Price descending":
             dishesArray.sort((a, b) => {
-              if(a.price < b.price) { return -1; }
-              if(a.price > b.price) { return 1; }
+              if(a.price > b.price) { return -1; }
+              if(a.price < b.price) { return 1; }
               return 0;               
             });
           default: break;

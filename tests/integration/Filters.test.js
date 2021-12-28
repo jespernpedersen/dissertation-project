@@ -189,10 +189,8 @@ describe("Filters.vue", () => {
         await filterButton.trigger("click");
         
         // range slider is not compatible with tests; it has to be bypassed
-        let filters = wrapper.findComponent(Filters);
-
-        // Set sorting
-        filters.vm.$data.sortBy = "Price descending";
+        await wrapper.find(".v-list-item .v-input__slot").trigger("click");
+        await wrapper.find(".v-select-list .v-list-item:nth-of-type(4)").trigger("click");
 
         // Filter Dishes
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
@@ -201,8 +199,14 @@ describe("Filters.vue", () => {
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
         let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
 
-        // Expect Steve's Grubhub
-        expect(firstFilteredItem).toBe("Steve's Grubhub");
+        let highestDish;
+        dishes.forEach(dish => {
+            if(highestDish == null || highestDish.price < dish.price) {
+                highestDish = dish;
+            }
+        });
+
+        expect(firstFilteredItem).toBe(highestDish.title);
     });
     it("it sorts by price asc", async () => {
         wrapper = await mountMenu(dishes);
@@ -212,13 +216,8 @@ describe("Filters.vue", () => {
         await filterButton.trigger("click");
         
         // range slider is not compatible with tests; it has to be bypassed
-        let filters = wrapper.findComponent(Filters);
-
-        // Default values are 15, 200
-        filters.vm.$data.range = [15,200];
-
-        // Set sorting
-        filters.vm.$data.sortBy = "Price ascending";
+        await wrapper.find(".v-list-item .v-input__slot").trigger("click");
+        await wrapper.find(".v-select-list .v-list-item:nth-of-type(3)").trigger("click");
 
         // Filter Dishes
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
@@ -227,8 +226,14 @@ describe("Filters.vue", () => {
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
         let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
 
-        // Expect Bake n' cake
-        expect(firstFilteredItem).toBe("Bake n' cake");
+        let lowestDish;
+        dishes.forEach(dish => {
+            if(lowestDish == null || lowestDish.price > dish.price) {
+                lowestDish = dish;
+            }
+        });
+
+        expect(firstFilteredItem).toBe(lowestDish.title);
     });
     
     it("it sorts alphabetically", async () => {
@@ -237,15 +242,10 @@ describe("Filters.vue", () => {
         // Open dialog box first
         let filterButton = wrapper.find("#filter-button");
         await filterButton.trigger("click");
-        
-        // range slider is not compatible with tests; it has to be bypassed
-        let filters = wrapper.findComponent(Filters);
 
-        // Default values are 15, 200
-        filters.vm.$data.range = [15,200];
 
-        // Set sorting
-        filters.vm.$data.sortBy = "Alphabetically";
+        await wrapper.find(".v-list-item .v-input__slot").trigger("click");
+        await wrapper.find(".v-select-list .v-list-item:nth-of-type(2)").trigger("click");
 
         // Filter Dishes
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
@@ -254,8 +254,13 @@ describe("Filters.vue", () => {
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
         let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
 
-        // Expect Amici Di Vincenzo
-        expect(firstFilteredItem).toBe("Amici Di Vincenzo");
+        dishes.sort((a, b) => {
+          if(a.title < b.title) { return -1; }
+          if(a.title > b.title) { return 1; }
+          return 0;
+        });
+
+        expect(firstFilteredItem).toBe(dishes[0].title);
     });
 
     it("it sorts by default", async () => {
@@ -264,15 +269,13 @@ describe("Filters.vue", () => {
         // Open dialog box first
         let filterButton = wrapper.find("#filter-button");
         await filterButton.trigger("click");
+
         
-        // range slider is not compatible with tests; it has to be bypassed
-        let filters = wrapper.findComponent(Filters);
-
-        // Default values are 15, 200
-        filters.vm.$data.range = [15,200];
-
-        // Set sorting
-        filters.vm.$data.sortBy = "Default";
+        await wrapper.find(".v-list-item .v-input__slot").trigger("click");
+        await wrapper.find(".v-select-list .v-list-item:nth-of-type(4)").trigger("click");
+        
+        await wrapper.find(".v-list-item .v-input__slot").trigger("click");
+        await wrapper.find(".v-select-list .v-list-item:nth-of-type(1)").trigger("click");
 
         // Filter Dishes
         let filterDishesBtn = wrapper.find("#filter-dishes-btn");
@@ -280,9 +283,8 @@ describe("Filters.vue", () => {
 
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
         let firstFilteredItem = filteredDishes.at(0).find(".dish-label-title h3").text();
-
-        // Expect Amici Di Vincenzo
-        expect(firstFilteredItem).toBe("Amici Di Vincenzo");
+  
+        expect(firstFilteredItem).toBe(dishes[0].title);
     });
 
     async function mountMenu(){
