@@ -40,7 +40,6 @@ describe("Filters.vue", () => {
         let filterButton = wrapper.find("button.mx-2");
 
         expect(filterButton.exists()).toBeTruthy();
-        expect(filterButton.find("i.mdi-filter")).toBeTruthy();
 
         await filterButton.trigger("click");
         let dialog = wrapper.find(".v-dialog");
