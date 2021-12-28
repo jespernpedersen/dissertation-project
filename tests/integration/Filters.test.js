@@ -145,20 +145,17 @@ describe("Filters.vue", () => {
         // Default values are 15, 200
         filters.vm.$data.range = [15,70];
 
-        // Filter Dishes
-        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
-        await filterDishesBtn.trigger("click");
+        await wrapper.find("#filter-dishes-btn").trigger("click");
+
+        expect(wrapper.find(".filtered-items").exists()).toBeTruthy();
 
         // Clear Filters
-        let clearFiltersBtn = wrapper.find("#clear-filters-btn");
-        await clearFiltersBtn.trigger("click");
+        await wrapper.find("#clear-filters-btn").trigger("click");
 
-        let allDishesItems = wrapper.findAll(".all-items .v-item-group");
-        let filteredDishesItems = wrapper.findAll(".filtered-items .dish-inner");
+        // Open an expansion box for an item
+        await wrapper.find(".all-items .v-item-group .v-expansion-panel-header").trigger("click");
 
-        expect(allDishesItems.length).toBeGreaterThanOrEqual(1);
-        
-        expect(filteredDishesItems.length).toBe(0);
+        expect(wrapper.find(".all-items").exists()).toBeTruthy();
     });
 
     it("it changes filter icon when it has filters", async () => {
