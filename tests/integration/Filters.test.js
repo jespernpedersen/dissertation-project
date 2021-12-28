@@ -152,15 +152,13 @@ describe("Filters.vue", () => {
         // Clear Filters
         let clearFiltersBtn = wrapper.find("#clear-filters-btn");
         await clearFiltersBtn.trigger("click");
+
+        let allDishesItems = wrapper.findAll(".all-items .v-item-group");
+        let filteredDishesItems = wrapper.findAll(".filtered-items .dish-inner");
+
+        expect(allDishesItems.length).toBeGreaterThanOrEqual(1);
         
-        
-        let allDishes = wrapper.findAll(".all-items .dish-inner");
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
-        
-        expect(allDishes.length).toBeGreaterThanOrEqual(1);
-        expect(allDishes.isVisible()).toBe(true);
-        expect(filteredDishes.length).toBe(0);
-        expect(filteredDishes.isVisible()).toBe(false);
+        expect(filteredDishesItems.length).toBe(0);
     });
 
     it("it changes filter icon when it has filters", async () => {
