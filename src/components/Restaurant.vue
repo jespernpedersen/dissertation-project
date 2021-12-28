@@ -116,7 +116,7 @@ export default {
     }
     .logo-wrapper {
         position: absolute;
-        bottom: 0;
+        bottom: 20px;
         left: 50%;
         transform: translate(-50%, -50%);
         border-radius: 100%;
