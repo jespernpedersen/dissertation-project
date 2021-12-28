@@ -90,6 +90,48 @@ describe("Filters.vue", () => {
         expect(filteredDishes).toBe(4);
     });
 
+    it("min price slider changes value on input", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        // Open dialog box first
+        let filterButton = wrapper.find("button.mx-2");
+        await filterButton.trigger("click");
+
+        await wrapper.find(".min-max .v-input:first-of-type input").setValue(60);
+
+        // Value is only updated after element stops being focused
+        await wrapper.find(".v-card").trigger("click");
+
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+        
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
+
+        expect(filteredDishes).toBe(3);
+    });
+
+    it("max price slider changes value on input", async () => {
+
+        wrapper = await mountMenu(dishes);
+
+        // Open dialog box first
+        let filterButton = wrapper.find("button.mx-2");
+        await filterButton.trigger("click");
+
+        await wrapper.find(".min-max .v-input:last-of-type input").setValue(70);
+
+        // Value is only updated after element stops being focused
+        await wrapper.find(".v-card").trigger("click");
+
+        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
+        await filterDishesBtn.trigger("click");
+        
+        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
+
+        expect(filteredDishes).toBe(4);
+    });
+
 
     it("closes dialog window on filter", async () => {
 
