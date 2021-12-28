@@ -3,8 +3,8 @@ import { mount } from '@vue/test-utils'
 
 describe('restaurant.vue', () => {
 
-    const image = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg');
-    const logo = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg');
+    const image = '';
+    const logo = '';
     const restaurant =  { 
         title: "Steve's Grubhub",
         image: image,
