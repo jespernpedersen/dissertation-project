@@ -29,14 +29,18 @@
     <div class="all-items" v-if="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
+<<<<<<< HEAD
     <LowerNavbar :courses="courses"></LowerNavbar>
+=======
+>>>>>>> 0eea964ef122e0df0b5cf3b03e94e665b5bdf71e
   </div>
 </template>
 <script>
 // Components
-import AccordionMenu from '@/components/AccordionMenu.vue'
-import Header from '@/components/Header.vue'
-import HorizontalMenu from '../components/HorizontalMenu';
+import Dish from '@/components/Dish.vue'
+import AccordionMenu from '@/components/menus/AccordionMenu.vue';
+import Header from '@/components/Header.vue';
+import HorizontalMenu from '../components/menus/HorizontalMenu';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
@@ -63,7 +67,6 @@ export default {
       }  
     },
     filterDishes(filteredDishes) {
-      console.log(filteredDishes);
       this.filteredDishes = filteredDishes;
     },
     clearFilter() {
