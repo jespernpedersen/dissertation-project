@@ -1,9 +1,30 @@
 <template>
-  <div>
+  <div class="restaurant-view">
     <div class="banner">
       <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
-    <div v-if="results.length > 0 && !isLoading" class="results">
+    <div class="restaurant-list" v-if="restaurants.length > 0 && !isLoadingRestaurants && !isSearching">
+      <article v-for="restaurant in restaurants" v-bind:key="restaurant.id">
+        <Restaurant
+          :id="restaurant.id"
+          :title="restaurant.title"
+          :slug="restaurant.slug"
+          :logo="restaurant.logo"
+          :banner="restaurant.banner"
+          :categories="restaurant.categories"
+        >
+        </Restaurant>
+      </article>
+      <div class="cta-row">
+        <v-btn
+          id="load-more-restaurants-btn"
+          @click="loadMoreRestaurants();"
+        >
+          See more
+        </v-btn>
+      </div>
+    </div>
+    <div v-if="results.length > 0 && !isLoadingSearch" class="results">
       <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
       <article v-for="(result, index) in results" :key="index">
         <Dish v-if="result.price"
@@ -14,16 +35,27 @@
           :ingredients="result.ingredients"
         ></Dish>
        <router-link v-else :to="'/restaurant/'+result.slug">
-        <Dish
+         <Restaurant
+            :id="result.id"
             :title="result.title"
-            :image="result.banner"
-            :description="result.description"
-            layout="horizontal"
-          ></Dish>
+            :slug="result.slug"
+            :logo="result.logo"
+            :banner="result.banner"
+            :categories="result.categories"
+          >
+          </Restaurant>
         </router-link>
        </article>
+       <div class="cta-row">
+        <v-btn
+          id="load-more-restaurants-btn"
+          @click="loadMoreRestaurants();"
+        >
+          See more
+        </v-btn>
+      </div>
     </div>
-    <div class="results" v-else-if="isLoading">
+    <div class="results" v-else-if="isLoadingSearch && isSearching || isLoadingRestaurants">
         <DishPlaceholder v-for="i in 10" :key="i"></DishPlaceholder>
     </div>
     <div v-else-if="isSearching" class="results">
@@ -33,16 +65,19 @@
 </template>
 <script>
 import Error from '@/components/Error';
-import ChipSearchbar from '@/components/searchbars/ChipSearchbar.vue';
-import DishPlaceholder from '../components/placeholders/DishPlaceholder.vue';
-import Dish from '../components/Dish.vue';
+import ChipSearchbar from '@/components/searchbars/ChipSearchbar';
+import DishPlaceholder from '@/components/placeholders/DishPlaceholder';
+import Dish from '@/components/Dish';
 
 // Additional
 import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
 import {mapState} from 'vuex';
 
+// Components
+import Restaurant from '@/components/Restaurant';
+
 export default {
-  components: { ChipSearchbar, DishPlaceholder, Error, Dish },
+  components: { ChipSearchbar, DishPlaceholder, Error, Dish, Restaurant },
   name: 'Home',
   data: () => ({
     isSearching : false
@@ -53,6 +88,9 @@ export default {
     }
   },
   methods: {
+    loadMoreRestaurants() {
+      console.log("Placeholder - Load More Restaurants");
+    },
     search(keywords) {
       if(keywords.length === 0){
         this.isSearching = false;
@@ -69,7 +107,9 @@ export default {
     params: state => state.home.search.params,
     offset: state => state.home.search.offset,
     limit: state => state.home.search.limit,
-    isLoading: state => state.isLoading.search
+    restaurants: state => state.restaurants,
+    isLoadingSearch: state => state.isLoading.search,
+    isLoadingRestaurants: state => state.isLoading.restaurants
   })
 }
 </script>
@@ -84,11 +124,10 @@ export default {
     margin-bottom: 25px;
   }
 
-  .results{
+  .results, .restaurant-list{
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px;
   }
 
   div h4{
@@ -99,4 +138,15 @@ export default {
     display: block;
   }
 
+  .cta-row {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+  }
+  #load-more-restaurants-btn {
+    display: inline-block;
+    text-transform: none;
+    box-shadow: none;
+    font-size: 14px;
+  }
 </style>
