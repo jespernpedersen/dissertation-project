@@ -159,7 +159,9 @@ describe("Filters.vue", () => {
 
         expect(allDishes.exists()).toBeTruthy();
         expect(allDishes.length).toBeGreaterThanOrEqual(1);
+        expect(allDishes.isVisible()).toBe(true);
         expect(filteredDishes.length).toBe(0);
+        expect(filteredDishes.isVisible()).toBe(false);
     });
 
     it("it changes filter icon when it has filters", async () => {
