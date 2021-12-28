@@ -154,11 +154,11 @@ describe("Filters.vue", () => {
         await clearFiltersBtn.trigger("click");
         
         
-        let allDishes = wrapper.findAll(".all-items");
+        let allDishes = wrapper.findAll(".all-items .dish-inner");
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
 
         expect(allDishes.exists()).toBeTruthy();
-        expect(allDishes.length).toBe(1);
+        expect(allDishes.length).toBeGreaterThanOrEqual(1);
         expect(filteredDishes.length).toBe(0);
     });
 
