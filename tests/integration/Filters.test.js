@@ -156,8 +156,7 @@ describe("Filters.vue", () => {
         
         let allDishes = wrapper.findAll(".all-items .dish-inner");
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner");
-
-        expect(allDishes.exists()).toBeTruthy();
+        
         expect(allDishes.length).toBeGreaterThanOrEqual(1);
         expect(allDishes.isVisible()).toBe(true);
         expect(filteredDishes.length).toBe(0);
