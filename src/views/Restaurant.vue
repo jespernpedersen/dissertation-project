@@ -2,51 +2,81 @@
   <div>
     <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+    <div class="filtering">
+      <Filters
+        :dishes="dishes"
+        @filter-dish="filterDishes"
+        @clear-filter="clearFilter"
+      >
+      </Filters>
+      <SearchBar
+        :dishes="dishes"
+        @filter-dish="filterDishes"
+        @clear-filter="clearFilter"
+      >
+      </SearchBar>
+    </div>
+    <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
+      <h2>Filtered Dishes</h2>
+      <Dish v-for="dish in filteredDishes" :key="dish.id"
+        :title="dish.title"
+        :image="dish.cover_image"
+        :description="dish.description"
+        :price="dish.price"
+        :ingredients="dish.ingredients"
+      ></Dish>
+    </div>
+    <div class="all-items" v-if="filteredDishes.length == 0">
+      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
+    </div>
     <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
     <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
 </template>
 <script>
 // Components
-import AccordionMenu from '@/components/AccordionMenu.vue'
-import Header from '@/components/Header.vue'
+import Dish from '@/components/Dish.vue'
+import AccordionMenu from '@/components/AccordionMenu.vue';
+import Header from '@/components/Header.vue';
 import HorizontalMenu from '../components/HorizontalMenu';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
+<<<<<<< HEAD
+import SearchBar from '../components/SearchBar.vue';
+import Filters from '../components/Filters';
+
+
+export default {
+  name: 'Restaurant',
+  components: { AccordionMenu, Header, HorizontalMenu, SearchBar, Filters, Dish },
+=======
 import LowerNavbar from '@/components/LowerNavbar.vue';
 
 export default {
   name: 'Restaurant',
   components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar },
+>>>>>>> b31df3064d1198665fb9a74413671595ba046320
   props: ["slug"],
   data () {
     return {
-      dishesSpecial: [],
-      categories: []
+      categories: [],
+      filteredDishes: []
     }
   },
   methods: {
-    async getSpecialDishes() {
-      try {
-        const data = await DishesService.getTodaysSpecial();
-        this.dishesSpecial = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    },
     async getCategories() {
-      try {
-        const data = await CategoriesService.getAllCategories();
-        this.categories = data;
-      } catch (error) {
-        console.log(error);
-      }  
-    }   
+      this.categories = await CategoriesService.getAllCategories(); 
+    },
+    filterDishes(filteredDishes) {
+      this.filteredDishes = filteredDishes;
+    },
+    clearFilter() {
+      this.filteredDishes = [];
+    }
   },
   mounted: function () {
-
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
@@ -93,5 +123,19 @@ export default {
   }
   .special-dish + .special-dish {
     margin-left: 15px;
+  }
+  .filtering {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .filtered-items {
+    text-align: center;
+  }
+  .filtered-items h2 {
+    text-align: left;
+    padding: 0 40px;
+    margin-bottom: 20px;
   }
 </style>

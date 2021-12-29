@@ -1,7 +1,7 @@
 <template>
     <div class="search-bar">
         <v-text-field
-            label="Search for dishes here..."
+            label="Do you have an idea what you're looking for?"
             v-model="searchtext"
             :loading="isLoading"
             @keyup="filterSearch()"
@@ -40,14 +40,15 @@ export default {
         },
         clearFilter() {
             this.searchtext = '';
-            this.$emit('clear-filter')
+            this.$emit('clear-filter');
         }
     }
 }
 </script>
 <style scoped>
     .search-bar {
-        padding: 0 20px;
+        width: 100%;
+        margin-left: 10px;
         display: flex;
     }
 </style>
