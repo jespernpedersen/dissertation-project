@@ -1,5 +1,5 @@
 <template>
-    <div class="dish-inner" :class="layout">
+    <div class="dish-inner">
         <div class="image-wrapper">
             <img :src='image' alt="" />
         </div>

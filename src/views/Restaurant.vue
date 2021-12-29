@@ -37,19 +37,18 @@
 import Dish from '@/components/Dish.vue'
 import AccordionMenu from '@/components/menus/AccordionMenu.vue';
 import Header from '@/components/Header.vue';
-import HorizontalMenu from '../components/HorizontalMenu';
+import HorizontalMenu from '@/components/menus/HorizontalMenu';
+import Filters from '@/components/Filters';
+import SearchBar from '@/components/searchbars/SearchBar.vue';
 import LowerNavbar from '@/components/LowerNavbar.vue';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
-import SearchBar from '../components/searchbars/SearchBar.vue';
-import Filters from '../components/Filters';
-
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu, SearchBar, Filters, Dish, LowerNavbar },
+  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar },
   props: ["slug"],
   data () {
     return {

@@ -56,7 +56,6 @@ export default class SearchService {
 
         results.sort((a,b) => b.score >= a.score);
 
-
         if(params.limit > results.length || params.limit === 0) params.limit = results.length;
         if(params.offset >= params.limit && params.offset - params.limit <= 0) params.offset = 0;
         else if (params.offset >= params.limit) params.offset = params.limit;

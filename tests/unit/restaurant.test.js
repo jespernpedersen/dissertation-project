@@ -14,7 +14,8 @@ describe('restaurant.vue', () => {
     it('initializes properly', () => {
 
         let wrapper = mount(Restaurant, {
-            propsData: restaurant
+            propsData: restaurant,
+            stubs: ['router-link']
         });
 
         expect(wrapper.find('h1').text()).toMatch(restaurant.title);
@@ -26,7 +27,8 @@ describe('restaurant.vue', () => {
         localRestaurant.title = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse porttitor feugiat aliquam. In euismod quis tellus id fringilla. Maecenas est magna, tempus eleifend pellentesque quis, porta in dolor. Cras facilisis pellentesque diam, sed cursus nulla pellentesque et. Proin sit amet feugiat augue. Ut ornare, odio ac volutpat tincidunt, lorem lorem porttitor quam, eu aliquet velit turpis imperdiet erat. Vivamus eu lacus gravida, tempor odio nec, tincidunt dui. Vestibulum et scelerisque neque, nec sodales justo. Ut laoreet ultrices nulla, sed fermentum mi eleifend quis."
 
         let wrapper = mount(Restaurant, {
-            propsData: localRestaurant
+            propsData: localRestaurant,
+            stubs: ['router-link']
         });
 
         expect(wrapper.find('h1').text().length).toBeLessThanOrEqual(53)
