@@ -97,14 +97,14 @@
                 label="Minimum Price"
                 filled
                 :value="range[0]"
-                @change="$set(range, 0, $event)"
+                @input="$set(range, 0, $event)"
               >
               </v-text-field>
               <v-text-field
                 label="Maximum Price"
                 filled
                 :value="range[1]"
-                @change="$set(range, 1, $event)"
+                @input="$set(range, 1, $event)"
               >
               </v-text-field>
             </div>

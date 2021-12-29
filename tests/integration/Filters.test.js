@@ -11,6 +11,7 @@ import { createLocalVue, mount } from '@vue/test-utils';
 import { cloneDeep } from 'lodash';
 import Vuex from 'vuex';
 import storeConfig from '@/store/store';
+import Vue from 'vue';
 
 jest.mock('@/services/restaurantService');
 jest.mock('@/services/dishService');
@@ -26,13 +27,6 @@ describe("Filters.vue", () => {
     const localVue = createLocalVue();
     localVue.use(Vuex);
 
-    afterEach(() => {
-        if(wrapper){
-            wrapper.destroy();
-        }
-        vuetify = undefined;
-    });
-
     it("pop up appears on button click", async () => {
 
         wrapper = await mountMenu(dishes);
@@ -44,9 +38,10 @@ describe("Filters.vue", () => {
         await filterButton.trigger("click");
         let dialog = wrapper.find(".v-dialog");
         expect(dialog.exists()).toBeTruthy();
+        wrapper.destroy();
     });
 
-    it("min price slider changes value on input", async () => {
+    it("filters on min price slider", async () => {
 
         wrapper = await mountMenu(dishes);
 
@@ -66,9 +61,11 @@ describe("Filters.vue", () => {
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
 
         expect(filteredDishes).toBe(3);
+
+        wrapper.destroy();
     });
 
-    it("max price slider changes value on input", async () => {
+    it("it filters on max price slider", async () => {
 
         wrapper = await mountMenu(dishes);
 
@@ -88,9 +85,10 @@ describe("Filters.vue", () => {
         let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
 
         expect(filteredDishes).toBe(4);
+        wrapper.destroy();
     });
 
-    it("min price slider changes value on input", async () => {
+    it("filters on min price text input", async () => {
 
         wrapper = await mountMenu(dishes);
 
@@ -98,20 +96,15 @@ describe("Filters.vue", () => {
         let filterButton = wrapper.find("button.mx-2");
         await filterButton.trigger("click");
 
-        await wrapper.find(".min-max .v-input:first-of-type input").setValue(60);
+        let input = wrapper.find(".min-max .v-input:first-of-type input");
+        input.setValue(60);
+        await input.trigger("input");
+        await wrapper.find("#filter-dishes-btn").trigger("click");
 
-        // Value is only updated after element stops being focused
-        await wrapper.find(".v-card").trigger("click");
-
-        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
-        await filterDishesBtn.trigger("click");
-        
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
-
-        expect(filteredDishes).toBe(3);
+        expect(wrapper.findAll(".filtered-items .dish-inner").length).toBe(3);
     });
 
-    it("max price slider changes value on input", async () => {
+    it("filters on max price text input", async () => {
 
         wrapper = await mountMenu(dishes);
 
@@ -119,17 +112,12 @@ describe("Filters.vue", () => {
         let filterButton = wrapper.find("button.mx-2");
         await filterButton.trigger("click");
 
-        await wrapper.find(".min-max .v-input:last-of-type input").setValue(70);
+        let input = wrapper.find(".min-max .v-input:last-of-type input");
+        input.setValue(70);
+        await input.trigger("input");
+        await wrapper.find("#filter-dishes-btn").trigger("click");
 
-        // Value is only updated after element stops being focused
-        await wrapper.find(".v-card").trigger("click");
-
-        let filterDishesBtn = wrapper.find("#filter-dishes-btn");
-        await filterDishesBtn.trigger("click");
-        
-        let filteredDishes = wrapper.findAll(".filtered-items .dish-inner").length;
-
-        expect(filteredDishes).toBe(4);
+        expect(wrapper.findAll(".filtered-items .dish-inner").length).toBe(4);
     });
 
 
