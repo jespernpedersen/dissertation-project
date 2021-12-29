@@ -47,6 +47,7 @@ import Error from '@/components/Error';
 import ChipSearchbar from '@/components/searchbars/ChipSearchbar';
 import DishPlaceholder from '@/components/placeholders/DishPlaceholder';
 import Dish from '@/components/Dish';
+import Restaurant from '@/components/Restaurant';
 
 // Additional
 import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
