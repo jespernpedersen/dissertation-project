@@ -1,5 +1,5 @@
 <template>
-    <div class="dish-inner" :class="layout">
+    <div class="dish-inner">
         <div class="image-wrapper">
             <img :src='image' alt="" />
         </div>
@@ -40,7 +40,7 @@ export default {
         }
     },
     filters: {
-        descriptionLimit: (text) => {
+        descriptionLimit: (text = "") => {
             if(text.length > 50) {
                 return text.substring(0, 50) + "...";
             }

@@ -1,37 +1,64 @@
 <template>
-  <div class="restaurant-view">
-    <div class="restaurant-list" v-for="restaurant in restaurants" v-bind:key="restaurant.id">
-      <Restaurant
-        :id="restaurant.id"
-        :title="restaurant.title"
-        :slug="restaurant.slug"
-        :logo="restaurant.logo"
-        :banner="restaurant.banner"
-        :categories="restaurant.categories"
-      >
-      </Restaurant>
+  <div>
+    <div class="banner">
+      <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
-    <div class="cta-row">
-      <v-btn
-        id="load-more-restaurants-btn"
-        @click="loadMoreRestaurants();"
-      >
-        See more
-      </v-btn>
+    <div v-if="results.length > 0 && !isLoading" class="results">
+      <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
+      <article v-for="(result, index) in results" :key="index">
+        <Dish v-if="result.price"
+          :title="result.title"
+          :image="result.cover_image"
+          :description="result.description"
+          :price="result.price"
+          :ingredients="result.ingredients"
+        ></Dish>
+       <router-link v-else :to="'/restaurant/'+result.slug">
+         <Restaurant
+            :id="result.id"
+            :title="result.title"
+            :slug="result.slug"
+            :logo="result.logo"
+            :banner="result.banner"
+            :categories="result.categories"
+          >
+          </Restaurant>
+        </router-link>
+       </article>
+       <div class="cta-row">
+        <v-btn
+          id="load-more-restaurants-btn"
+          @click="loadMoreRestaurants();"
+        >
+          See more
+        </v-btn>
+      </div>
+    </div>
+    <div class="results" v-else-if="isLoadingSearch && isSearching || isLoadingRestaurants">
+        <DishPlaceholder v-for="i in 10" :key="i"></DishPlaceholder>
+    </div>
+    <div v-else-if="isSearching" class="results">
+      <h3 class="text--secondary text-center">No results were found</h3>
     </div>
   </div>
 </template>
 <script>
-// Additional
-import {GET_RESTAURANTS} from '@/store/actions';
-import {mapState} from 'vuex';
-
-// Components
+import Error from '@/components/Error';
+import ChipSearchbar from '@/components/searchbars/ChipSearchbar';
+import DishPlaceholder from '@/components/placeholders/DishPlaceholder';
+import Dish from '@/components/Dish';
 import Restaurant from '@/components/Restaurant';
 
+// Additional
+import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
+import {mapState} from 'vuex';
+
 export default {
+  components: { ChipSearchbar, DishPlaceholder, Error, Dish, Restaurant },
   name: 'Home',
-  components: { Restaurant },
+  data: () => ({
+    isSearching : false
+  }),
   mounted() {
     if(this.$store.state.restaurants.length === 0){
       this.$store.dispatch(GET_RESTAURANTS, 1);
@@ -40,40 +67,57 @@ export default {
   methods: {
     loadMoreRestaurants() {
       console.log("Placeholder - Load More Restaurants");
+    },
+    search(keywords) {
+      if(keywords.length === 0){
+        this.isSearching = false;
+        this.$store.commit(SET_SEARCH, {property: "results", data: []});
+      } else {
+        this.isSearching = true;
+        this.$store.dispatch(SEARCH, keywords);
+      }
     }
   },
-  computed: mapState([
-    "restaurants"
-  ])
+  computed: mapState({
+    results: state => state.home.search.results,
+    filters: state => state.home.search.filters,
+    params: state => state.home.search.params,
+    offset: state => state.home.search.offset,
+    limit: state => state.home.search.limit,
+    restaurants: state => state.restaurants,
+    isLoadingSearch: state => state.isLoading.search,
+    isLoadingRestaurants: state => state.isLoading.restaurants
+  })
 }
 </script>
 <style scoped>
-  .restaurant-list {
-    padding: 10px 10px;
+  .banner{
+    background-image: url('~@/assets/images/142608965-2cb17581-fbb1-48e7-92e5-b8b280276bfa.jpg');
+    background-size: cover;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
   }
-  .restaurant-list .restaurant {
-    display: inline-block;
+
+  .results, .restaurant-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  div h4{
+    margin-bottom: 15px;
+    padding-left: 30px;
+    text-align: left;
     width: 100%;
-    text-align: center;
+    display: block;
   }
-  .todays-special {
-    text-align: center;
-  }
-  .special-dish {
-    display: inline-block;
-  }
-  .special-dish + .special-dish {
-    margin-left: 15px;
-  }
+
   .cta-row {
     text-align: center;
     width: 100%;
-    padding: 20px 0;
-  }
-  #load-more-restaurants-btn {
-    display: inline-block;
-    text-transform: none;
-    box-shadow: none;
-    font-size: 14px;
+    display: block;
   }
 </style>

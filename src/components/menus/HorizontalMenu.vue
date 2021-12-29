@@ -40,7 +40,7 @@
 <script>
 import Dish from "@/components/Dish";
 import DishPlaceholder from '@/components/placeholders/DishPlaceholder';
-import Error from './ErrorComponent.vue';
+import Error from '@/components/Error.vue';
 
 export default {
     name: "HorizontalMenu",

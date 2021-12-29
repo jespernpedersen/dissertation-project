@@ -1,5 +1,5 @@
 <template>
-    <div class="restaurant" :class="layout">
+    <div class="restaurant">
         <router-link
             :to="'/restaurant/'+slug"
         >
@@ -40,6 +40,8 @@ export default {
         border-radius: 12px;
         width: 80vw;
         text-align: center;
+        margin-bottom: 20px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
     }
 
     .image-wrapper img {
@@ -67,7 +69,6 @@ export default {
         text-align: left;
         width: 100%;
         min-height: 75px;
-        box-shadow: 2px 8px 15px rgba(0, 0, 0, 0.5);
     }
 
     .restaurant-inner.horizontal .restaurant-label {

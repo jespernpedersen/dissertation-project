@@ -29,28 +29,26 @@
     <div class="all-items" v-if="filteredDishes.length == 0">
       <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
     </div>
-    <AccordionMenu title="Menu" :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu"></AccordionMenu>
     <LowerNavbar :courses="courses"></LowerNavbar>
   </div>
 </template>
 <script>
 // Components
 import Dish from '@/components/Dish.vue'
-import AccordionMenu from '@/components/AccordionMenu.vue';
+import AccordionMenu from '@/components/menus/AccordionMenu.vue';
 import Header from '@/components/Header.vue';
-import HorizontalMenu from '../components/HorizontalMenu';
+import HorizontalMenu from '@/components/menus/HorizontalMenu';
+import Filters from '@/components/Filters';
+import SearchBar from '@/components/searchbars/SearchBar.vue';
 import LowerNavbar from '@/components/LowerNavbar.vue';
 
 // Additional
 import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
 import { mapState } from 'vuex';
-import SearchBar from '../components/SearchBar.vue';
-import Filters from '../components/Filters';
-
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu, SearchBar, Filters, Dish, LowerNavbar },
+  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar },
   props: ["slug"],
   data () {
     return {
@@ -130,5 +128,12 @@ export default {
     text-align: left;
     padding: 0 40px;
     margin-bottom: 20px;
+  }
+  .filter-error {
+    text-align: center;
+    padding: 0 20px 20px 20px;
+  }
+  .v-btn .v-icon {
+    margin-left: 5px;
   }
 </style>
