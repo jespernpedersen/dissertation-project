@@ -19,6 +19,7 @@
         See more
       </v-btn>
     </div>
+  </div>
 </template>
 <script>
 // Additional
