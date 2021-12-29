@@ -1,9 +1,4 @@
 <template>
-  <div>
-    <div v-for="restaurant in restaurants" v-bind:key="restaurant.id">
-     <h1>
-       <router-link :to="'/restaurant/'+restaurant.slug">{{restaurant.title}}</router-link>
-      </h1>
   <div class="restaurant-view">
     <div class="restaurant-list" v-for="restaurant in restaurants" v-bind:key="restaurant.id">
       <Restaurant
@@ -24,7 +19,6 @@
         See more
       </v-btn>
     </div>
-  </div>
 </template>
 <script>
 // Additional
@@ -53,8 +47,6 @@ export default {
 }
 </script>
 <style scoped>
-<<<<<<< HEAD
-=======
   .restaurant-list {
     padding: 10px 10px;
   }
@@ -83,5 +75,4 @@ export default {
     box-shadow: none;
     font-size: 14px;
   }
->>>>>>> b31df3064d1198665fb9a74413671595ba046320
 </style>
