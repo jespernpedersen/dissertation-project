@@ -139,7 +139,7 @@ export const actions = {
   },
   search: ({commit, state}, keywords) => {
     commit("loading", "search");
-    return SearchService.Search(keywords, {...state.home.search.params}, cloneDeep(state.home.search.filters)).then(data => {
+    return SearchService.Search(keywords, state.home.search.offset, cloneDeep(state.home.search.filters), state.home.search.limit).then(data => {
       commit("setInSearch", {property: "results", data: data});
     }).finally(data => {
       commit("loaded", "search");

@@ -34,7 +34,7 @@
         </v-btn>
       </div>
     </div>
-    <div v-else-if="restaurants.length > 0 && !isLoadingRestaurants && !isSearching" class="results">
+    <div v-else-if="restaurants.length > 0 && !isLoadingRestaurants && !isSearching" class="restaurant-list">
       <h4 class="text--secondary">Showing {{restaurants.length}} {{restaurants.length === 1 ? "result" : "results"}} of {{restaurantCount}}</h4>
       <article v-for="(restaurant, index) in restaurants" :key="index">
        <router-link :to="'/restaurant/'+restaurant.slug">
@@ -63,7 +63,7 @@
         <DishPlaceholder v-for="i in 10" :key="i"></DishPlaceholder>
     </div>
     <div v-else-if="isSearching" class="results">
-      <h3 class="text--secondary text-center">No results were found</h3>
+      <h4 class="text--secondary text-center">No results were found</h4>
     </div>
   </div>
 </template>

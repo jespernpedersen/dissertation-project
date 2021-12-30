@@ -20,7 +20,7 @@ const weights = {
  */
 export default class SearchService {
 
-    static async Search(keywords, params, filters) {
+    static async Search(keywords, offset, filters, limit) {
 
         let results = [];
 
@@ -56,11 +56,11 @@ export default class SearchService {
 
         results.sort((a,b) => b.score >= a.score);
 
-        if(params.limit > results.length) params.limit = results.length;
-        if(params.offset >= params.limit && params.offset - params.limit <= 0) params.offset = 0;
-        else if (params.offset >= params.limit) params.offset = params.limit;
+        if(limit > results.length) limit = results.length;
+        if(offset >= limit && offset - limit <= 0) offset = 0;
+        else if (offset >= limit) offset = limit;
 
-        return results.slice(params.offset, params.limit);
+        return results.slice(offset, limit);
     }
 
     static countRestaurantScore(restaurant, param){
@@ -73,9 +73,9 @@ export default class SearchService {
             It also rellies on biases to reduce the value of partial matches(divide by 2) 
             compared to full matches. 
         */
-        if(restaurant.title.toLowerCase() == param){
+        if(restaurant.name.toLowerCase() == param){
             score += weights.title;
-        } else if(restaurant.title.toLowerCase().includes(param)){
+        } else if(restaurant.name.toLowerCase().includes(param)){
             score += weights.title/2;
         } 
 
