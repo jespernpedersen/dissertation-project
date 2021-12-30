@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header :id="restaurant.id" :title="restaurant.title" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
+    <Header :id="restaurant.id" :title="restaurant.name" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
     <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
     <div class="filtering">
       <Filters
@@ -93,7 +93,7 @@ export default {
     restaurant: state => state.restaurant.data,
     todaysSpecial: state => state.restaurant.todaysSpecial,
     isLoadingMenu: state => state.isLoadingMenu,
-    isLoadingSpecials: state => state.isLoading.specials
+    isLoadingSpecials: state => state.isLoading.todaysSpecial
   }) 
 }
 </script>

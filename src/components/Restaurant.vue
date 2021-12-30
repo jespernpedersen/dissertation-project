@@ -4,11 +4,11 @@
             :to="'/restaurant/'+slug"
         >
             <div class="image-wrapper">
-                <img :src='banner' alt="" />
+                <img :src='apiImgPath + banner.url.original' :alt="banner.alt" />
             </div>
             <div class="restaurant-label">
                 <div class="logo-wrapper">
-                    <img :src='logo' alt="" />
+                    <img :src='apiImgPath + logo.url.original' :alt="logo.alt" />
                 </div>
                 <div class="restaurant-label-title">
                     <h1>{{ title | descriptionLimit }}</h1>
@@ -23,11 +23,15 @@ export default {
     props: ['id', 'title', 'slug', 'logo', 'banner', 'categories'],
     filters: {
         descriptionLimit: (text) => {
-            if(text.length > 50) {
+            
+            if(text && text.length > 50) {
                 return text.substring(0, 50) + "...";
             }
             return text;
         }
+    },
+    computed: {
+        apiImgPath: () => (process.env.VUE_APP_IMG_URL)
     }
 }
 </script>
