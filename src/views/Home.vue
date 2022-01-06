@@ -3,6 +3,7 @@
     <div class="banner">
       <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
+    <h1>{{results.length}}</h1>
     <div v-if="results.length > 0 && !isLoading" class="results">
       <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
       <article v-for="(result, index) in results" :key="index">
@@ -40,6 +41,7 @@
     <div v-else-if="isSearching" class="results">
       <h3 class="text--secondary text-center">No results were found</h3>
     </div>
+    <Error v-else></Error>
   </div>
 </template>
 <script>
