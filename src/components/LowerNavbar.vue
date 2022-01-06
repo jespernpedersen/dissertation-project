@@ -1,19 +1,16 @@
 <template>
   <nav class="lowernav">
-    <v-slide-group
-          active-class="active"
-          v-model="activeTab"
-          center-active
-          mandatory
-          height="55"
-          class="wrapper">
-          <v-slide-item v-slot="{toggle}" v-for="course in courses" :key="course.id">
-            <v-btn @click="()=>changedTab(course.id,toggle)" active-class="active" class="lowernav__link">
-              <v-icon color="#9FD5BB" class="lowernav__icon">{{course.icon}}</v-icon>
-              <span class="lowernav__text">{{course.name}}</span>
-            </v-btn>
-          </v-slide-item>
-  </v-slide-group>
+    <v-tabs
+        v-model="activeTab"
+        center-active
+        height="55"
+        class="wrapper">
+          <v-tab v-for="(course, index) in courses" :key="'tab_'+index"
+          @click="()=>changedTab(index)" active-class="active" class="lowernav__link">
+            <v-icon color="#9FD5BB" class="lowernav__icon">{{course.icon}}</v-icon>
+            <span class="lowernav__text">{{course.name}}</span>
+          </v-tab>
+  </v-tabs>
 </nav>
 </template>
 
@@ -25,14 +22,12 @@
       activeTab: 0 
     }),
     methods:{
-      changedTab(courseId,callback){
+      changedTab(courseId){
         if(this.activeTab === courseId){
           return;
         }
-        
         this.activeTab = courseId;
-        this.$emit("change", this.courses[courseId]);
-        callback(); 
+        this.$emit("change", this.activeTab);
       }
     }
   }
@@ -56,7 +51,7 @@ body {
     padding-top: 10;
 }
 
-.lowernav button.lowernav__link.v-btn {
+.lowernav div.lowernav__link.v-btn {
     min-width: 80px;
     overflow: hidden;
     white-space: nowrap;
@@ -71,7 +66,7 @@ body {
     height: unset;
 }
 
-button.lowernav__link span{
+div.lowernav__link span{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,13 +86,16 @@ button.lowernav__link span{
     color: #9FD5BB;
 }
 
-.v-slide-group{
-  width: 100%;
+.lowernav div.lowernav__link.v-tab--active {
+  background-color: #9FD5BB;
 }
 
-.lowernav button.lowernav__link.v-btn.active{
-  background-color: white;
+.lowernav div.lowernav__link.v-tab--active i, .lowernav div.lowernav__link.v-tab--active span{
+  color: white!important;
 }
 
+.v-slide-group__prev.v-slide-group__prev--disabled, .v-slide-group__next.v-slide-group__next--disabled {
+  display: none!important;
+}
 
 </style>

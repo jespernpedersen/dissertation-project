@@ -7,7 +7,7 @@
                         <v-expansion-panel-content>
                             <Dish v-for="dish in course.dishes" :key="dish.id"
                             :title="dish.title"
-                            :image="dish.cover_image"
+                            :image="dish.image"
                             :description="dish.description"
                             :price="dish.price"
                             :ingredients="dish.ingredients"

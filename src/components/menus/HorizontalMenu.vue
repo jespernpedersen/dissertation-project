@@ -10,7 +10,7 @@
           <v-slide-item class="special-dish" v-for="dish in dishes" :key="dish.id">
             <Dish
               :title="dish.title"
-              :image="dish.cover_image"
+              :image="dish.image"
               :description="dish.description"
               :price="dish.price"
               :ingredients="dish.ingredients"

@@ -8,7 +8,7 @@
       <article v-for="(result, index) in results" :key="index">
         <Dish v-if="result.price"
           :title="result.title"
-          :image="result.cover_image"
+          :image="result.image"
           :description="result.description"
           :price="result.price"
           :ingredients="result.ingredients"

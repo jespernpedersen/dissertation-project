@@ -4,29 +4,54 @@
         "description": "Spaghetti Bolognese",
         "ingredients": "Spaghetti, Tomato, Ground Beef, Cheese" ,
         "price": 69,
-        "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+        "image": {
+            "id": 0,
+            "name": "Test",
+            "alt": "test",
+            "url": {
+                "original": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+                "medium": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+                "small": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg"
+            }
+        },
         "categories": [0, 1],
         "course": 0,
         "isTodaysSpecial": false
     },
-
     {
         "title": "Steve's Grubhub",
         "description": "GooBurber",
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
-        "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+        "image": {
+            "id": 0,
+            "name": "Test",
+            "alt": "test",
+            "url": {
+                "original": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+                "medium": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+                "small": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg"
+            }
+        },
         "categories": [0],
         "course": 0,
         "isTodaysSpecial": false
     },
-
     {
         "title": "Bake n' cake",
         "description": "croquembouche",
         "ingredients": "Profiteroles, Caramel, Chocolate",
         "price": 169,
-        "cover_image": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
+        "image": {
+            "id": 0,
+            "name": "Test",
+            "alt": "test",
+            "url": {
+                "original": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
+                "medium": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg",
+                "small": "https://www.thespruceeats.com/thmb/BWAO-heyTpUDLJtZUP4s9PLLyGY=/3229x3229/smart/filters:no_upscale()/Croquembouche-GettyImages-86056299-57b6b28f5f9b58cdfd412a58.jpg"
+            }
+        },
         "categories": [1],
         "isTodaysSpecial": true,
         "course": 4
@@ -36,7 +61,16 @@
         "description": "A composition of fries and salt dried codfish, cooked in egg. Complemented with traditional black olives.",
         "ingredients": "Fries, codfish, egg, onion, olive oil, black olives, salt and pepper" ,
         "price": 69,
-        "cover_image": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+        "image": {
+            "id": 0,
+            "name": "Test",
+            "alt": "test",
+            "url": {
+                "original": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+                "medium": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg",
+                "small": "https://www.kitchensanctuary.com/wp-content/uploads/2019/09/Spaghetti-Bolognese-square-FS-0204-500x375.jpg"
+            }
+        },
         "categories": [2],
         "course": 2,
         "isTodaysSpecial": true
@@ -47,7 +81,16 @@
         "ingredients": "Buns, Cheese, Beef patty, Chilli, Tomato, Lettuce, Bacon, Onion",
         "price": 50,
         "categories": [0],
-        "cover_image": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+        "image": {
+            "id": 0,
+            "name": "Test",
+            "alt": "test",
+            "url": {
+                "original": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+                "medium": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg",
+                "small": "https://tmbidigitalassetsazure.blob.core.windows.net/rms3-prod/attachments/37/1200x1200/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg"
+            }
+        },
         "course": 2,
         "isTodaysSpecial": true
     }

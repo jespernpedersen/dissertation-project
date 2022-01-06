@@ -109,11 +109,12 @@ export const actions = {
       commit("setInRestaurants", {property: "count", data: data});
     });
   },
-  getDishes: ({commit}, restaurantId) => {
-    return DishService.getAll(restaurantId).then( data => {
+  getDishes: async ({commit}, restaurantId) => {
+    return await DishService.getFromRestaurant(restaurantId).then( data => {
       commit('setInRestaurant', {prop: "dishes", data: data});
-    }).finally( data => {
-      commit("loaded", "dishes")
+      return data;
+    }).then().finally( data => {
+      commit("loaded", "dishes");
     });
   },
   getTodaysSpecial: ({commit}, restaurantId) => {

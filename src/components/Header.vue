@@ -6,7 +6,6 @@
         <figure v-if="!isLogoValid || !logo"><v-icon size="50px" >mdi-silverware-fork-knife</v-icon></figure>
         <div class="title-area">
             <h2>{{ title }}</h2>
-            <button><v-icon>mdi-information-outline</v-icon></button>
         </div>
     </header>
 </template>
