@@ -3,12 +3,18 @@ import { mount } from '@vue/test-utils'
 
 describe('restaurant.vue', () => {
 
-    const image = '';
-    const logo = '';
+    const image = {
+        alt: "",
+        url: {
+          original: '',
+          medium: '',
+          small: ''
+        }
+    };
     const restaurant =  { 
         title: "Steve's Grubhub",
-        image: image,
-        logo: logo
+        banner: image,
+        logo: image
     };
 
     it('initializes properly', () => {

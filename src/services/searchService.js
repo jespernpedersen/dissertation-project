@@ -60,7 +60,7 @@ export default class SearchService {
         if(params.offset >= params.limit && params.offset - params.limit <= 0) params.offset = 0;
         else if (params.offset >= params.limit) params.offset = params.limit;
 
-        return results.slice(params.offset, params.limit);
+        return {data: results.slice(params.offset, params.limit), count: results.length};
     }
 
     static countRestaurantScore(restaurant, param){
@@ -73,21 +73,11 @@ export default class SearchService {
             It also rellies on biases to reduce the value of partial matches(divide by 2) 
             compared to full matches. 
         */
-        if(restaurant.title.toLowerCase() == param){
+        if(restaurant.name.toLowerCase() == param){
             score += weights.title;
-        } else if(restaurant.title.toLowerCase().includes(param)){
+        } else if(restaurant.name.toLowerCase().includes(param)){
             score += weights.title/2;
         } 
-        
-        restaurant.categories.forEach(id => {
-            if(categories.length <= id){
-                return;
-            }else if(categories[id].name.toLowerCase() == param){
-                score += weights.category;
-            } else if(categories[id].name.toLowerCase().includes(param)){
-                score += weights.ingredient/2;
-            }
-        });
 
         return score;
     }

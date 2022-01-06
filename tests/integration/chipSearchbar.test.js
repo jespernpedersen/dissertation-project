@@ -11,7 +11,9 @@ import restaurants from '@/assets/data/restaurants.json';
 import Vue from 'vue';
 
 jest.mock('@/services/searchService');
+jest.mock('@/services/restaurantService');
 const SearchService = require('@/services/searchService');
+const RestaurantService = require('@/services/RestaurantService');
 
 /*
     The results returned are not tested because they are not responsability of this 
@@ -107,7 +109,7 @@ describe('ChipSearchbar.vue', () => {
         //wait for vue to update the interface
         await Vue.nextTick();
 
-        expect(wrapper.find("h3.text--secondary").text()).toBe("No results were found");
+        expect(wrapper.find("h4.text--secondary").text()).toBe("No results were found");
 
         wrapper.destroy();
 

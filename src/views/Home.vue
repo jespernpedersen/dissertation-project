@@ -3,9 +3,8 @@
     <div class="banner">
       <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
-    <h1>{{results.length}}</h1>
-    <div v-if="results.length > 0 && !isLoading" class="results">
-      <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
+    <div v-if="results.length > 0 && !isLoadingSearch" class="results">
+       <h4 class="text--secondary">Showing {{results.length}} {{results.length === 1 ? "result" : "results"}} of {{resultsCount}}</h4>
       <article v-for="(result, index) in results" :key="index">
         <Dish v-if="result.price"
           :title="result.title"
@@ -28,8 +27,34 @@
        </article>
        <div class="cta-row">
         <v-btn
+         v-if="resultsCount > results.length"
           id="load-more-restaurants-btn"
           @click="loadMoreRestaurants();"
+        >
+          See more
+        </v-btn>
+      </div>
+    </div>
+    <div v-else-if="restaurants.length > 0 && !isLoadingRestaurants && !isSearching" class="restaurant-list">
+      <h4 class="text--secondary">Showing {{restaurants.length}} {{restaurants.length === 1 ? "result" : "results"}} of {{restaurantCount}}</h4>
+      <article v-for="(restaurant, index) in restaurants" :key="index">
+       <router-link :to="'/restaurant/'+restaurant.slug">
+         <Restaurant
+            :id="restaurant.id"
+            :title="restaurant.name"
+            :slug="restaurant.slug"
+            :logo="restaurant.logo"
+            :banner="restaurant.banner"
+            :categories="restaurant.categories"
+          >
+          </Restaurant>
+        </router-link>
+       </article>
+       <div class="cta-row">
+        <v-btn
+        v-if="restaurantCount > restaurants.length"
+          id="load-more-restaurants-btn"
+          @click="loadMoreRestaurants"
         >
           See more
         </v-btn>
@@ -39,7 +64,7 @@
         <DishPlaceholder v-for="i in 10" :key="i"></DishPlaceholder>
     </div>
     <div v-else-if="isSearching" class="results">
-      <h3 class="text--secondary text-center">No results were found</h3>
+      <h4 class="text--secondary text-center">No results were found</h4>
     </div>
     <Error v-else></Error>
   </div>
@@ -52,7 +77,7 @@ import Dish from '@/components/Dish';
 import Restaurant from '@/components/Restaurant';
 
 // Additional
-import {GET_RESTAURANTS, SEARCH, SET_SEARCH} from '@/store/actions';
+import {GET_RESTAURANTS, SET_RESTAURANTS_COUNT, SEARCH, SET_SEARCH, SET_RESTAURANTS} from '@/store/actions';
 import {mapState} from 'vuex';
 
 export default {
@@ -62,13 +87,18 @@ export default {
     isSearching : false
   }),
   mounted() {
-    if(this.$store.state.restaurants.length === 0){
-      this.$store.dispatch(GET_RESTAURANTS, 1);
+    if(this.restaurants.length === 0){
+      this.$store.dispatch(SET_RESTAURANTS_COUNT);
+      this.$store.dispatch(GET_RESTAURANTS);
     }
   },
   methods: {
     loadMoreRestaurants() {
-      console.log("Placeholder - Load More Restaurants");
+      let newOffset = this.$store.state.home.restaurants.offset+this.$store.state.home.restaurants.limit;
+      this.$store.commit(SET_RESTAURANTS, {property: "offset", data: newOffset, callback: () => {
+        this.$store.dispatch(GET_RESTAURANTS);
+      }});
+
     },
     search(keywords) {
       if(keywords.length === 0){
@@ -86,7 +116,9 @@ export default {
     params: state => state.home.search.params,
     offset: state => state.home.search.offset,
     limit: state => state.home.search.limit,
-    restaurants: state => state.restaurants,
+    restaurants: state => state.home.restaurants.results,
+    restaurantCount: state => state.home.restaurants.count,
+    resultsCount: state => state.home.search.count,
     isLoadingSearch: state => state.isLoading.search,
     isLoadingRestaurants: state => state.isLoading.restaurants
   })
@@ -121,5 +153,6 @@ export default {
     text-align: center;
     width: 100%;
     display: block;
+    margin-bottom: 15px;
   }
 </style>

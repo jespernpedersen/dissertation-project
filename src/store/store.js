@@ -17,14 +17,20 @@ export const state = {
   home: {
     search: {
       results: [],
-      params: {
-        offset: 0,
-        limit: 20
-      },
-      filters: []
+      count: 0,
+      offset: 0,
+      limit: 20,
+      order: [],
+      filters: [],
+    },
+    restaurants: {
+      results: [],
+      offset: 0,
+      limit: 20,
+      order: [],
+      count: 0
     }
   },
-  restaurants: [],
   isLoading: {
     categories: true,
     courses: true,
@@ -46,8 +52,17 @@ export const mutations = {
   setInRestaurant: (state, payload) => {
     state.restaurant[payload.prop] = payload.data;
   },
-  setRestaurants: (state, payload) => {
-    state.restaurants = payload;
+  setInRestaurants: (state, payload) => {
+    switch(payload.property){
+      case 'results': 
+        state.home.restaurants[payload.property] = state.home.restaurants.results.concat(payload.data);
+        break; 
+      default:
+        state.home.restaurants[payload.property] = payload.data;
+        break;
+    }
+
+    if(payload.callback) payload.callback();
   },
   loaded: (state, payload) => {
     state.isLoading[payload] = false;
@@ -71,7 +86,7 @@ export const mutations = {
 
 export const actions = {
   getRestaurant: ({commit}, slug) => {
-    return RestaurantService.getBySlug(slug).then(data => {
+    return RestaurantService.get(slug).then(data => {
       commit("setInRestaurant", {prop: "data", data: data});
     }).finally(data => {
       commit("loaded", "restaurants");
@@ -80,11 +95,19 @@ export const actions = {
   resetRestaurant: ({commit}) => {
     commit("resetRestaurant");
   },
-  getRestaurants: ({commit}) => {
-    return RestaurantService.getAll().then(data => {
-      commit("setRestaurants", data);
+  getRestaurants: ({commit, state}) => {
+    return RestaurantService.getAll(state.home.restaurants.offset, 
+      state.home.restaurants.filters,
+      state.home.restaurants.order,
+      state.home.restaurants.limit).then(data => {
+      commit("setInRestaurants", {property: "results", data: data});
     }).finally(data => {
       commit("loaded", "restaurants");
+    });
+  },
+  getRestaurantsCount: ({commit}) => {
+    return RestaurantService.getCount().then(data => {
+      commit("setInRestaurants", {property: "count", data: data});
     });
   },
   getDishes: ({commit}, restaurantId) => {
@@ -117,8 +140,9 @@ export const actions = {
   },
   search: ({commit, state}, keywords) => {
     commit("loading", "search");
-    return SearchService.Search(keywords, {...state.home.search.params}, cloneDeep(state.home.search.filters)).then(data => {
-      commit("setInSearch", {property: "results", data: data});
+    return SearchService.Search(keywords, state.home.search.offset, cloneDeep(state.home.search.filters), state.home.search.limit).then(data => {
+      commit("setInSearch", {property: "results", data: data.data});
+      commit("setInSearch", {property: "count", data: data.count});
     }).finally(data => {
       commit("loaded", "search");
     })
