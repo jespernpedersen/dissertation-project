@@ -4,7 +4,7 @@
       <ChipSearchbar @search="search"></ChipSearchbar>
     </div>
     <div v-if="results.length > 0 && !isLoadingSearch" class="results">
-      <h4 class="text--secondary">{{results.length}} {{results.length === 1 ? "result" : "results"}}</h4>
+       <h4 class="text--secondary">Showing {{results.length}} {{results.length === 1 ? "result" : "results"}} of {{resultsCount}}</h4>
       <article v-for="(result, index) in results" :key="index">
         <Dish v-if="result.price"
           :title="result.title"
@@ -27,6 +27,7 @@
        </article>
        <div class="cta-row">
         <v-btn
+         v-if="resultsCount > results.length"
           id="load-more-restaurants-btn"
           @click="loadMoreRestaurants();"
         >
@@ -65,6 +66,7 @@
     <div v-else-if="isSearching" class="results">
       <h4 class="text--secondary text-center">No results were found</h4>
     </div>
+    <Error v-else></Error>
   </div>
 </template>
 <script>
@@ -116,6 +118,7 @@ export default {
     limit: state => state.home.search.limit,
     restaurants: state => state.home.restaurants.results,
     restaurantCount: state => state.home.restaurants.count,
+    resultsCount: state => state.home.search.count,
     isLoadingSearch: state => state.isLoading.search,
     isLoadingRestaurants: state => state.isLoading.restaurants
   })

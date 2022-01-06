@@ -1,132 +1,152 @@
 [
     {
-        "id": 0,
-        "name": "Amici Di Vincenzo",
-        "slug": "amici_di_vincenzo",
-        "logo": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
-            "url": {
-                "original": "https://st.depositphotos.com/1026166/3160/v/600/depositphotos_31605339-stock-illustration-restaurant-food-quality-badge.jpg",
-                "medium": "https://st.depositphotos.com/1026166/3160/v/600/depositphotos_31605339-stock-illustration-restaurant-food-quality-badge.jpg",
-                "small": "https://st.depositphotos.com/1026166/3160/v/600/depositphotos_31605339-stock-illustration-restaurant-food-quality-badge.jpg"
-            }
-        },
-        "banner": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
-            "url": {
-                "original": "https://media.istockphoto.com/photos/top-view-table-full-of-food-picture-id1220017909?k=20&m=1220017909&s=170667a&w=0&h=4I_l8ZyiZ8sebPsRo6UpFmdrV-MZgEvxb3smE-TbgLE=",
-                "medium": "https://media.istockphoto.com/photos/top-view-table-full-of-food-picture-id1220017909?k=20&m=1220017909&s=170667a&w=0&h=4I_l8ZyiZ8sebPsRo6UpFmdrV-MZgEvxb3smE-TbgLE=",
-                "small": "https://media.istockphoto.com/photos/top-view-table-full-of-food-picture-id1220017909?k=20&m=1220017909&s=170667a&w=0&h=4I_l8ZyiZ8sebPsRo6UpFmdrV-MZgEvxb3smE-TbgLE="
-            }
-        },
-        "categories": [0,1,2,3,4]
-    },
-    {
         "id": 1,
-        "name": "Mike's grubhub",
-        "slug": "mike's_grubhub",
+        "name": "Jacobi, Wehner and Romaguera",
+        "slug": "jacobi_wehner_and_romaguera",
+        "description": "Aperiam blanditiis animi quidem et quia aut architecto. Nesciunt minima est molestiae impedit consequatur est quisquam tempora. Ut officiis sunt quia incidunt sapiente ipsam et quo.",
+        "logo_id": 1,
+        "banner_id": 2,
         "logo": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 1,
+            "name": "Madie Little Jr.",
+            "alt": "I wouldn't say anything.",
             "url": {
-                "original": "https://i.pinimg.com/564x/65/cd/8b/65cd8b92ccba3c32c606706566542e0e.jpg",
-                "medium": "https://i.pinimg.com/564x/65/cd/8b/65cd8b92ccba3c32c606706566542e0e.jpg",
-                "small": "https://i.pinimg.com/564x/65/cd/8b/65cd8b92ccba3c32c606706566542e0e.jpg"
+                "image_id": 1,
+                "original": "restaurants/6102fa52ef938d97b81becbfe6e751b1.png",
+                "medium": null,
+                "small": null
             }
         },
         "banner": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 2,
+            "name": "Nicolas Dickinson",
+            "alt": "WILL do next! If they.",
             "url": {
-                "original": "https://i.imgur.com/2ZZfFQb.jpeg",
-                "medium": "https://i.imgur.com/2ZZfFQb.jpeg",
-                "small": "https://i.imgur.com/2ZZfFQb.jpeg"
+                "image_id": 2,
+                "original": "restaurants/21380b3f7e0dc68c06692fde22ef5bf7.png",
+                "medium": null,
+                "small": null
             }
-        },
-        "categories": [0,1,2]
+        }
     },
     {
         "id": 2,
-        "name": "Pizzazz",
-        "slug": "pizzazz",
+        "name": "Smith PLC",
+        "slug": "smith_plc",
+        "description": "Harum optio alias quia dolorem. Et quos voluptas non nobis id eos. Ut in eligendi voluptatibus quos voluptatem facilis eum.",
+        "logo_id": 3,
+        "banner_id": 4,
         "logo": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 3,
+            "name": "Antwon Witting Sr.",
+            "alt": "Alice said very humbly.",
             "url": {
-                "original": "https://image.similarpng.com/thumbnail/2020/06/Restaurant-logo-with-chef-drawing-template-on-transparent-background-PNG.png",
-                "medium": "https://image.similarpng.com/thumbnail/2020/06/Restaurant-logo-with-chef-drawing-template-on-transparent-background-PNG.png",
-                "small": "https://image.similarpng.com/thumbnail/2020/06/Restaurant-logo-with-chef-drawing-template-on-transparent-background-PNG.png"
+                "image_id": 3,
+                "original": "restaurants/9f2f334c02b016d7c9559a193dbd2ca9.png",
+                "medium": null,
+                "small": null
             }
         },
         "banner": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 4,
+            "name": "Lamar Walker",
+            "alt": "I was a real Turtle.'.",
             "url": {
-                "original": "https://image.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg",
-                "medium": "https://image.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg",
-                "small": "https://image.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg"
+                "image_id": 4,
+                "original": "restaurants/1eb77f09fc0cce073489c8e05c86dc97.png",
+                "medium": null,
+                "small": null
             }
-        },
-        "categories": [0,1,2]
+        }
     },
     {
         "id": 3,
-        "name": "SoupSurfer",
-        "slug": "soupsurfer",
+        "name": "Heaney, Bergstrom and Satterfield",
+        "slug": "heaney_bergstrom_and_satterfield",
+        "description": "Quasi aut placeat vel placeat deleniti blanditiis. Accusamus officia exercitationem qui minus et maxime. Ipsa aut ea qui commodi.",
+        "logo_id": 5,
+        "banner_id": 6,
         "logo": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 5,
+            "name": "Jackeline Gibson",
+            "alt": "I say,' the Mock Turtle.",
             "url": {
-                "original": "https://seeklogo.com/images/S/soup-food-logo-813705E21B-seeklogo.com.jpg",
-                "medium": "https://seeklogo.com/images/S/soup-food-logo-813705E21B-seeklogo.com.jpg",
-                "small": "https://seeklogo.com/images/S/soup-food-logo-813705E21B-seeklogo.com.jpg"
+                "image_id": 5,
+                "original": "restaurants/5761b45430e45aec71f26a3bb9b0cf73.png",
+                "medium": null,
+                "small": null
             }
         },
         "banner": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 6,
+            "name": "Dr. Rickey Legros",
+            "alt": "I mentioned before, And.",
             "url": {
-                "original": "https://media.istockphoto.com/photos/hot-vegetable-soup-in-a-dish-made-of-natural-materials-traditional-picture-id1226586928?b=1&k=20&m=1226586928&s=170667a&w=0&h=OaaJR-PWvbGaTfJlp8Rrykt0IJ_7JYiVAOyquPfcZWs=",
-                "medium": "https://media.istockphoto.com/photos/hot-vegetable-soup-in-a-dish-made-of-natural-materials-traditional-picture-id1226586928?b=1&k=20&m=1226586928&s=170667a&w=0&h=OaaJR-PWvbGaTfJlp8Rrykt0IJ_7JYiVAOyquPfcZWs=",
-                "small": "https://media.istockphoto.com/photos/hot-vegetable-soup-in-a-dish-made-of-natural-materials-traditional-picture-id1226586928?b=1&k=20&m=1226586928&s=170667a&w=0&h=OaaJR-PWvbGaTfJlp8Rrykt0IJ_7JYiVAOyquPfcZWs="
+                "image_id": 6,
+                "original": "restaurants/6995de806c6478cfa9d60a5a6f9c7c8a.png",
+                "medium": null,
+                "small": null
             }
-        },
-        "categories": [0,1]
+        }
     },
     {
         "id": 4,
-        "name": "We can bake it!",
-        "slug": "wecanbakeit!",
+        "name": "Fritsch and Sons",
+        "slug": "fritsch_and_sons",
+        "description": "Voluptas quisquam voluptas quis tempora sed sit. Non dolores quidem nulla. Dolores sequi harum et exercitationem quaerat accusamus. Suscipit in sint quisquam et sint.",
+        "logo_id": 7,
+        "banner_id": 8,
         "logo": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 7,
+            "name": "Eldon Borer",
+            "alt": "Alice sharply, for she.",
             "url": {
-                "original": "https://recognizeyourworld.com/wp-content/uploads/2016/01/Bakery-Logo.jpg",
-                "medium": "https://recognizeyourworld.com/wp-content/uploads/2016/01/Bakery-Logo.jpg",
-                "small": "https://recognizeyourworld.com/wp-content/uploads/2016/01/Bakery-Logo.jpg"
+                "image_id": 7,
+                "original": "restaurants/aa82a8fa34ab6ba823fafdcd3865997e.png",
+                "medium": null,
+                "small": null
             }
         },
         "banner": {
-            "id": 0,
-            "name": "Test",
-            "alt": "test",
+            "id": 8,
+            "name": "Prof. Sister Feest Jr.",
+            "alt": "Sir, With no jury or.",
             "url": {
-                "original": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/df/98/6168c1c449489ffa778a198d6a9a/bakery-hero1500x600-2x-v2._TTW_._CR0,0,3000,1200_._SR2000,800_._QL100_.jpg",
-                "medium": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/df/98/6168c1c449489ffa778a198d6a9a/bakery-hero1500x600-2x-v2._TTW_._CR0,0,3000,1200_._SR2000,800_._QL100_.jpg",
-                "small": "https://m.media-amazon.com/images/S/assets.wholefoodsmarket.com//content/df/98/6168c1c449489ffa778a198d6a9a/bakery-hero1500x600-2x-v2._TTW_._CR0,0,3000,1200_._SR2000,800_._QL100_.jpg"
+                "image_id": 8,
+                "original": "restaurants/534af9ec3b9cfa1b9fab78cf5c5ac51f.png",
+                "medium": null,
+                "small": null
+            }
+        }
+    },
+    {
+        "id": 5,
+        "name": "Dach, Rau and Macejkovic",
+        "slug": "dach_rau_and_macejkovic",
+        "description": "Quos officia ex ut voluptatum fugit quod nihil. Reiciendis nihil molestias esse minus non. Est sint odit quis.",
+        "logo_id": 9,
+        "banner_id": 10,
+        "logo": {
+            "id": 9,
+            "name": "Miss Gina Ledner V",
+            "alt": "All on a branch of a.",
+            "url": {
+                "image_id": 9,
+                "original": "restaurants/e668b7a3ada0695a3e32d8e745d92588.png",
+                "medium": null,
+                "small": null
             }
         },
-        "categories": [0,1,2]
+        "banner": {
+            "id": 10,
+            "name": "Pansy Marquardt",
+            "alt": "YOU like cats if you.",
+            "url": {
+                "image_id": 10,
+                "original": "restaurants/02f3126be609c2c5db2c072e3d984547.png",
+                "medium": null,
+                "small": null
+            }
+        }
     }
 ]

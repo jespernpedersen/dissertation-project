@@ -1,40 +1,64 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.name" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
-    <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <div class="filtering">
-      <Filters
-        :dishes="dishes"
-        @filter-dish="filterDishes"
-        @clear-filter="clearFilter"
+    <v-tabs
+      v-model="tab"
+      fixed-tabs
+    >
+      <v-tab
+        v-for="item in items"
+        :key="item"
       >
-      </Filters>
-      <SearchBar
-        :dishes="dishes"
-        @filter-dish="filterDishes"
-        @clear-filter="clearFilter"
+       {{ item }}
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item
       >
-      </SearchBar>
-    </div>
-    <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
-      <h2>Filtered Dishes</h2>
-      <Dish v-for="dish in filteredDishes" :key="dish.id"
-        :title="dish.title"
-        :image="dish.cover_image"
-        :description="dish.description"
-        :price="dish.price"
-        :ingredients="dish.ingredients"
-      ></Dish>
-    </div>
-    <div class="all-items" v-if="filteredDishes.length == 0">
-      <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
-    </div>
-    <LowerNavbar :courses="courses"></LowerNavbar>
+        <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+        <div class="filtering">
+          <Filters
+            :dishes="dishes"
+            @filter-dish="filterDishes"
+            @clear-filter="clearFilter"
+          >
+          </Filters>
+          <SearchBar
+            :dishes="dishes"
+            @filter-dish="filterDishes"
+            @clear-filter="clearFilter"
+          >
+          </SearchBar>
+        </div>
+        <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
+          <h2>Filtered Dishes</h2>
+          <Dish v-for="dish in filteredDishes" :key="dish.id"
+            :title="dish.title"
+            :image="dish.cover_image"
+            :description="dish.description"
+            :price="dish.price"
+            :ingredients="dish.ingredients"
+          ></Dish>
+        </div>
+        <div class="all-items" v-if="filteredDishes.length == 0">
+          <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
+        </div>
+        <LowerNavbar :courses="courses"></LowerNavbar>
+      </v-tab-item>
+      <v-tab-item
+      >
+        <Info
+          :restaurant="restaurant"
+        >
+        </Info>
+      </v-tab-item>
+    </v-tabs-items>
   </div>
 </template>
 <script>
 // Components
-import Dish from '@/components/Dish.vue'
+import Dish from '@/components/Dish.vue';
+import Info from '@/components/Info.vue';
 import AccordionMenu from '@/components/menus/AccordionMenu.vue';
 import Header from '@/components/Header.vue';
 import HorizontalMenu from '@/components/menus/HorizontalMenu';
@@ -48,10 +72,14 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar },
+  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar, Info },
   props: ["slug"],
   data () {
     return {
+      tab: null,
+      items: [
+        "Menu", "Information"
+      ],
       categories: [],
       filteredDishes: []
     }
