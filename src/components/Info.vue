@@ -1,15 +1,13 @@
 <template>
     <div class="restaurant-information">
         <div class="restaurant-description">
-            <h1>{{ restaurant.title }}</h1>
-            <p>Get the finest Italian experience! We strive for perfection, while keeping the most traditional values intact of course! Get the whole wfamily and feel Italian cuisine up and close and personal, for the price it should be.</p>
+            <h1>{{ restaurant.name }}</h1>
+            <p>{{ restaurant.description }}</p>
         </div>
         <div class="restaurant-location">
-            <GoogleMap>
-            </GoogleMap>
             <div class="restaurant-address">
                 <h4>Address</h4>
-                <p>Gadevej 20, 2770 Kastrup</p>
+                <p>{{ restaurant.address }}</p>
             </div>
         </div>
         <div class="restaurant-address">
@@ -21,8 +19,8 @@
         <div class="restaurant-contact">
             <h4>Contact</h4>
             <p>
-                Tlf: 43 59 48 26<br>
-                Mail: <a href="mailto:@adivin@gmail.com">adivin@gmail.com</a>
+                <v-icon>mdi-cellphone</v-icon>{{ restaurant.phone }}<br>
+                <v-icon>mdi-at</v-icon><a :href="restaurant.email">{{ restaurant.email }}</a>
             </p>
         </div>
         <v-row class="perks"
@@ -41,9 +39,6 @@
                 <p>Delivery</p>
             </v-col>
         </v-row>
-        <div class="certificate">
-            <img src="" alt="certificate" />
-        </div>
     </div>
 </template>
 <script>
@@ -64,5 +59,8 @@ export default {
     }
     .perks {
         text-align: center;
+    }
+    .restaurant-contact .v-icon {
+        margin-right: 10px;
     }
 </style>
