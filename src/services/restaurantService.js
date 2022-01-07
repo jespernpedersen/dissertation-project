@@ -25,7 +25,7 @@ export default class RestaurantService {
             body: JSON.stringify(body)
         }
 
-        return await fetch(`${process.env.VUE_APP_API_URL}/restaurants`, postData).then(data => data.json());
+        return await fetch(`${process.env.VUE_APP_API_URL}/restaurants`, postData).then(data => data.json()).catch(error => error);
     }
 
 }

@@ -3,7 +3,18 @@ import { mount } from '@vue/test-utils'
 
 describe('Dish.vue', () => {
 
-    const image = require('@/assets/images/All-American-Bacon-Cheeseburgers_exps48107_TH2379798C03_29_1b_RMS.jpg');
+    const image = {
+        "id": 90,
+        "name": "Krystina Sanford",
+        "alt": "Exactly as we were. My.",
+        "url": {
+            "image_id": 90,
+            "original": "restaurants/94feb2c2968b26f5490148e53b756394.png",
+            "medium": null,
+            "small": null
+        }
+    };
+    
     const dish =  { 
         title: "Steve's Grubhub", 
         description: "GooBurber", 

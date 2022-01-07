@@ -60,14 +60,14 @@ describe('ChipSearchbar.vue', () => {
 
         expect(wrapper.findAll(".dish-placeholder").length).toBe(0);
         expect(wrapper.findAll(".results article").length).toBe(store.state.home.search.results.length);
-        expect(wrapper.find(".results h4").text()).toBe(store.state.home.search.results.length + " results");
+        expect(wrapper.find(".results h4").text()).toBe("Showing " + store.state.home.search.results.length + " results of " + store.state.home.search.results.length);
 
         wrapper.destroy();
     });
 
     it("changes text for single result", async () => {
 
-        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve([restaurants[0]]));
+        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve({data: [restaurants[0]], count: 1}));
 
         let wrapper = await mountApp();
 
@@ -84,7 +84,7 @@ describe('ChipSearchbar.vue', () => {
         //wait for vue to update the interface
         await Vue.nextTick();
 
-        expect(wrapper.find(".results h4").text()).toBe("1 result");
+        expect(wrapper.find(".results h4").text()).toBe("Showing 1 result of 1");
 
         wrapper.destroy();
 
@@ -92,7 +92,7 @@ describe('ChipSearchbar.vue', () => {
 
     it("shows no results", async () => {
 
-        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve([]));
+        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve({data: [], count: 0}));
 
         let wrapper = await mountApp();
 
@@ -157,7 +157,7 @@ describe('ChipSearchbar.vue', () => {
 
     it("clears results and shows default page", async () => {
 
-        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve(restaurants));
+        let spy = jest.spyOn(SearchService.default, 'Search').mockReturnValueOnce(Promise.resolve({data: restaurants, count: restaurants.length}));
 
         let wrapper = await mountApp();
 

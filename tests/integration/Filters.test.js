@@ -31,7 +31,7 @@ describe("Filters.vue", () => {
 
         wrapper = await mountMenu(dishes);
 
-        let filterButton = wrapper.find("button.mx-2");
+        let filterButton = wrapper.find("#filter-button");
 
         expect(filterButton.exists()).toBeTruthy();
 
@@ -180,9 +180,6 @@ describe("Filters.vue", () => {
 
         // Clear Filters
         await wrapper.find("#clear-filters-btn").trigger("click");
-
-        // Open an expansion box for an item
-        await wrapper.find(".all-items .v-item-group .v-expansion-panel-header").trigger("click");
 
         expect(wrapper.find(".all-items").exists()).toBeTruthy();
     });

@@ -8,7 +8,7 @@ import { cloneDeep } from "lodash";
 const weights = {
         title: 3,
         description: 1,
-        category: 2,
+        category: 2.5,
         course: 2,
         ingredient: 2
 }
@@ -20,7 +20,7 @@ const weights = {
  */
 export default class SearchService {
 
-    static async Search(keywords, offset, filters, limit) {
+    static async Search(keywords, params, filters) {
 
         let results = [];
 
@@ -56,11 +56,11 @@ export default class SearchService {
 
         results.sort((a,b) => b.score >= a.score);
 
-        if(limit > results.length) limit = results.length;
-        if(offset >= limit && offset - limit <= 0) offset = 0;
-        else if (offset >= limit) offset = limit;
+        if(params.limit > results.length || params.limit === 0) params.limit = results.length;
+        if(params.offset >= params.limit && params.offset - params.limit <= 0) params.offset = 0;
+        else if (params.offset >= params.limit) params.offset = params.limit;
 
-        return results.slice(offset, limit);
+        return {data: results.slice(params.offset, params.limit), count: results.length};
     }
 
     static countRestaurantScore(restaurant, param){

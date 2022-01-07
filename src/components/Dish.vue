@@ -1,7 +1,8 @@
 <template>
     <div class="dish-inner">
-        <div class="image-wrapper">
-            <img :src='image' alt="" />
+        <div v-if="image != null" class="image-wrapper">
+            <img v-if="!image.url.original.includes('http')" :src='imgPath + image.url.original' alt="" />
+            <img :src='image.url.original' alt="" />
         </div>
         <div class="dish-label">
             <div class="dish-label-title">
@@ -27,7 +28,7 @@ export default {
             pricetext: ''
         }
     },
-    props: ['title', 'image', 'description', 'price', 'ingredients', 'layout'],
+    props: ['title', 'image', 'description', 'price', 'ingredients', 'layout', 'dish'],
     methods: {
         addDishItem(id) {
             // Do functionality here for adding items to cart or something else
@@ -46,6 +47,9 @@ export default {
             }
             return text;
         }
+    },
+    computed: {
+        imgPath: () => process.env.VUE_APP_IMG_URL 
     }
 }
 </script>

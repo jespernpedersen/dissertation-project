@@ -13,9 +13,8 @@
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item
-      >
-        <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
+      <v-tab-item>
+        <HorizontalMenu title="Today's Special" :dishes="todaysSpecial" :isLoading="isLoadingSpecials"></HorizontalMenu>
         <div class="filtering">
           <Filters
             :dishes="dishes"
@@ -40,17 +39,22 @@
             :ingredients="dish.ingredients"
           ></Dish>
         </div>
-        <div class="all-items" v-if="filteredDishes.length == 0">
-          <AccordionMenu :dishes="dishes" :courses="courses" :isLoading="isLoadingMenu" :activeByDefault="false"></AccordionMenu>
-        </div>
-        <LowerNavbar :courses="courses"></LowerNavbar>
+        <v-tabs-items v-model="curTab" class="all-items" v-if="filteredDishes.length == 0">
+          <v-tab-item v-for="(course, index) in courses" :key="'tab_' + index">
+            <Dish v-for="dish in orderedDishes[course.name]" :key="'dish_' + dish.id"
+            :title="dish.title"
+            :image="dish.image"
+            :description="dish.description"
+            :price="dish.price"
+            :dish="dish"
+            :ingredients="dish.ingredients"
+            ></Dish>
+          </v-tab-item>
+        </v-tabs-items>
+        <LowerNavbar @change="curTab = $event" :courses="courses"></LowerNavbar>
       </v-tab-item>
-      <v-tab-item
-      >
-        <Info
-          :restaurant="restaurant"
-        >
-        </Info>
+      <v-tab-item>
+        <Info :restaurant="restaurant"></Info>
       </v-tab-item>
     </v-tabs-items>
   </div>
@@ -67,7 +71,7 @@ import SearchBar from '@/components/searchbars/SearchBar.vue';
 import LowerNavbar from '@/components/LowerNavbar.vue';
 
 // Additional
-import {GET_DISHES, GET_COURSES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL} from '@/store/actions';
+import {GET_DISHES, GET_RESTAURANT, RESET_RESTAURANT, GET_TODAYS_SPECIAL, SET_IN_RESTAURANT} from '@/store/actions';
 import { mapState } from 'vuex';
 
 export default {
@@ -76,12 +80,14 @@ export default {
   props: ["slug"],
   data () {
     return {
-      tab: null,
+      tab: 0,
       items: [
         "Menu", "Information"
       ],
       categories: [],
-      filteredDishes: []
+      orderedDishes: [],
+      filteredDishes: [],
+      curTab: 0
     }
   },
   methods: {
@@ -93,17 +99,36 @@ export default {
     },
     clearFilter() {
       this.filteredDishes = [];
+    },
+    dishesByCourse(dishes){
+      if(dishes.length < 1){
+        return {};
+      }
+      
+      dishes = dishes.sort((a, b) => a.course_id - b.course_id);
+
+      let dishesByCourse = {};
+      let courses = [];
+      dishes.forEach(dish => {
+        if(!dishesByCourse.hasOwnProperty(dish.course.name)){
+          dishesByCourse[dish.course.name] = [];
+          courses.push(dish.course);
+        }
+          dishesByCourse[dish.course.name].push(dish);
+      });
+
+
+      this.$store.commit(SET_IN_RESTAURANT, {prop: "courses", data: courses});
+      this.orderedDishes = dishesByCourse;
     }
   },
   mounted: function () {
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
-            this.$store.dispatch(GET_DISHES, this.restaurant.id);
-          }
-
-          if(this.courses.length === 0){
-            this.$store.dispatch(GET_COURSES, this.restaurant.id);
+            this.$store.dispatch(GET_DISHES, this.restaurant.id).then(data => {
+              this.dishesByCourse(data);
+            })
           }
 
           if(this.todaysSpecial.length === 0){
@@ -125,7 +150,7 @@ export default {
   }) 
 }
 </script>
-<style scoped>
+<style>
   .dishes {
     padding: 30px 10px;
   }
@@ -161,7 +186,18 @@ export default {
     text-align: center;
     padding: 0 20px 20px 20px;
   }
-  .v-btn .v-icon {
-    margin-left: 5px;
+  .lowernav .v-icon {
+    margin: 5px;
   }
+
+  .all-items .v-window-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lowernav .v-tabs-slider{
+    display: none!important;
+  }
+
 </style>
