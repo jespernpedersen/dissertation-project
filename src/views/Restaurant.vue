@@ -1,49 +1,68 @@
 <template>
   <div>
     <Header :id="restaurant.id" :title="restaurant.name" :slug="restaurant.slug" :logo="restaurant.logo" :banner="restaurant.banner"></Header>
-    <HorizontalMenu title="Today's Special" :isLoading="isLoadingSpecials" :dishes="todaysSpecial"></HorizontalMenu>
-    <div class="filtering">
-      <Filters
-        :dishes="dishes"
-        @filter-dish="filterDishes"
-        @clear-filter="clearFilter"
+    <v-tabs
+      v-model="tab"
+      fixed-tabs
+    >
+      <v-tab
+        v-for="item in items"
+        :key="item"
       >
-      </Filters>
-      <SearchBar
-        :dishes="dishes"
-        @filter-dish="filterDishes"
-        @clear-filter="clearFilter"
-      >
-      </SearchBar>
-    </div>
-    <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
-      <h2>Filtered Dishes</h2>
-      <Dish v-for="dish in filteredDishes" :key="dish.id"
-        :title="dish.title"
-        :image="dish.image"
-        :description="dish.description"
-        :price="dish.price"
-        :ingredients="dish.ingredients"
-      ></Dish>
-    </div>
-    <v-tabs-items v-model="curTab" class="all-items" v-if="filteredDishes.length == 0">
-      <v-tab-item v-for="(course, index) in courses" :key="'tab_' + index">
-        <Dish v-for="dish in orderedDishes[course.name]" :key="'dish_' + dish.id"
-        :title="dish.title"
-        :image="dish.image"
-        :description="dish.description"
-        :price="dish.price"
-        :dish="dish"
-        :ingredients="dish.ingredients"
-      ></Dish>
+       {{ item }}
+      </v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item>
+        <HorizontalMenu title="Today's Special" :dishes="todaysSpecial" :isLoading="isLoadingSpecials"></HorizontalMenu>
+        <div class="filtering">
+          <Filters
+            :dishes="dishes"
+            @filter-dish="filterDishes"
+            @clear-filter="clearFilter"
+          >
+          </Filters>
+          <SearchBar
+            :dishes="dishes"
+            @filter-dish="filterDishes"
+            @clear-filter="clearFilter"
+          >
+          </SearchBar>
+        </div>
+        <div class="filtered-items" ref="filteredItems" v-if="filteredDishes.length > 0">
+          <h2>Filtered Dishes</h2>
+          <Dish v-for="dish in filteredDishes" :key="dish.id"
+            :title="dish.title"
+            :image="dish.cover_image"
+            :description="dish.description"
+            :price="dish.price"
+            :ingredients="dish.ingredients"
+          ></Dish>
+        </div>
+        <v-tabs-items v-model="curTab" class="all-items" v-if="filteredDishes.length == 0">
+          <v-tab-item v-for="(course, index) in courses" :key="'tab_' + index">
+            <Dish v-for="dish in orderedDishes[course.name]" :key="'dish_' + dish.id"
+            :title="dish.title"
+            :image="dish.image"
+            :description="dish.description"
+            :price="dish.price"
+            :dish="dish"
+            :ingredients="dish.ingredients"
+            ></Dish>
+          </v-tab-item>
+        </v-tabs-items>
+        <LowerNavbar @change="curTab = $event" :courses="courses"></LowerNavbar>
+      </v-tab-item>
+      <v-tab-item>
+        <Info :restaurant="restaurant"></Info>
       </v-tab-item>
     </v-tabs-items>
-    <LowerNavbar @change="curTab = $event" :courses="courses"></LowerNavbar>
   </div>
 </template>
 <script>
 // Components
-import Dish from '@/components/Dish.vue'
+import Dish from '@/components/Dish.vue';
+import Info from '@/components/Info.vue';
 import AccordionMenu from '@/components/menus/AccordionMenu.vue';
 import Header from '@/components/Header.vue';
 import HorizontalMenu from '@/components/menus/HorizontalMenu';
@@ -57,10 +76,14 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'Restaurant',
-  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar },
+  components: { AccordionMenu, Header, HorizontalMenu, LowerNavbar, Dish, Filters, SearchBar, Info },
   props: ["slug"],
   data () {
     return {
+      tab: 0,
+      items: [
+        "Menu", "Information"
+      ],
       categories: [],
       orderedDishes: [],
       filteredDishes: [],
@@ -103,7 +126,6 @@ export default {
     if(Object.keys(this.restaurant).length === 0 || this.restaurant.slug !== this.$route.params.slug){
       this.$store.dispatch(GET_RESTAURANT, this.$route.params.slug).then(() => {
           if(this.dishes.length === 0){
-            let temp = this.restaurant.id;
             this.$store.dispatch(GET_DISHES, this.restaurant.id).then(data => {
               this.dishesByCourse(data);
             })
@@ -164,17 +186,17 @@ export default {
     text-align: center;
     padding: 0 20px 20px 20px;
   }
-  .v-btn .v-icon {
-    margin-left: 5px;
+  .lowernav .v-icon {
+    margin: 5px;
   }
 
-  .v-window-item{
+  .all-items .v-window-item{
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .v-tabs-slider{
+  .lowernav .v-tabs-slider{
     display: none!important;
   }
 

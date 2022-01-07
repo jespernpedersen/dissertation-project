@@ -1,7 +1,7 @@
 <template>
     <div>
        <div class="topnav">
-          <a href="#home" class="active">Logo</a>
+          <router-link to="/"><img src="@/assets/images/logo.png" alt="Serv" id="logo"></router-link>
           <button v-if="false" class="icon" v-on:click="toggleMenu">
             <v-icon>mdi-menu</v-icon>
           </button>
@@ -59,14 +59,17 @@
       color:black;
       min-width:50px
   }
-  .topnav a:hover {
-    background-color:#ddd;
-    color:black;
+  
+  #logo{
+    padding: 10px;
+    box-sizing: content-box;
+    max-width: 50px;
   }
-  .active {
-    background-color:#9FD5BB;
-    color:white;
+
+  .topnav a{
+    padding: 0;
   }
+
   #links a {
       color:#304238;
       text-decoration:none;

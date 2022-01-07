@@ -3,10 +3,10 @@
         <h3><v-icon>mdi-food-off</v-icon> Something went wrong</h3>
         <p>There was a problem fetching the menu.</p>
         <div class="buttons">
-            <v-btn @click="refresh" id="reload">Try again <v-icon>mdi-refresh</v-icon>
-            </v-btn><v-btn id="back" @click="back">
+            <v-btn id="back" @click="back">
                 <v-icon>mdi-arrow-left</v-icon> Go back
             </v-btn>
+            <v-btn @click="refresh" id="reload">Try again <v-icon>mdi-refresh</v-icon></v-btn>
         </div>
     </div>
 </template>

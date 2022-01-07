@@ -31,7 +31,7 @@ describe("Filters.vue", () => {
 
         wrapper = await mountMenu(dishes);
 
-        let filterButton = wrapper.find("button.mx-2");
+        let filterButton = wrapper.find("#filter-button");
 
         expect(filterButton.exists()).toBeTruthy();
 

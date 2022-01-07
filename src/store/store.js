@@ -17,6 +17,7 @@ export const state = {
   home: {
     search: {
       results: [],
+      count: 0,
       offset: 0,
       limit: 20,
       order: [],
@@ -77,6 +78,10 @@ export const mutations = {
       todaysSpecial: [],
       categories: []
     };
+
+    state.isLoading.todaysSpecial = true;
+    state.isLoading.dishes = true;
+    state.isLoading.courses = true;
   },
   setInSearch: (state, payload) => {
     state.home.search[payload.property] = payload.data;
@@ -141,7 +146,8 @@ export const actions = {
   search: ({commit, state}, keywords) => {
     commit("loading", "search");
     return SearchService.Search(keywords, state.home.search.offset, cloneDeep(state.home.search.filters), state.home.search.limit).then(data => {
-      commit("setInSearch", {property: "results", data: data});
+      commit("setInSearch", {property: "results", data: data.data});
+      commit("setInSearch", {property: "count", data: data.count});
     }).finally(data => {
       commit("loaded", "search");
     })
